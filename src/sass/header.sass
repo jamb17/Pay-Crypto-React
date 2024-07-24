@@ -1,0 +1,190 @@
+header
+    display: flex
+    width: 100%
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    padding: 0 48px
+    position: fixed
+    background: white
+    z-index: 2
+    top: 0
+    left: 0
+    transition: top 0.4s cubic-bezier(.17,.67,.79,.5)
+    .container
+        display: flex
+        justify-content: space-between
+        align-items: center
+        margin: 0
+        height: 80px
+        width: 100%
+        max-width: 1416px
+        .logo
+            max-width: 88px
+        nav
+            display: flex
+            align-items: center
+            gap: 8px
+            a
+                text-decoration: none
+                font-style: normal
+                font-weight: 500
+                font-size: 16px
+                line-height: 150%
+                color: #1C1A24
+                display: flex
+                align-items: center
+                padding: 6px 16px 6px 12px
+                gap: 6px
+                opacity: 0.64
+                border-radius: 38px
+                transition: all 0.1s ease-in
+            a:hover
+                background: #F2F2F3
+                opacity: 1
+    .info
+        display: flex
+        align-items: center
+        justify-content: center
+        gap: 12px
+        .nickname
+            font-style: normal
+            font-weight: 500
+            font-size: 16px
+            line-height: 150%
+            color: #1C1A24
+        .dropdown
+            display: flex
+            justify-content: center
+            align-items: center
+            cursor: pointer
+            .avatar
+                width: 44px
+    .menu-toggle
+        display: none
+        position: relative
+        flex-direction: column
+        justify-content: center
+        align-items: center
+        width: 32px
+        height: 24px
+        overflow: hidden
+        span
+            display: block
+            position: absolute
+            height: 4px
+            width: 100%
+            background: #1C1A24
+            transform: rotate(0deg)
+            opacity: 1
+            left: 0
+            transition: .3s ease-in-out
+        span:nth-child(1)
+            top: 0px
+        span:nth-child(4)
+            bottom: 0
+    .menu-toggle.open
+        span:nth-child(1)
+            width: 0%
+            left: 150%
+        span:nth-child(2)
+            transform: rotate(45deg)
+        span:nth-child(3)
+            transform: rotate(-45deg)
+        span:nth-child(4)
+            width: 0%
+            left: -50%
+    .info.mobile
+        display: none
+    .nav-mobile
+        display: none
+    &::after
+        content: ''
+        border-bottom: 1px solid rgba(104, 96, 133, 0.12)
+        position: absolute
+        width: 100%
+        left: 0
+        bottom: 0
+header.scroll
+    top: -80px
+.tabs
+    position: fixed
+    top: 80px
+    left: 0
+    display: flex
+    justify-content: center
+    align-items: center
+    width: 100%
+    background: rgba(255, 255, 255, 0.8)
+    box-shadow: 0px 2px 8px -4px rgba(40, 36, 50, 0.24)
+    backdrop-filter: blur(12px)
+    transition: top 0.4s cubic-bezier(.17,.67,.79,.5)
+    z-index: 4
+    .container
+        display: flex
+        justify-content: center
+        align-items: center
+        margin: 0
+        width: 100%
+        max-width: 1416px
+        gap: 16px
+        padding: 0 40px
+        .item
+            position: relative
+            text-decoration: none
+            font-style: normal
+            font-weight: 500
+            font-size: 16px
+            line-height: 150%
+            color: #1C1A24
+            display: flex
+            align-items: center
+            padding: 12px 0
+            gap: 6px
+            opacity: 0.64
+            transition: all 0.1s ease-in
+            cursor: pointer
+            border-bottom: 2px solid transparent
+            &:hover
+                opacity: 1
+                border-bottom: 2px solid #53B669
+        .item.back-btn
+            &:hover
+                border-color: transparent
+.tabs.scroll
+    top: 0
+.tabs-mobile
+    display: none
+    bottom: 0
+    width: 100%
+    justify-content: center
+    align-items: center
+    position: fixed
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.878) 0%, #FFFFFF 50%, rgba(255, 255, 255, 0.88) 100%)
+    border-top: 1px solid #DEDFE3
+    box-shadow: 0px -4px 24px -4px rgba(0, 0, 0, 0.08)
+    backdrop-filter: blur(12px)
+    z-index: 4
+    .container
+        display: flex
+        width: 100%
+        justify-content: space-between
+        margin: 0
+        padding: 24px 40px
+        .item
+            display: flex
+            flex-direction: column
+            align-items: center
+            gap: 4px
+            font-style: normal
+            font-weight: 500
+            font-size: 15px
+            line-height: 140%
+            letter-spacing: -0.02em
+            color: #1C1A24
+            opacity: 0.64
+            img
+                width: 100%
+                max-width: 32px
+        &:hover
+            opacity: 1

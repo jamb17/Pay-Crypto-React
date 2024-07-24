@@ -1,0 +1,69 @@
+@use './_components'
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap')
+@tailwind base
+@tailwind components
+@tailwind utilities
+
+*
+    margin: 0
+    padding: 0
+    box-sizing: border-box
+    font-family: 'Inter', sans-serif
+
+body
+    display: flex
+    flex-direction: column
+    align-items: center
+    background-image: url('https://raw.githubusercontent.com/jamb17/pay-crypto/e1909d0e6e36c9fd340cbea3dd6e74f853269fb3/Pick%20the%20network%20to%20make%20the%20payment%20with_.svg')
+    background-repeat: no-repeat
+    background-size: cover
+    min-height: 100vh
+    background-color: #F7F7F7
+
+#root
+    width: 100%
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    height: 100vh
+
+.btn-primary
+    display: flex
+    padding: 10px 16px
+    justify-content: center
+    align-items: center
+    gap: 8px
+    border-radius: 8px
+    border: none
+    outline: none
+    cursor: pointer
+    color: white
+    font-size: 16px
+    font-style: normal
+    font-weight: 500
+    line-height: 150%
+    background: components.$green
+    max-width: 368px
+    width: 100%
+    text-decoration: none
+    transition: 0.2s background
+    opacity: 1
+
+.btn-primary:hover
+    background: components.$drkgreen
+
+.btn-primary:disabled 
+    opacity: 0.5
+
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button
+    -webkit-appearance: none
+    margin: 0
+
+/* Firefox */
+input[type=number]
+    -moz-appearance: textfield
+    caret-color: transparent
