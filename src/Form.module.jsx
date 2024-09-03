@@ -11,6 +11,12 @@ const FormContainer = styled.form`
         width: 100%`
     ;
 
+const LogInLink = styled.a`
+        color: #53B669;
+        width: 100%;
+        text-align: center;
+        cursor: pointer;
+    `;
 
 function Form({ setShowVerification, setEmail }) {
     const [status1, SetStatus1] = useState('true')
@@ -109,6 +115,7 @@ function Form({ setShowVerification, setEmail }) {
                 label="Repeat password"
                 showIcon="true" />
             <button type="submit" className="btn-primary" disabled={disabled}>Continue</button>
+            <LogInLink>I have an account</LogInLink>
         </FormContainer>
     )
 };
