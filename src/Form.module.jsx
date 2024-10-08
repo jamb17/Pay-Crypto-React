@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Input from "./Input.module";
 import styled from "styled-components";
-// import $ from 'jquery';
 import axios from "axios";
 
 const FormContainer = styled.form`
@@ -71,25 +70,23 @@ function Form({ setShowVerification, setEmail }) {
         const form = document.getElementById('regForm');
         const fd = new FormData(form);
         const data = new URLSearchParams(fd);
-        await axios.post('http://localhost:7000/', data, {
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        }).then(res => {
-            if (res.status !== 200) {
-                throw new Error('Something went wrong');
-            }
-            if (res.data == true) {
-                setShowVerification(true);
-                setEmail(document.getElementById('email').value);
-            } else if (res.data == "email exists") {
-                throw new Error('Account with this email is already exists');
-            }
-        }).catch((error) => {
-            alert('Something went wrong: ' + error.message)
-        }).finally(() => {
-            setDisabled(false);
-        });
+        data.delete('passRepeat');
+        await axios.post('http://localhost:5000/user/create', data, {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(res => {
+                if (res.status === 200) {
+                    setShowVerification(true);
+                    setEmail(document.getElementById('email').value);
+                }
+            }).catch((error) => {
+                if (error.response) {
+                    alert('Something went wrong: ' + error.response.data)
+                } else alert('Something went wrong: ' + error.message)
+            }).finally(() => {
+                setDisabled(false);
+        });    
     };
 
     return (
