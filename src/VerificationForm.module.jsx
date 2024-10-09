@@ -67,7 +67,7 @@ export default function VerificationForm(email) {
         fd.append('code', code)
         const data = new URLSearchParams(fd);
         setDisabled(true);
-        await axios.post('http://localhost:7000/checkVerification', data, {
+        await axios.post('http://localhost:5000/user/completeRegistration', data, {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
@@ -75,20 +75,18 @@ export default function VerificationForm(email) {
             if (res.status !== 200) {
                 throw new Error('Something went wrong');
             }
-            if (res.data == true) {
+            if (res.status == 200) {
                 window.localStorage.setItem('isLoggedIn', 'true');
                 window.location.reload();
-            } else if (res.data === 'Invalid verification code') {
-                throw new Error('Invalid verification code')
-            } else if (res.data === 'Verification code has expired') {
-                throw new Error('Verification code has expired')
             }
         }).catch((error) => {
-            alert('Something went wrong: ' + error.message)
+            if (error.response) {
+                alert(error.response.data);
+            } else alert('Something went wrong: ' + error.message);
         }).finally(() => {
             setDisabled(false)
         });
-    };
+    };  
 
     function handleChange(e, index) {
         const inputValue = e.target.value;

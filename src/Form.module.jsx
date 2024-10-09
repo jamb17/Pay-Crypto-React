@@ -71,14 +71,13 @@ function Form({ setShowVerification, setEmail }) {
         const fd = new FormData(form);
         const data = new URLSearchParams(fd);
         data.delete('passRepeat');
-        await axios.post('http://localhost:5000/user/create', data, {
+        await axios.post('http://localhost:5000/user/registration', data, {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
             }).then(res => {
                 if (res.status === 200) {
                     setShowVerification(true);
-                    console.log(res.data);
                     setEmail(document.getElementById('email').value);
                 }
             }).catch((error) => {
