@@ -1,21 +1,24 @@
+import dotenv from 'dotenv';
 import express from "express";
 import mongoose from "mongoose";
 import UserRouter from "./userRouter.js";
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 
+dotenv.config();
 const app = express();
-const PORT = 5000;
-const DB_URL = 'mongodb+srv://dimanesterov11:yvY4UQePZHgxKGaE@cluster0.dy4xz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+const PORT = process.env.PORT;
 
 app.use(express.json());
 app.use(cors());
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use('/user', UserRouter);
 
 async function startApp() {
     try {
-        await mongoose.connect(DB_URL);
-        app.listen(PORT, console.log('Succeed'));
+        await mongoose.connect(process.env.DB_URL);
+        app.listen(PORT, console.log('Succeed - ' + PORT));
     } catch(e) {
         console.log(e);
     }

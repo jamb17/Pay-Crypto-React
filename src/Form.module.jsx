@@ -78,6 +78,7 @@ function Form({ setShowVerification, setEmail }) {
             }).then(res => {
                 if (res.status === 200) {
                     setShowVerification(true);
+                    console.log(res.data);
                     setEmail(document.getElementById('email').value);
                 }
             }).catch((error) => {
