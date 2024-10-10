@@ -14,9 +14,14 @@ function Registration() {
   const logoRef = useRef(null);
   const termsAndPrivacyRef = useRef(null)
 
-  const textHeading = (<div className={styles.textHeading}>
+  const createAccoutHeading = (<div className={styles.textHeading}>
     <h1>Create new account</h1>
     <p>Please fill in the form below to register on our website and gain access to additional features.</p>
+  </div>)
+
+  const emailConfirmationHeading = (<div className={styles.textHeading}>
+    <h1>Email confirmation</h1>
+    <p>To complete registration, enter the 6-digit code sent to your email to confirm your address.</p>
   </div>)
 
   const termsAndPrivacyInfo = (<div ref={termsAndPrivacyRef} className={styles.termsAndPrivacy}>© 2022 Crypto Pay, Inc. By using this service, you are agreeing to the
@@ -77,7 +82,7 @@ function Registration() {
         <img ref={logoRef} src="https://raw.githubusercontent.com/jamb17/pay-crypto/ea98f7c2b493ec3bf3ea7109c0ca2b96a1e78262/casty%20pay%20logo.svg" alt="" />
       </div>
       <div ref={containerRef} className={styles.container}>
-        {!showVerification && textHeading}
+        {!showVerification ? createAccoutHeading : emailConfirmationHeading}
         {!showVerification ? <Form setEmail={setEmail} setShowVerification={setShowVerification}></Form> : <VerificationForm email={email}/>}
       </div>
       {termsAndPrivacyInfo}

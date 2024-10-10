@@ -65,28 +65,29 @@ function Form({ setShowVerification, setEmail }) {
     // }
 
     async function handleSubmit(e) {
-        e.preventDefault();
-        setDisabled(true);
-        const form = document.getElementById('regForm');
-        const fd = new FormData(form);
-        const data = new URLSearchParams(fd);
-        data.delete('passRepeat');
-        await axios.post('http://localhost:5000/user/registration', data, {
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                }
-            }).then(res => {
-                if (res.status === 200) {
-                    setShowVerification(true);
-                    setEmail(document.getElementById('email').value);
-                }
-            }).catch((error) => {
-                if (error.response) {
-                    alert('Something went wrong: ' + error.response.data)
-                } else alert('Something went wrong: ' + error.message)
-            }).finally(() => {
-                setDisabled(false);
-        });    
+        // e.preventDefault();
+        // setDisabled(true);
+        // const form = document.getElementById('regForm');
+        // const fd = new FormData(form);
+        // const data = new URLSearchParams(fd);
+        // data.delete('passRepeat');
+        // await axios.post('http://localhost:5000/user/registration', data, {
+        //         headers: {
+        //             'Content-Type': 'application/x-www-form-urlencoded'
+        //         }
+        //     }).then(res => {
+        //         if (res.status === 200) {
+        //             setShowVerification(true);
+        //             setEmail(document.getElementById('email').value);
+        //         }
+        //     }).catch((error) => {
+        //         if (error.response) {
+        //             alert('Something went wrong: ' + error.response.data)
+        //         } else alert('Something went wrong: ' + error.message)
+        //     }).finally(() => {
+        //         setDisabled(false);
+        // });    
+        setShowVerification(true);
     };
 
     return (
