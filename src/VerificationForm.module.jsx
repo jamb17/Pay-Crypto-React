@@ -72,10 +72,7 @@ export default function VerificationForm(email) {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         }).then(res => {
-            if (res.status !== 200) {
-                throw new Error('Something went wrong');
-            }
-            if (res.status == 200) {
+            if (res.status === 200) {
                 window.localStorage.setItem('isLoggedIn', 'true');
                 window.location.reload();
             }

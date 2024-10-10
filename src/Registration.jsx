@@ -12,6 +12,17 @@ function Registration() {
 
   const containerRef = useRef(null);
   const logoRef = useRef(null);
+  const termsAndPrivacyRef = useRef(null)
+
+  const textHeading = (<div className={styles.textHeading}>
+    <h1>Create new account</h1>
+    <p>Please fill in the form below to register on our website and gain access to additional features.</p>
+  </div>)
+
+  const termsAndPrivacyInfo = (<div ref={termsAndPrivacyRef} className={styles.termsAndPrivacy}>© 2022 Crypto Pay, Inc. By using this service, you are agreeing to the
+    <span> terms of use</span> and
+    <span> privacy policy.</span>
+  </div>)
 
   useGSAP(() => {
 
@@ -29,12 +40,12 @@ function Registration() {
       delay: .5,
       duration: 1
     })
+
     gsap.set(logoRef.current, {
       y: -120,
       opacity: 0,
       scale: 0.8
     })
-
 
     gsap.to(logoRef.current, {
       y: 0,
@@ -44,16 +55,32 @@ function Registration() {
       scale: 1, 
       duration: 1
     })
+
+    gsap.set(termsAndPrivacyRef.current, {
+      opacity: 0,
+      y: 10
+    })
+
+    gsap.to(termsAndPrivacyRef.current, {
+      opacity: 1,
+      y: 0,
+      ease: "elastic.out(1,0.9)",
+      delay: 1,
+      duration: 1
+    })
+
   })
 
   return (
     <>
       <div className={styles.top}>
-        <img ref={logoRef} src="https://raw.githubusercontent.com/jamb17/pay-crypto/971b56703678ade8de4b90e70a0a07c298f7f2c2/pafas%20grey.svg" alt="" />
+        <img ref={logoRef} src="https://raw.githubusercontent.com/jamb17/pay-crypto/ea98f7c2b493ec3bf3ea7109c0ca2b96a1e78262/casty%20pay%20logo.svg" alt="" />
       </div>
       <div ref={containerRef} className={styles.container}>
-      {!showVerification ? <Form setEmail={setEmail} setShowVerification={setShowVerification}></Form> : <VerificationForm email={email}/>}
+        {!showVerification && textHeading}
+        {!showVerification ? <Form setEmail={setEmail} setShowVerification={setShowVerification}></Form> : <VerificationForm email={email}/>}
       </div>
+      {termsAndPrivacyInfo}
     </>
   )
 }
