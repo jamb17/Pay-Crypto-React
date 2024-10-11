@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Header from "./Header";
+import Header from "./Header.jsx";
 import { create } from "zustand";
 import { Link } from "react-router-dom";
 

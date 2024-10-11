@@ -1,5 +1,5 @@
-import { useUserData } from "./PersonalAccount";
-import "./header.css"
+import { useUserData } from "./PersonalAccount.jsx";
+import "../styles/css/header.css"
 
 function Header () {
     const userNickname = useUserData(state => state.nickname);

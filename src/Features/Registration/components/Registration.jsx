@@ -1,7 +1,7 @@
 // import { useState } from 'react'
 import { useRef, useState } from 'react'
 import Form from './Form.module'
-import styles from "./Registration.module.css"
+import styles from "../styles/css/Registration.module.css"
 import VerificationForm from './VerificationForm.module';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';

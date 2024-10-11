@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import Registration from './Registration.jsx'
-import PersonalAccount from './PersonalAccount.jsx'
-import './index.css'
+import Registration from './Features/Registration/components/Registration.jsx'
+import PersonalAccount from './Features/PersonalAccount/components/PersonalAccount.jsx'
+import './styles/css/index.css'
 import { createBrowserRouter, Navigate, RouterProvider} from 'react-router-dom';
 const loggedIn = window.localStorage.getItem("isLoggedIn");
 const router = createBrowserRouter([

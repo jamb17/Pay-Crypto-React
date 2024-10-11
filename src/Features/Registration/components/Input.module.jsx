@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import styles from './Input.module.css'
+import styles from '../styles/css/Input.module.css'
 
 function Input(props) {
     const [type, setType] = useState(props.type)
