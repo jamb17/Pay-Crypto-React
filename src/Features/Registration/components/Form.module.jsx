@@ -18,100 +18,88 @@ const LogInLink = styled.a`
     `;
 
 function Form({ setShowVerification, setEmail }) {
-    const [status1, SetStatus1] = useState('true')
-    const [status2, SetStatus2] = useState('true')
-    const [status3, SetStatus3] = useState('true')
-    const [disabled, setDisabled] = useState(false);
 
-    function matchChek() {
-        let passRepeat = document.getElementById('passRepeat').value;
-        let pass = document.getElementById('pass').value;
-        if (passRepeat !== pass) {
-            SetStatus3('false');
-        } else (SetStatus3('true'));
+    const [formData, setFormData] = useState({
+        email: '',
+        password: '',
+        passRepeat: ''
+    })
+
+    const [errors, setErrors] = useState({
+        passwordMismatch: false,
+        emailExists: false
+    })
+
+    const [type, setType] = useState('password');
+
+    const togglePasswordVisibility = () => {
+        setType(type === 'password' ? 'text' : 'password');
     };
 
-    // function handleSubmit(e) {
-    //     e.preventDefault();
-    //     const form = document.getElementById('regForm');
-    //     const fd = new FormData(form);
-    //     const urlEncoded = new URLSearchParams(fd).toString();
-    //     $('button[type=submit]').css('opacity', '0.5');
-    //     setDisabled(true);
-    //     fetch('http://localhost:7000/', {
-    //         method: 'POST',
-    //         body: urlEncoded,
-    //         headers: {
-    //             'Content-type': 'application/x-www-form-urlencoded',
-    //         }
-    //     }).then(res => {
-    //         if (res.ok) {
-    //             return res.text()
-    //         }
-    //         throw new Error('Something went wrong');
-    //     }).then(res => {
-    //         if (res == "true") {
-    //             setShowVerification(true);
-    //             setEmail($('#email').val());
-    //         } else if (res == "email exists") {
-    //             throw new Error('Account with this email is already exists');
-    //         }
-    //     }).catch((error) => {
-    //         alert('Something went wrong: ' + error.message)
-    //     }).finally(() => {
-    //         $('button[type=submit]').css('opacity', '1');
-    //         setDisabled(false);
-    //     });
-    // }
+    const [disabled, setDisabled] = useState(false);
 
-    async function handleSubmit(e) {
-        // e.preventDefault();
-        // setDisabled(true);
-        // const form = document.getElementById('regForm');
-        // const fd = new FormData(form);
-        // const data = new URLSearchParams(fd);
-        // data.delete('passRepeat');
-        // await axios.post('http://localhost:5000/user/registration', data, {
-        //         headers: {
-        //             'Content-Type': 'application/x-www-form-urlencoded'
-        //         }
-        //     }).then(res => {
-        //         if (res.status === 200) {
-        //             setShowVerification(true);
-        //             setEmail(document.getElementById('email').value);
-        //         }
-        //     }).catch((error) => {
-        //         if (error.response) {
-        //             alert('Something went wrong: ' + error.response.data)
-        //         } else alert('Something went wrong: ' + error.message)
-        //     }).finally(() => {
-        //         setDisabled(false);
-        // });    
-        setShowVerification(true);
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prev) => ({ ...prev, [name]: value }));
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (formData.password !== formData.passRepeat) {
+            setErrors((prev) => ({ ...prev, passwordMismatch: true }));
+            return;
+        } else {
+            setErrors((prev) => ({ ...prev, passwordMismatch: false }));
+        }
+        setDisabled(true);
+        await axios.post('http://localhost:5000/user/registration', 
+            {
+                email: formData.email,
+                password: formData.password
+            }).then(res => {
+                if (res.status === 200) {
+                    setShowVerification(true);
+                    setEmail(formData.email);
+                }
+            }).catch((error) => {
+                if (error.response) {
+                    if (error.response.data === 'Account with this email is already exists') {
+                        setErrors((prev) => ({ ...prev, emailExists: true }));
+                    } else alert('Something went wrong: ' + error.response)
+                } else alert('Something went wrong: ' + error.message)
+            }).finally(() => {
+                setDisabled(false);
+        });    
+        // setShowVerification(true);
     };
 
     return (
-        <FormContainer id="regForm" onSubmit={status3 == 'true' ? handleSubmit : (e) => { e.preventDefault() }}>
+        <FormContainer onSubmit={handleSubmit}>
             <Input
                 id="email"
-                status={status1}
                 type="email"
                 label="Email"
-                showIcon="false" />
+                showIcon={false}
+                value={formData.email}
+                onChange={handleChange}
+                error={errors.emailExists ? 'Account with this email is already exists' : ''} />
             <Input
-                matchChek={matchChek}
-                id="pass"
-                status={status2}
-                type="password"
+                id="password"
+                type={type}
                 label="Password"
-                showIcon="true" />
+                showIcon={true}
+                togglePasswordVisibility={togglePasswordVisibility}
+                value={formData.password}
+                onChange={handleChange} />
             <Input
-                matchChek={matchChek}
                 id="passRepeat"
-                status={status3}
-                type="password"
+                type={type}
                 label="Repeat password"
-                showIcon="true" />
+                showIcon={true}
+                value={formData.passRepeat}
+                onChange={handleChange} 
+                togglePasswordVisibility={togglePasswordVisibility}
+                error={errors.passwordMismatch ? 'Password mismatch' : false}/>
             <button type="submit" className="btn-primary" disabled={disabled}>Continue</button>
             <LogInLink>I have an account</LogInLink>
         </FormContainer>

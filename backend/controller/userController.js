@@ -5,11 +5,10 @@ class userController {
     async registration (req, res) {
         try {
             let data = req.body;
-            await userService.registration(data.email, data.pass);    
+            await userService.registration(data.email, data.password);    
             return res.json('succeed');
         } catch(e) {    
-            console.log(e);
-            res.status(500).json(e);
+            res.status(500).json(e.message);
         }
     }
 

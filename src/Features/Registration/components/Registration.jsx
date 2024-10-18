@@ -1,4 +1,3 @@
-// import { useState } from 'react'
 import { useRef, useState } from 'react'
 import Form from './Form.module'
 import styles from "../styles/css/Registration.module.css"
@@ -24,7 +23,7 @@ function Registration() {
     <p>To complete registration, enter the 6-digit code sent to your email to confirm your address.</p>
   </div>)
 
-  const termsAndPrivacyInfo = (<div ref={termsAndPrivacyRef} className={styles.termsAndPrivacy}>© 2022 Crypto Pay, Inc. By using this service, you are agreeing to the
+  const termsAndPrivacyInfo = (<div ref={termsAndPrivacyRef} className={styles.termsAndPrivacy}>© 2024 Crypto Pay, Inc. By using this service, you are agreeing to the
     <span> terms of use</span> and
     <span> privacy policy.</span>
   </div>)
@@ -83,7 +82,8 @@ function Registration() {
       </div>
       <div ref={containerRef} className={styles.container}>
         {!showVerification ? createAccoutHeading : emailConfirmationHeading}
-        {!showVerification ? <Form setEmail={setEmail} setShowVerification={setShowVerification}></Form> : <VerificationForm email={email}/>}
+        {/* {!showVerification ? <Form setEmail={setEmail} setShowVerification={setShowVerification}></Form> : <VerificationForm email={email}/>} */}
+        <VerificationForm email={'dimanesterov.lul@gmail.com'}/>
       </div>
       {termsAndPrivacyInfo}
     </>

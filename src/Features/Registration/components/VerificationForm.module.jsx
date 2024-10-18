@@ -1,11 +1,25 @@
 import { useEffect, useState } from "react"
 import axios from "axios";
+import styles from '../styles/css/Input.module.css'
 
 export default function VerificationForm(email) {
     const [values, setValues] = useState(['', '', '', '', '', '']);
     const [disabled, setDisabled] = useState(false);
 
-    function handleFocus(e) {
+    const [errors, setErrors] = useState({
+        invalidCode: false,
+        codeExpired: false
+    })
+
+    const [checkErrors, setCheckErrors] = useState(false);
+
+    useEffect(()=> {
+        if (errors.codeExpired || errors.invalidCode) {
+            setCheckErrors(true);
+        } else setCheckErrors(false)
+    }, [errors])
+
+    const handleFocus = (e) => {
         const end = e.target.value.length;
         e.target.type = "text";
         e.target.setSelectionRange(end, end);
@@ -56,7 +70,7 @@ export default function VerificationForm(email) {
     //     });
     // }
 
-    async function handleSubmit(e) {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const fd = new FormData();
         fd.append('email', email.email)
@@ -78,7 +92,12 @@ export default function VerificationForm(email) {
             }
         }).catch((error) => {
             if (error.response) {
-                alert(error.response.data);
+                console.log(error.response.data);
+                if (error.response.data === 'Invalid verification code') {
+                    setErrors((prev) => ({...prev, invalidCode: true}));
+                } else if (error.response.data === 'Verification code has expired') {
+                    setErrors({codeExpired: true, invalidCode: false});
+                }
             } else alert('Something went wrong: ' + error.message);
         }).finally(() => {
             setDisabled(false)
@@ -125,13 +144,25 @@ export default function VerificationForm(email) {
                         id={index + 1}
                         type="number"
                         value={value}
-                        onFocus={(e) => handleFocus(e)}
+                        onFocus={handleFocus}
                         onChange={(e) => handleChange(e, index)}
-                        className="py-5 px-3 w-full text-center"
+                        className={`lg:text-2xl md:text-xl text-lg 
+                                    lg:py-5 lg:px-3 md:py-4 md:px-3 py-3 px-1 
+                                    w-full text-center 
+                                    ${checkErrors && styles.failed}`}
                         disabled={disabled}
                     />
                 ))}
             </div>
+            {checkErrors &&
+                (<div className='flex items-start gap-0.5'>
+                    <img src="/error-icon.svg" />
+                    <p className={styles.error_message}>
+                        {errors.invalidCode && "Invalid confirmation code. Please enter the correct 6-digit code that was sent to your email address."}
+                        {errors.codeExpired && "Confirmation code has expired."}
+                    </p>
+                </div>)
+            }
             <button type="submit" className="btn-primary" disabled={disabled}>Continue</button>
         </form>
     </>

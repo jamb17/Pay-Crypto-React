@@ -4,17 +4,17 @@ import tokenService from "./tokenService.js";
 import mailService from "./mailService.js";
 
 class userService {
-    async registration (email, pass) {
+    async registration (email, password) {
         const userExists = await User.findOne({email: email});
         if (userExists) {
             throw new Error('Account with this email is already exists');
         };
-        const hashPass = await bcrypt.hash(pass, 3);
+        const hashPass = await bcrypt.hash(password, 3);
         const code = mailService.sendVerificationCode(email);
         // const hashCode = bcrypt.hash(code, 3);
         const expirationTime = new Date(Date.now() + 5 * 60 * 1000);
         if (code) {
-            const user = await User.create({email, pass: hashPass, verificationCode: code, codeExpirationTime: expirationTime});
+            const user = await User.create({email, password: hashPass, verificationCode: code, codeExpirationTime: expirationTime});
             return user;
         } else throw new Error('Something went wrong while sending email');
 
