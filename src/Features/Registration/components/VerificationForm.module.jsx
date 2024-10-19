@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import axios from "axios";
 import styles from '../styles/css/Input.module.css'
+import useStore from "../../../store";
 
 export default function VerificationForm(email) {
     const [values, setValues] = useState(['', '', '', '', '', '']);
@@ -56,7 +57,7 @@ export default function VerificationForm(email) {
     //         throw new Error('Something went wrong');
     //     }).then(res => {
     //         if (res == "true") {
-    //             window.localStorage.setItem('isLoggedIn', 'true');
+    //             useStore(state => state.setAuth)
     //             window.location.reload();
     //         } else if (res === 'Invalid verification code') {
     //             throw new Error('Invalid verification code')
@@ -87,7 +88,8 @@ export default function VerificationForm(email) {
             }
         }).then(res => {
             if (res.status === 200) {
-                window.localStorage.setItem('isLoggedIn', 'true');
+                useStore(state => state.setAuth)
+                window.localStorage.setItem('accessToken', res.data);
                 window.location.reload();
             }
         }).catch((error) => {
