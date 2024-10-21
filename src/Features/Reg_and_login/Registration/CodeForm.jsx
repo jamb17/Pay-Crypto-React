@@ -3,7 +3,7 @@ import axios from "axios";
 import styles from '../styles/css/Input.module.css'
 import useStore from "../../../store";
 
-export default function VerificationForm(email) {
+function VerificationForm(email) {
     const [values, setValues] = useState(['', '', '', '', '', '']);
     const [disabled, setDisabled] = useState(false);
 
@@ -33,43 +33,7 @@ export default function VerificationForm(email) {
         if (paste.length == 6) setValues(paste);
     });
 
-    // function handleSubmit(e) {
-    //     e.preventDefault();
-    //     const fd = new FormData();
-    //     fd.append('email', email.email)
-    //     let code = '';
-    //     for (let value of values) {
-    //         code += value;
-    //     }
-    //     fd.append('code', code)
-    //     const urlEncoded = new URLSearchParams(fd).toString();
-    //     setDisabled(true)
-    //     fetch('http://localhost:7000/checkVerification', {
-    //         method: 'POST',
-    //         body: urlEncoded,
-    //         headers: {
-    //             'Content-type': 'application/x-www-form-urlencoded',
-    //         }
-    //     }).then(res => { 
-    //         if (res.ok) {
-    //             return res.text() 
-    //         }
-    //         throw new Error('Something went wrong');
-    //     }).then(res => {
-    //         if (res == "true") {
-    //             useStore(state => state.setAuth)
-    //             window.location.reload();
-    //         } else if (res === 'Invalid verification code') {
-    //             throw new Error('Invalid verification code')
-    //         } else if (res === 'Verification code has expired') {
-    //             throw new Error('Verification code has expired') 
-    //         }
-    //     }).catch((error) => {
-    //         alert('Something went wrong: ' + error.message)
-    //     }).finally(() => {
-    //         setDisabled(false)
-    //     });
-    // }
+    const login = useStore(state => state.login);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -88,13 +52,12 @@ export default function VerificationForm(email) {
             }
         }).then(res => {
             if (res.status === 200) {
-                useStore(state => state.setAuth)
+                login();
                 window.localStorage.setItem('accessToken', res.data);
                 window.location.reload();
             }
         }).catch((error) => {
             if (error.response) {
-                console.log(error.response.data);
                 if (error.response.data === 'Invalid verification code') {
                     setErrors((prev) => ({...prev, invalidCode: true}));
                 } else if (error.response.data === 'Verification code has expired') {
@@ -158,7 +121,7 @@ export default function VerificationForm(email) {
             </div>
             {checkErrors &&
                 (<div className='flex items-start gap-0.5'>
-                    <img src="/error-icon.svg" />
+                    <img src="../../../src/assets/error-icon.svg" />
                     <p className={styles.error_message}>
                         {errors.invalidCode && "Invalid confirmation code. Please enter the correct 6-digit code that was sent to your email address."}
                         {errors.codeExpired && "Confirmation code has expired."}
@@ -169,3 +132,5 @@ export default function VerificationForm(email) {
         </form>
     </>
 }
+
+export default VerificationForm;

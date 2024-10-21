@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Input from "./Input.module";
 import styled from "styled-components";
 import axios from "axios";
+import styles from '../styles/css/Index.module.css'
+import { Link } from "react-router-dom";
 
 const FormContainer = styled.form`
         display: flex;
@@ -9,13 +11,6 @@ const FormContainer = styled.form`
         gap: 24px;
         width: 100%`
     ;
-
-const LogInLink = styled.a`
-        color: #53B669;
-        width: 100%;
-        text-align: center;
-        cursor: pointer;
-    `;
 
 function Form({ setShowVerification, setEmail }) {
 
@@ -70,10 +65,9 @@ function Form({ setShowVerification, setEmail }) {
             }).finally(() => {
                 setDisabled(false);
         });    
-        // setShowVerification(true);
     };
 
-    return (
+    return (<>
         <FormContainer onSubmit={handleSubmit}>
             <Input
                 id="email"
@@ -101,9 +95,9 @@ function Form({ setShowVerification, setEmail }) {
                 togglePasswordVisibility={togglePasswordVisibility}
                 error={errors.passwordMismatch ? 'Password mismatch' : false}/>
             <button type="submit" className="btn-primary" disabled={disabled}>Continue</button>
-            <LogInLink>I have an account</LogInLink>
+            <Link to="/login" className={styles.link}>I have an account</Link>
         </FormContainer>
-    )
+    </>)
 };
 
 export default Form;

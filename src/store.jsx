@@ -3,9 +3,13 @@ import { createJSONStorage, persist } from "zustand/middleware";
 
 const useStore = create(
     persist(
-        (set) => ({
+        (set, get) => ({
             isAuth: false,
-            setAuth: () => set((state) => ({ isAuth: !state.isAuth })),
+            login: () => set({ isAuth: true }),
+            logout: () => {
+                set({isAuth: false}),
+                get().clearStorage();
+            }
         }),
         {
            name: 'auth',

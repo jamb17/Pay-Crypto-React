@@ -30,6 +30,24 @@ class userService {
             throw err;
         }
     }
+
+    async login (email, password) {
+        try {
+            const user = await User.findOne({email: email});
+            if (!user) {
+                throw new Error('No user with this e-mail address was found');
+            } 
+            const passEquals = await bcrypt.compare(password, user.password);
+            if (!passEquals) {
+                throw new Error('Wrong password')
+            }
+            const tokens = tokenService.generateTokens({email: user.email, id: user._id});
+            await tokenService.saveToken(user._id, tokens.refreshToken);
+            return {user, ...tokens}
+        } catch (err) {
+            throw err;
+        }
+    }
  
 };
 

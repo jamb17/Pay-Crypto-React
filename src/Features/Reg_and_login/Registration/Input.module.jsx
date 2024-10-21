@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from "react";
 import styles from '../styles/css/Input.module.css'
 
 function Input({id, showIcon, label, type, value, onChange, error, togglePasswordVisibility}) {
@@ -24,7 +23,12 @@ function Input({id, showIcon, label, type, value, onChange, error, togglePasswor
                         className={type === "password" ? styles.icon : styles.icon_showed}>
                     </div>
                 )}
-                {error && <p className={styles.error_message}>{error}</p>}
+                {error && 
+                    <div className='flex items-start gap-0.5'>
+                        <img src="../../../src/assets/error-icon.svg" />
+                        <p className={styles.error_message}>{error}</p>
+                    </div>
+                }
             </div>
         </>
     )

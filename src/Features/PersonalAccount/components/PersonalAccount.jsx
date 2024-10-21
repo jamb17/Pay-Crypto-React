@@ -8,7 +8,7 @@ function PersonalAccount() {
         <>
             <Header />
             <h1>Personal Account Mainpage {'{'}Coming up soon^^{'}'}</h1><br></br>
-            <Link onClick={useStore(state => state.setAuth)} className="max-w-40 btn-primary">Log Out</Link>
+            <Link onClick={useStore(state => state.logout)} className="max-w-40 btn-primary">Log Out</Link>
         </>
     );
 }

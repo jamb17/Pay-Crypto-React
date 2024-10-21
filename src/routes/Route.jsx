@@ -1,11 +1,10 @@
 import React from 'react'
-import Registration from './Features/Registration/components/Registration.jsx'
-import PersonalAccount from './Features/PersonalAccount/components/PersonalAccount.jsx'
+import Registration from '../Features/Reg_and_login/Registration/Registration.jsx'
+import PersonalAccount from '../Features/PersonalAccount/components/PersonalAccount.jsx'
 import {useRoutes} from 'react-router-dom';
-import PrivateRoute from './routes/PrivateRoute.jsx'
-import PublicRoute from './routes/PublicRoute.jsx'
-
-// const loggedIn = useStore((state) => state.isAuth);
+import PrivateRoute from './PrivateRoute.jsx'
+import PublicRoute from './PublicRoute.jsx'
+import Login from '../Features/Reg_and_login/Login/Login.jsx';
 
  export default function App () {
 
@@ -19,7 +18,8 @@ import PublicRoute from './routes/PublicRoute.jsx'
     {
       element: <PublicRoute />,
       children: [
-        {path: 'registration', element: <Registration />}
+        {path: 'registration', element: <Registration />},
+        {path: 'login', element: <Login/>}
       ]
     },
     {

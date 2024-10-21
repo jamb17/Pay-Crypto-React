@@ -10,11 +10,11 @@ body
     align-items: center
     gap: 32px
     border-radius: 16px
-    background: #FFF
+    background: components.$white
     box-shadow: 0px 2px 8px -4px rgba(40, 36, 50, 0.24)
     width: 100%
     max-width: 496px
-    height: fit-content 
+    height: fit-content
     .textHeading
         display: flex
         flex-direction: column
@@ -32,6 +32,12 @@ body
             font-size: 14px
             line-height: 20px
             color: components.$gray
+
+.formContainer
+    display: flex
+    flex-direction: column
+    gap: 24px
+    width: 100%
 
 .top
     display: flex
@@ -52,6 +58,12 @@ body
         font-weight: 500
         color: components.$green
         cursor: pointer
+
+.link
+    color: components.$green
+    width: 100%
+    text-align: center
+    cursor: pointer
 
 @media screen and (max-width: 480px)
 

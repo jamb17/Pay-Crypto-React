@@ -18,7 +18,17 @@ class userController {
             res.cookie('refreshToken', data.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true});
             return res.json(data.accessToken);
         } catch (e) {
-            console.log(e.message);
+            res.status(500).json(e.message);
+        }
+    }
+
+    async login (req, res) {
+        try {
+            const {email, password} = req.body;
+            const userData = await userService.login(email, password);
+            res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true});
+            return res.json(userData.accessToken);
+        } catch (e) {
             res.status(500).json(e.message);
         }
     }
