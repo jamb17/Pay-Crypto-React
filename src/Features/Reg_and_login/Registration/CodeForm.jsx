@@ -1,11 +1,26 @@
 import { useEffect, useState } from "react"
 import axios from "axios";
+import styles from '../styles/css/Input.module.css'
+import useStore from "../../../store";
 
-export default function VerificationForm(email) {
+function VerificationForm(email) {
     const [values, setValues] = useState(['', '', '', '', '', '']);
     const [disabled, setDisabled] = useState(false);
 
-    function handleFocus(e) {
+    const [errors, setErrors] = useState({
+        invalidCode: false,
+        codeExpired: false
+    })
+
+    const [checkErrors, setCheckErrors] = useState(false);
+
+    useEffect(()=> {
+        if (errors.codeExpired || errors.invalidCode) {
+            setCheckErrors(true);
+        } else setCheckErrors(false)
+    }, [errors])
+
+    const handleFocus = (e) => {
         const end = e.target.value.length;
         e.target.type = "text";
         e.target.setSelectionRange(end, end);
@@ -18,45 +33,9 @@ export default function VerificationForm(email) {
         if (paste.length == 6) setValues(paste);
     });
 
-    // function handleSubmit(e) {
-    //     e.preventDefault();
-    //     const fd = new FormData();
-    //     fd.append('email', email.email)
-    //     let code = '';
-    //     for (let value of values) {
-    //         code += value;
-    //     }
-    //     fd.append('code', code)
-    //     const urlEncoded = new URLSearchParams(fd).toString();
-    //     setDisabled(true)
-    //     fetch('http://localhost:7000/checkVerification', {
-    //         method: 'POST',
-    //         body: urlEncoded,
-    //         headers: {
-    //             'Content-type': 'application/x-www-form-urlencoded',
-    //         }
-    //     }).then(res => { 
-    //         if (res.ok) {
-    //             return res.text() 
-    //         }
-    //         throw new Error('Something went wrong');
-    //     }).then(res => {
-    //         if (res == "true") {
-    //             window.localStorage.setItem('isLoggedIn', 'true');
-    //             window.location.reload();
-    //         } else if (res === 'Invalid verification code') {
-    //             throw new Error('Invalid verification code')
-    //         } else if (res === 'Verification code has expired') {
-    //             throw new Error('Verification code has expired') 
-    //         }
-    //     }).catch((error) => {
-    //         alert('Something went wrong: ' + error.message)
-    //     }).finally(() => {
-    //         setDisabled(false)
-    //     });
-    // }
+    const login = useStore(state => state.login);
 
-    async function handleSubmit(e) {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const fd = new FormData();
         fd.append('email', email.email)
@@ -67,28 +46,29 @@ export default function VerificationForm(email) {
         fd.append('code', code)
         const data = new URLSearchParams(fd);
         setDisabled(true);
-        await axios.post('http://localhost:7000/checkVerification', data, {
+        await axios.post('http://localhost:5000/user/completeRegistration', data, {
+            withCredentials: true,
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
+                'Content-Type': 'application/x-www-form-urlencoded',
             }
         }).then(res => {
-            if (res.status !== 200) {
-                throw new Error('Something went wrong');
-            }
-            if (res.data == true) {
-                window.localStorage.setItem('isLoggedIn', 'true');
+            if (res.status === 200) {
+                login(email);
+                window.localStorage.setItem('accessToken', res.data);
                 window.location.reload();
-            } else if (res.data === 'Invalid verification code') {
-                throw new Error('Invalid verification code')
-            } else if (res.data === 'Verification code has expired') {
-                throw new Error('Verification code has expired')
             }
         }).catch((error) => {
-            alert('Something went wrong: ' + error.message)
+            if (error.response) {
+                if (error.response.data === 'Invalid verification code') {
+                    setErrors((prev) => ({...prev, invalidCode: true}));
+                } else if (error.response.data === 'Verification code has expired') {
+                    setErrors({codeExpired: true, invalidCode: false});
+                }
+            } else alert('Something went wrong: ' + error.message);
         }).finally(() => {
             setDisabled(false)
         });
-    };
+    };  
 
     function handleChange(e, index) {
         const inputValue = e.target.value;
@@ -130,14 +110,28 @@ export default function VerificationForm(email) {
                         id={index + 1}
                         type="number"
                         value={value}
-                        onFocus={(e) => handleFocus(e)}
+                        onFocus={handleFocus}
                         onChange={(e) => handleChange(e, index)}
-                        className="py-5 px-3 w-full text-center"
+                        className={`lg:text-2xl md:text-xl text-lg 
+                                    lg:py-5 lg:px-3 md:py-4 md:px-3 py-3 px-1 
+                                    w-full text-center 
+                                    ${checkErrors && styles.failed}`}
                         disabled={disabled}
                     />
                 ))}
             </div>
+            {checkErrors &&
+                (<div className='flex items-start gap-0.5'>
+                    <img src="../../../src/assets/error-icon.svg" />
+                    <p className={styles.error_message}>
+                        {errors.invalidCode && "Invalid confirmation code. Please enter the correct 6-digit code that was sent to your email address."}
+                        {errors.codeExpired && "Confirmation code has expired."}
+                    </p>
+                </div>)
+            }
             <button type="submit" className="btn-primary" disabled={disabled}>Continue</button>
         </form>
     </>
 }
+
+export default VerificationForm;

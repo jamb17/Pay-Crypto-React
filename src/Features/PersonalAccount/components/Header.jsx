@@ -1,8 +1,9 @@
-import { useUserData } from "./PersonalAccount";
-import "./header.css"
+import useStore from "../../../store";
+import "../styles/css/header.css"
 
 function Header () {
-    const userNickname = useUserData(state => state.nickname);
+
+    const nickname = useStore(state => state.nickname);
 
     return (
         <div>
@@ -37,7 +38,7 @@ function Header () {
                         </a>
                     </nav>
                     <div className="info">
-                        <p className="nickname">{userNickname !== "" ? userNickname : "Nickname"}</p>
+                        <p className="nickname">{nickname}</p>
                         <div className="dropdown">
                             <img
                                 src="https://raw.githubusercontent.com/jamb17/pay-crypto/df83f92b3e101c7d6da486549fa722325630307e/%D0%B7%D0%B0%D0%B3%D0%BB%D1%83%D1%88%D0%BA%D0%B0.svg"
