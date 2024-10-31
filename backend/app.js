@@ -52,7 +52,7 @@ app.post('/', middle, (req, res) => {
                     to: data.email,
                     subject: 'Pay Crypto verification code',
                     text: `Your code: ${verificationCode}. Expires in 5 mins :)`
-                },(err, info) => {
+                }, (err, info) => {
                     console.log(info.envelope);
                     console.log(info.messageId);
                 });

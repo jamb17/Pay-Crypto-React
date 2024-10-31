@@ -47,12 +47,13 @@ function VerificationForm(email) {
         const data = new URLSearchParams(fd);
         setDisabled(true);
         await axios.post('http://localhost:5000/user/completeRegistration', data, {
+            withCredentials: true,
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
+                'Content-Type': 'application/x-www-form-urlencoded',
             }
         }).then(res => {
             if (res.status === 200) {
-                login();
+                login(email);
                 window.localStorage.setItem('accessToken', res.data);
                 window.location.reload();
             }

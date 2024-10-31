@@ -33,6 +33,32 @@ class userController {
         }
     }
 
+    async getUserData(req, res) {
+        try {
+            const accessToken = req.headers.authorization;
+            const email = req.query.email; 
+            const user =  await userService.getUserData(accessToken, email);
+            return res.json(user)
+        } catch (error) {
+            if (error.message === 'Unauthorized Error') {
+                res.status(401).json(error.message)
+            } else res.status(500).json(error.message)
+        }
+    }
+
+    async refresh(req, res) {
+        try {
+            const {refreshToken} = req.cookies;
+            const user = await userService.refresh(refreshToken);
+            res.cookie('refreshToken', user.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true});
+            return res.json(user.accessToken)
+        } catch (error) {
+            if (error.message === 'Unauthorized Error') {
+                res.status(401).json(error.message)
+            } else res.status(500).json(error.message)
+        }
+    }
+
 };
 
 export default new userController();

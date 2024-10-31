@@ -50,15 +50,17 @@ export default function Login() {
             {
                 email: formData.email,
                 password: formData.password
+            }, 
+            {
+                withCredentials: true
             }).then(res => {
                 if (res.status === 200) {
-                    login();
+                    login(formData.email);
                     window.localStorage.setItem('accessToken', res.data);
                     window.location.reload();
                 }
             }).catch((error) => {
                 if (error.response) {
-                    console.log(error.response.data);
                     if (error.response.data === 'No user with this e-mail address was found') {
                         setErrors({noSuchUser: true, wrongPassword: false});
                     } else if (error.response.data === 'Wrong password') {

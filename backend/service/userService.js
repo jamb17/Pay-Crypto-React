@@ -4,6 +4,13 @@ import tokenService from "./tokenService.js";
 import mailService from "./mailService.js";
 
 class userService {
+
+    convertEmail(email) {
+        let localPart = email.split('@')[0];
+        localPart = localPart.replace(/\./g, '');
+        return localPart;
+    }
+
     async registration (email, password) {
         const userExists = await User.findOne({email: email});
         if (userExists) {
@@ -14,11 +21,11 @@ class userService {
         // const hashCode = bcrypt.hash(code, 3);
         const expirationTime = new Date(Date.now() + 5 * 60 * 1000);
         if (code) {
-            const user = await User.create({email, password: hashPass, verificationCode: code, codeExpirationTime: expirationTime});
+            const user = await User.create({email, nickname: this.convertEmail(email), password: hashPass, verificationCode: code, codeExpirationTime: expirationTime});
             return user;
         } else throw new Error('Something went wrong while sending email');
 
-    };
+    };    
 
     async completeRegistration (email, code) {
         try {
@@ -48,6 +55,31 @@ class userService {
             throw err;
         }
     }
+
+    async getUserData(accessToken, email) {
+        const validToken = tokenService.validateAccessToken(accessToken);
+        if (!accessToken || !validToken || !email) {
+            throw new Error('Unauthorized Error');
+        };
+        const user = await User.findOne({email: email});
+        return user;
+    }
+
+    async refresh(refreshToken) {
+        if (!refreshToken) {
+            throw new Error('Unauthorized Error');
+        };
+        const userData = tokenService.validateRefreshToken(refreshToken);
+        const tokenFromDb = await tokenService.findToken(refreshToken);
+        console.log(!userData, !tokenFromDb);
+        if (!userData || !tokenFromDb) {
+            throw new Error('Unauthorized Error');
+        };
+        const user = await User.findById(userData.id);
+        const tokens = tokenService.generateTokens({email: user.email, id: user._id});
+        await tokenService.saveToken(user._id, tokens.refreshToken);
+        return {user, ...tokens};
+    }   
  
 };
 

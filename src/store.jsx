@@ -5,15 +5,22 @@ const useStore = create(
     persist(
         (set, get) => ({
             isAuth: false,
-            login: () => set({ isAuth: true }),
+            email: '',
+            nickname: '',
+            setNickname: (state) => set({nickname: state}),
+            login: (state) => {
+                set({ isAuth: true });
+                set({email: state});
+            },
             logout: () => {
-                set({isAuth: false}),
-                get().clearStorage();
+                set({isAuth: false})
+                localStorage.clear()
             }
         }),
         {
            name: 'auth',
            storage: createJSONStorage(() => localStorage),
+           partialize: (state) => ({isAuth: state.isAuth, email: state.email})
         }
     )
 )
