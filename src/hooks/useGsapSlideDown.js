@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { gsap } from "gsap";
 
-const useGsapSlideDowm = (ref, setOptions = {}, toOptions = {}) => {
+const useGsapSlideDown = (ref, setOptions = {}, toOptions = {}, deps) => {
     useEffect(() => {
         let tween;
 
@@ -25,7 +25,7 @@ const useGsapSlideDowm = (ref, setOptions = {}, toOptions = {}) => {
         return () => {
             tween && tween.kill()
         }
-    }, [])
+    }, [deps && deps])
 }
 
-export default useGsapSlideDowm;
+export default useGsapSlideDown;

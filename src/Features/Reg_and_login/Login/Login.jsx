@@ -9,6 +9,7 @@ import useGsapSlideDown from '../../../hooks/useGsapSlideDown.js'
 import useGsapSlideUp from '../../../hooks/useGsapSlideUp.js'
 import axios from "axios";
 import useStore from "../../../store.jsx";
+import useError from "../../../hooks/useError.js";
 
 export default function Login() {
 
@@ -43,6 +44,8 @@ export default function Login() {
         setType(type === 'password' ? 'text' : 'password');
     };
 
+    const setErrorMessage = useError();
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setDisabled(true);
@@ -66,7 +69,7 @@ export default function Login() {
                     } else if (error.response.data === 'Wrong password') {
                         setErrors({noSuchUser: false, wrongPassword: true});
                     }
-                } else alert('Something went wrong: ' + error.message);
+                } else setErrorMessage(error.message);
             }).finally(() => {
                 setDisabled(false);
             })
