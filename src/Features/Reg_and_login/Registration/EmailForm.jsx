@@ -4,6 +4,7 @@ import styled from "styled-components";
 import axios from "axios";
 import styles from '../styles/css/Index.module.css'
 import { Link } from "react-router-dom";
+import useError from "../../../hooks/useError";
 
 const FormContainer = styled.form`
         display: flex;
@@ -38,6 +39,8 @@ function Form({ setShowVerification, setEmail }) {
         setFormData((prev) => ({ ...prev, [name]: value }));
     }
 
+    const setError = useError();
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (formData.password !== formData.passRepeat) {
@@ -60,8 +63,8 @@ function Form({ setShowVerification, setEmail }) {
                 if (error.response) {
                     if (error.response.data === 'Account with this email is already exists') {
                         setErrors((prev) => ({ ...prev, emailExists: true }));
-                    } else alert('Something went wrong: ' + error.response)
-                } else alert('Something went wrong: ' + error.message)
+                    } else setError(error.message);
+                } else setError(error.message);
             }).finally(() => {
                 setDisabled(false);
         });    

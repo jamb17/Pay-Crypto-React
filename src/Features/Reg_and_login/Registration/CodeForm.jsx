@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import axios from "axios";
 import styles from '../styles/css/Input.module.css'
 import useStore from "../../../store";
+import useError from "../../../hooks/useError";
 
 function VerificationForm(email) {
     const [values, setValues] = useState(['', '', '', '', '', '']);
@@ -11,6 +12,8 @@ function VerificationForm(email) {
         invalidCode: false,
         codeExpired: false
     })
+
+    const alertError = useError();
 
     const [checkErrors, setCheckErrors] = useState(false);
 
@@ -64,7 +67,7 @@ function VerificationForm(email) {
                 } else if (error.response.data === 'Verification code has expired') {
                     setErrors({codeExpired: true, invalidCode: false});
                 }
-            } else alert('Something went wrong: ' + error.message);
+            } else alertError(error.message);
         }).finally(() => {
             setDisabled(false)
         });
