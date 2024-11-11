@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Input from "./Input.module";
 import styled from "styled-components";
 import axios from "axios";
 import styles from '../styles/css/Index.module.css'
 import { Link } from "react-router-dom";
 import useError from "../../../hooks/useError";
+import { ThemeContext } from "../../../ThemeContext";
 
 const FormContainer = styled.form`
         display: flex;
@@ -14,6 +15,8 @@ const FormContainer = styled.form`
     ;
 
 function Form({ setShowVerification, setEmail }) {
+
+    const {theme} = useContext(ThemeContext);
 
     const [formData, setFormData] = useState({
         email: '',
@@ -71,7 +74,7 @@ function Form({ setShowVerification, setEmail }) {
     };
 
     return (<>
-        <FormContainer onSubmit={handleSubmit}>
+        <form className={theme ? styles.formContainerDark : styles.formContainer} onSubmit={handleSubmit}>
             <Input
                 id="email"
                 type="email"
@@ -97,9 +100,9 @@ function Form({ setShowVerification, setEmail }) {
                 onChange={handleChange} 
                 togglePasswordVisibility={togglePasswordVisibility}
                 error={errors.passwordMismatch ? 'Password mismatch' : false}/>
-            <button type="submit" className="btn-primary" disabled={disabled}>Continue</button>
-            <Link to="/login" className={styles.link}>I have an account</Link>
-        </FormContainer>
+            <button type="submit" className={theme ? "btn-primary dark" : "btn-primary"} disabled={disabled}>Continue</button>
+            <Link to="/login" className={theme ? styles.linkDark : styles.link}>I have an account</Link>
+        </form>
     </>)
 };
 

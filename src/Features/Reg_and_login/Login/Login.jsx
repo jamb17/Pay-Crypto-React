@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import Heading from '../Componets/Heading.jsx'
 import styles from '../styles/css/Index.module.css'
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import TermsPrivacyLink from "../Componets/TermsPriacyLink.jsx";
 import Input from "../Registration/Input.module.jsx";
 import Logo from '../Componets/Logo.jsx'
@@ -10,15 +10,18 @@ import useGsapSlideUp from '../../../hooks/useGsapSlideUp.js'
 import axios from "axios";
 import useStore from "../../../store.jsx";
 import useError from "../../../hooks/useError.js";
+import { ThemeContext } from "../../../ThemeContext.jsx";
 
 export default function Login() {
+
+    const {theme} = useContext(ThemeContext);
 
     const containerRef = useRef(null);
     const logoRef = useRef(null);
     const termsAndPrivacyRef = useRef(null);
 
-    useGsapSlideDown(logoRef)
-    useGsapSlideUp(containerRef)
+    useGsapSlideDown(logoRef);
+    useGsapSlideUp(containerRef);
     useGsapSlideUp(termsAndPrivacyRef, {y: 10}, {delay: .5})
 
     const login = useStore(state => state.login);
@@ -77,9 +80,9 @@ export default function Login() {
 
     return <>
         <Logo ref={logoRef} />
-        <div ref={containerRef} className={styles.container}>
+        <div ref={containerRef} className={theme ? styles.containerDark : styles.container}>
             <Heading variation="loginForm" />
-            <form className={styles.formContainer} onSubmit={handleSubmit}>
+            <form className={theme ? styles.formContainerDark : styles.formContainer} onSubmit={handleSubmit}>
                 <Input 
                     id="email"
                     type="email"
@@ -97,9 +100,9 @@ export default function Login() {
                     error={errors.wrongPassword && 'Wrong password'}
                     value={formData.password}
                     onChange={handleChange} />
-                <button type="submit" className="btn-primary" disabled={disabled}>Continue</button>
+                <button type="submit" className={theme ? "btn-primary dark" : "btn-primary"} disabled={disabled}>Continue</button>
             </form>
-            <Link className={`${styles.link}`} to="/registration">I don't have an account</Link>
+            <Link className={theme ? styles.linkDark : styles.link} to="/registration">I don't have an account</Link>
         </div>
         <TermsPrivacyLink ref={termsAndPrivacyRef} />
     </>

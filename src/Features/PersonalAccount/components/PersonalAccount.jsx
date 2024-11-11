@@ -1,10 +1,12 @@
 import Header from "./Header.jsx";
 import { Link } from "react-router-dom";
 import useStore from "../../../store.jsx";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import axios from "axios";
+import { ThemeContext } from "../../../ThemeContext.jsx";
 
 function PersonalAccount() {
+    const {theme} = useContext(ThemeContext);
 
     const email = useStore(state => state.email);
     const setNickname = useStore(state => state.setNickname);
@@ -50,8 +52,8 @@ function PersonalAccount() {
 
     return (<>
         <Header />
-        <h1>Personal Account Mainpage {'{'}Coming up soon^^{'}'}</h1><br></br>
-        <Link onClick={useStore(state => state.logout)} className="max-w-40 btn-primary">Log Out</Link>
+        <h1 style={{color: theme && '#E0E0E0'}}>Personal Account Mainpage {'{'}Coming up soon^^{'}'}</h1><br></br>
+        <Link onClick={useStore(state => state.logout)} className={`max-w-40 btn-primary ${theme && 'dark'}`}>Log Out</Link>
     </>
     );
 }
