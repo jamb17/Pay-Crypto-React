@@ -1,12 +1,16 @@
-import { forwardRef } from 'react'
+import { forwardRef, useContext } from 'react'
 import styles from '../styles/css/Index.module.css'
 import { Link } from 'react-router-dom'
+import { ThemeContext } from '../../../ThemeContext'
 
 const Logo = forwardRef(function Logo (props, ref) {
+
+    const {theme} = useContext(ThemeContext);
+
     return (
         <div className={styles.top}>
             <Link to='/login'>
-                <img ref={ref} src="https://raw.githubusercontent.com/jamb17/pay-crypto/ea98f7c2b493ec3bf3ea7109c0ca2b96a1e78262/casty%20pay%20logo.svg" alt="" />
+                <img ref={ref} src={theme ? '../../../src/assets/logoDark.svg' : '../../../src/assets/logoLight.svg'} alt="" />
             </Link>
         </div>
     )

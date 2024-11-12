@@ -1,16 +1,19 @@
+import { useContext } from "react";
 import useStore from "../../../store";
 import "../styles/css/header.css"
+import { ThemeContext } from "../../../ThemeContext";
 
 function Header () {
+    const {theme} = useContext(ThemeContext);
 
     const nickname = useStore(state => state.nickname);
 
     return (
         <div>
-            <header>
+            <header className={theme && 'dark'}>
                 <div className="container">
                     <img
-                        src="https://raw.githubusercontent.com/jamb17/pay-crypto/ea98f7c2b493ec3bf3ea7109c0ca2b96a1e78262/casty%20pay%20logo.svg"
+                        src={theme ? '../../../src/assets/logoDark.svg' : "https://raw.githubusercontent.com/jamb17/pay-crypto/ea98f7c2b493ec3bf3ea7109c0ca2b96a1e78262/casty%20pay%20logo.svg"}
                         alt=""
                         className="logo"
                     />
@@ -98,7 +101,7 @@ function Header () {
                     </div>
                 </div>
             </header>
-            <div className="tabs">
+            {/* <div className="tabs">
                 <div className="container">
                     <a className="item back-btn" href="#">
                         <img
@@ -168,7 +171,7 @@ function Header () {
                         General settings
                     </a>
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 };

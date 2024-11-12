@@ -2,7 +2,7 @@
 
 input
     padding: 8px 12px
-    background-color: components.$light-bg
+    background-color: var(--bg-color)
     border: none
     border-radius: 8px
     outline: transparent
@@ -12,9 +12,9 @@ input
     font-size: 16px
     line-height: 24px
     transition: box-shadow 0.15s ease-in-out
-    color: components.$black
+    color: var(--text-color-light)
     &:focus
-            outline: 1px solid components.$green
+            outline: 1px solid var(--accent-color-light)
             box-shadow: 0px 0px 0px 3px rgba(83, 182, 105, 0.16)
 
 label
@@ -22,8 +22,15 @@ label
     font-weight: 500
     font-size: 16px
     line-height: 24px
-    color: components.$black
+    color: var(--text-color-light)
     margin-bottom: 4px
+
+.codeInputDark
+    background: var(--bg-color-dark)
+    color: var(--text-color-dark)
+    &:focus
+        outline: 1px solid var(--accent-color-dark)
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4)
 
 .container
     position: relative
@@ -33,14 +40,14 @@ label
     gap: 4px
 
 .failed
-    border: 1px solid components.$red
+    border: 1px solid var(--error-color)
     box-shadow: none
     &:focus
         outline: none
         box-shadow: none
 
 .error_message
-    color: components.$red
+    color: var(--error-color)
     font-size: 14px
     font-style: normal
     font-weight: 400

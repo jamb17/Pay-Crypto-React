@@ -14,12 +14,10 @@ body
     display: flex
     flex-direction: column
     align-items: center
-    background-image: url('https://raw.githubusercontent.com/jamb17/pay-crypto/e1909d0e6e36c9fd340cbea3dd6e74f853269fb3/Pick%20the%20network%20to%20make%20the%20payment%20with_.svg')
+    background: url('https://raw.githubusercontent.com/jamb17/pay-crypto/e1909d0e6e36c9fd340cbea3dd6e74f853269fb3/Pick%20the%20network%20to%20make%20the%20payment%20with_.svg'), var(--bg-color)
     background-repeat: no-repeat
     background-size: cover
     min-height: 100vh
-    background-color: #F7F7F7
-    transition: background-image 0.3s ease-in
 
 #root
     width: 100%
@@ -44,14 +42,21 @@ body
     font-style: normal
     font-weight: 500
     line-height: 150%
-    background: components.$green
+    background: var(--accent-color-light)
     width: 100%
     text-decoration: none
     transition: 0.2s background
     opacity: 1
 
 .btn-primary:hover
-    background: components.$drkgreen
+    background: var(--accent-color-hover)
+
+.btn-primary.dark
+    color: black
+    background: var(--accent-color-dark)
+
+.btn-primary.dark:hover 
+    background: var(--accent-color-dark-hover)
 
 .btn-primary:disabled 
     opacity: 0.5

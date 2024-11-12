@@ -10,7 +10,7 @@ body
     align-items: center
     gap: 32px
     border-radius: 16px
-    background: components.$white
+    background: var(--second-bg-color-light)
     box-shadow: 0px 2px 8px -4px rgba(40, 36, 50, 0.24)
     width: 100%
     max-width: 496px
@@ -26,18 +26,39 @@ body
             font-size: 24px
             line-height: 32px
             letter-spacing: -0.02em
-            color: components.$black
+            color: var(--text-color-light)
         p
             font-weight: 400
             font-size: 14px
             line-height: 20px
-            color: components.$gray
+            color: var(--secondary-text-color-light)
+
+.containerDark
+    @extend .container
+    background: var(--second-bg-color-dark)
+    .textHeading
+        h1
+            color: var(--text-color-dark)
+        p
+            color: var(--secondary-text-color-dark)
+        
 
 .formContainer
     display: flex
     flex-direction: column
     gap: 24px
     width: 100%
+
+.formContainerDark 
+    @extend .formContainer
+    label
+        color: var(--text-color-dark)
+    input
+        background: var(--bg-color-dark)
+        color: var(--text-color-dark)
+        &:focus
+            outline: 1px solid var(--accent-color-dark)
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4)
 
 .top
     display: flex
@@ -51,19 +72,29 @@ body
     font-weight: 400
     font-size: 14px
     line-height: 20px
-    color: components.$gray
+    color: var(--secondary-text-color-light)
     max-width: 496px
     margin: 40px 0
     span
         font-weight: 500
-        color: components.$green
+        color: var(--accent-color-light)
         cursor: pointer
 
+.termsAndPrivacyDark
+    @extend .termsAndPrivacy
+    color: var(--secondary-text-color-dark)
+    span
+        color: var(--accent-color-dark)
+
 .link
-    color: components.$green
+    color: var(--accent-color-light)
     width: 100%
     text-align: center
     cursor: pointer
+
+.linkDark
+    @extend .link
+    color: var(--accent-color-dark)
 
 @media screen and (max-width: 480px)
 

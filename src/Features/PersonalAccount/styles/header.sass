@@ -6,7 +6,7 @@ header
     align-items: center
     padding: 0 48px
     position: fixed
-    background: white
+    background: var(--second-bg-color-light)
     z-index: 2
     top: 0
     left: 0
@@ -31,7 +31,7 @@ header
                 font-weight: 500
                 font-size: 16px
                 line-height: 150%
-                color: #1C1A24
+                color: var(--text-color-light)
                 display: flex
                 align-items: center
                 padding: 6px 16px 6px 12px
@@ -40,7 +40,7 @@ header
                 border-radius: 38px
                 transition: all 0.1s ease-in
             a:hover
-                background: #F2F2F3
+                background: var(--hover-bg-color-light)
                 opacity: 1
     .info
         display: flex
@@ -52,7 +52,7 @@ header
             font-weight: 500
             font-size: 16px
             line-height: 150%
-            color: #1C1A24
+            color: var(--text-color-light)
         .dropdown
             display: flex
             justify-content: center
@@ -74,7 +74,7 @@ header
             position: absolute
             height: 4px
             width: 100%
-            background: #1C1A24
+            background: var(--text-color-light)
             transform: rotate(0deg)
             opacity: 1
             left: 0
@@ -107,6 +107,18 @@ header
         bottom: 0
 header.scroll
     top: -80px
+
+header.dark 
+    background: var(--second-bg-color-dark)
+    .container
+        nav a 
+            color: var(--text-color-dark)
+        nav a:hover 
+            background: var(--bg-color-dark)
+            opacity: 1
+        .nickname
+            color: var(--text-color-dark)
+
 .tabs
     position: fixed
     top: 80px
@@ -115,7 +127,7 @@ header.scroll
     justify-content: center
     align-items: center
     width: 100%
-    background: rgba(255, 255, 255, 0.8)
+    background: #ffffffcc
     box-shadow: 0px 2px 8px -4px rgba(40, 36, 50, 0.24)
     backdrop-filter: blur(12px)
     transition: top 0.4s cubic-bezier(.17,.67,.79,.5)
@@ -136,7 +148,7 @@ header.scroll
             font-weight: 500
             font-size: 16px
             line-height: 150%
-            color: #1C1A24
+            color: var(--text-color-light)
             display: flex
             align-items: center
             padding: 12px 0
@@ -147,7 +159,7 @@ header.scroll
             border-bottom: 2px solid transparent
             &:hover
                 opacity: 1
-                border-bottom: 2px solid #53B669
+                border-bottom: 2px solid var(--accent-color-light)
         .item.back-btn
             &:hover
                 border-color: transparent
@@ -181,7 +193,7 @@ header.scroll
             font-size: 15px
             line-height: 140%
             letter-spacing: -0.02em
-            color: #1C1A24
+            color: var(--text-color-light)
             opacity: 0.64
             img
                 width: 100%
