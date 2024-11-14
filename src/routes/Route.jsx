@@ -12,7 +12,9 @@ import Login from '../Features/Reg_and_login/Login/Login.jsx';
     {
       element: <PrivateRoute />,
       children: [
-        {path: '/', element: <PersonalAccount />}
+        {path: '/', element: <PersonalAccount />},
+        {path: '/settings', element: <PersonalAccount />},
+        {path: '/blog', element: <PersonalAccount />}
       ]
     },
     {

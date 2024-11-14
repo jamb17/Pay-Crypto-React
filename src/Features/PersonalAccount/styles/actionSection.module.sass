@@ -1,0 +1,83 @@
+@use '../../../styles/_components'
+
+.container
+    width: 100%
+    max-width: 456px
+    border-top: 1px solid components.$white
+    border-radius: 16px
+    padding: 24px
+    background: radial-gradient(#3C9B51, #53B669)
+    display: flex
+    justify-content: space-between
+    align-items: center
+    position: relative
+    overflow: hidden 
+    .content, .text
+        display: flex
+        flex-direction: column
+        align-items: start
+        gap: 16px
+        color: components.$white
+        z-index: 2
+        .text
+            gap: 2px
+            h2
+                font-size: 20px
+                font-weight: 500
+                line-height: 28px
+                letter-spacing: -0.02em
+                text-align: left
+                text-underline-position: from-font
+                text-decoration-skip-ink: none
+            p
+                font-weight: 400
+                font-size: 16px
+                line-height: 24px
+        .createBtn
+            font-weight: 500
+            font-size: 16px
+            line-height: 24px
+            padding: 10px 24px
+            border: 2px solid components.$white
+            border-radius: 8px
+            display: flex
+            justify-content: center
+            align-items: center
+            gap: 8px
+            transition: all .15s ease-in-out
+        .plusIcon
+            width: 16px
+            height: 16px
+            background-image: url('../../../src/assets/icon-plus.svg')
+            transition: background-image .15s ease-in-out                
+        .createBtn:hover
+            background: components.$white
+            color: var(--text-color-light)
+            border: 2px solid transparent
+            .plusIcon
+                background-image: url('../../../src/assets/icon-plus-dark.svg')
+    .illustration
+        max-width: 112px
+    .bgVector
+        width: 291px
+        height: 353px
+        position: absolute
+        right: -74px
+        bottom: -139px
+        z-index: 1
+
+.containerDonate
+    @extend .container
+    background: radial-gradient(#EFBD5F, #FFCE72)
+    .content, .text
+        color: var(--text-color-light)
+        .createBtn
+            border: 2px solid var(--text-color-light)
+            .plusIcon
+                background-image: url('../../../src/assets/icon-plus-dark.svg')
+        .createBtn:hover
+            background: var(--second-bg-color-dark)
+            color: components.$white
+            border: 2px solid transparent
+            .plusIcon
+                background-image: url('../../../src/assets/icon-plus.svg')
