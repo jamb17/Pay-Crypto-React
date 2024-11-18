@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import Input from "./Input.module";
+import Input from "../../components/Input.module.jsx";
 import styled from "styled-components";
 import axios from "axios";
 import styles from '../styles/css/Index.module.css'
@@ -74,13 +74,14 @@ function Form({ setShowVerification, setEmail }) {
     };
 
     return (<>
-        <form className={theme ? styles.formContainerDark : styles.formContainer} onSubmit={handleSubmit}>
+        <form className={styles.formContainer} onSubmit={handleSubmit}>
             <Input
                 id="email"
                 type="email"
                 label="Email"
                 showIcon={false}
                 value={formData.email}
+                placeholder="Enter your email"
                 onChange={handleChange}
                 error={errors.emailExists ? 'Account with this email is already exists' : ''} />
             <Input
@@ -89,6 +90,7 @@ function Form({ setShowVerification, setEmail }) {
                 label="Password"
                 showIcon={true}
                 togglePasswordVisibility={togglePasswordVisibility}
+                placeholder="Enter your password"
                 value={formData.password}
                 onChange={handleChange} />
             <Input
@@ -97,6 +99,7 @@ function Form({ setShowVerification, setEmail }) {
                 label="Repeat password"
                 showIcon={true}
                 value={formData.passRepeat}
+                placeholder="Repeat your password"
                 onChange={handleChange} 
                 togglePasswordVisibility={togglePasswordVisibility}
                 error={errors.passwordMismatch ? 'Password mismatch' : false}/>

@@ -39,6 +39,17 @@ label
     width: 100%
     gap: 4px
 
+.containerDark
+    @extend .container
+    label
+        color: var(--text-color-dark)
+    input
+        background: var(--bg-color-dark)
+        color: var(--text-color-dark)
+        &:focus
+            outline: 1px solid var(--accent-color-dark)
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4)
+
 .failed
     border: 1px solid var(--error-color)
     box-shadow: none

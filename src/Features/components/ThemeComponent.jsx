@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react"
-import { ThemeContext } from "./ThemeContext"
+import { ThemeContext } from "../../ThemeContext"
 
 export default function ThemeComponent() {
 

@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef } from "react";
-import { ErrorContext } from "./ErrorContext";
-import useGsapSlideDown from "./hooks/useGsapSlideDown";
+import { ErrorContext } from "../../ErrorContext";
+import useGsapSlideDown from "../../hooks/useGsapSlideDown";
 
 function ErrorComponent() {
     const {errorMessage, setErrorMessage} = useContext(ErrorContext);

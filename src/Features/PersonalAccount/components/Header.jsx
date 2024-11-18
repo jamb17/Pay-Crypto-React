@@ -1,4 +1,4 @@
-import { useContext, useRef } from "react";
+import { useContext } from "react";
 import useStore from "../../../store";
 import styles from "../styles/css/header.module.css"
 import { ThemeContext } from "../../../ThemeContext";

@@ -28,7 +28,7 @@
         position: relative
         display: flex
         flex-direction: column
-        align-items: start
+        align-items: flex-start
         gap: 24px
         .closeIcon
             position: absolute
@@ -45,12 +45,70 @@
             width: 100%
             display: flex
             flex-direction: column
-            align-items: start
+            align-items: flex-start
             gap: 16px
+
+.realFileInput
+    display: none
+
+.uploadContainer
+    display: flex
+    gap: 16px
+    width: 100%
+    .imagePreview
+        max-width: 112px
+        border-radius: 8px
+    .uploadContent
+        display: flex
+        flex-direction: column
+        gap: 12px
+        align-items: flex-start 
+        .uploadLabel
+            font-size: 14px
+            font-weight: 400
+            line-height: 20px
+            color: var(--secondary-text-color-light)
+        .buttonsContainer
+            display: flex
+            justify-content: center
+            align-content: inherit
+            gap: 8px
+            .uploadBtn
+                display: flex
+                gap: 6px
+                justify-content: center
+                align-items: center
+                border: 1px solid var(--accent-color-light)
+                border-radius: 8px
+                padding: 10px 16px
+                color: var(--text-color-light)
+                font-size: 14px
+                font-weight: 500
+                line-height: 20px
+                letter-spacing: -0.02em
+            .deleteBtn
+                width: 40px
+                height: 40px
+                border-radius: 8px
+                background: var(--error-bg-color)
+                display: flex
+                justify-content: center
+                align-items: center
+                opacity: 0  
+                transition: opacity .2s ease-in-out
+            .deleteBtnActive
+                @extend .deleteBtn
+                opacity: 1
 
 .containerDark
     @extend .container
     .content
-        background: var(--bg-color-dark)
+        background: var(--second-bg-color-dark)
         h2
             color: var(--text-color-dark)
+        .uploadContent  
+            .uploadLabel
+                color: var(--secondary-text-color-dark)
+            .uploadBtn
+                color: var(--text-color-dark)
+                border: 1px solid var(--accent-color-dark)

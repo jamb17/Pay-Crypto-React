@@ -3,7 +3,7 @@ import Heading from '../Componets/Heading.jsx'
 import styles from '../styles/css/Index.module.css'
 import { useContext, useRef, useState } from "react";
 import TermsPrivacyLink from "../Componets/TermsPriacyLink.jsx";
-import Input from "../Registration/Input.module.jsx";
+import Input from "../../components/Input.module.jsx";
 import Logo from '../Componets/Logo.jsx'
 import useGsapSlideDown from '../../../hooks/useGsapSlideDown.js'
 import useGsapSlideUp from '../../../hooks/useGsapSlideUp.js'
@@ -82,13 +82,14 @@ export default function Login() {
         <Logo ref={logoRef} />
         <div ref={containerRef} className={theme ? styles.containerDark : styles.container}>
             <Heading variation="loginForm" />
-            <form className={theme ? styles.formContainerDark : styles.formContainer} onSubmit={handleSubmit}>
+            <form className={styles.formContainer} onSubmit={handleSubmit}>
                 <Input 
                     id="email"
                     type="email"
                     label="Email"
                     showIcon={false}
                     value={formData.email}
+                    placeholder="Enter your email"
                     error={errors.noSuchUser && 'No user with this e-mail address was found'}
                     onChange={handleChange} />
                 <Input 
@@ -96,6 +97,7 @@ export default function Login() {
                     type={type}
                     label="Password"
                     showIcon={true}
+                    placeholder="Enter your password"
                     togglePasswordVisibility={togglePasswordVisibility}
                     error={errors.wrongPassword && 'Wrong password'}
                     value={formData.password}
