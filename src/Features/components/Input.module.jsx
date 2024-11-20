@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import styles from './styles/css/Input.module.css';
 import { ThemeContext } from "../../ThemeContext";
+import errorIcon from '@assets/error-icon.svg';
 
 function Input({id, showIcon, label, type, value, onChange, error, togglePasswordVisibility, placeholder}) {
     const {theme} = useContext(ThemeContext);
@@ -27,7 +28,7 @@ function Input({id, showIcon, label, type, value, onChange, error, togglePasswor
                 )}
                 {error && 
                     <div className='flex items-start gap-0.5'>
-                        <img src="../../../src/assets/error-icon.svg" />
+                        <img src={errorIcon} />
                         <p className={styles.error_message}>{error}</p>
                     </div>
                 }

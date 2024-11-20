@@ -79,7 +79,7 @@ class userService {
         const tokens = tokenService.generateTokens({email: user.email, id: user._id});
         await tokenService.saveToken(user._id, tokens.refreshToken);
         return {user, ...tokens};
-    }   
+    }  
  
 };
 

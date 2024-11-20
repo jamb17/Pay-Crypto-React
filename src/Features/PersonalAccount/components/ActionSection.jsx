@@ -1,7 +1,11 @@
 import { useContext, useRef } from 'react';
 import styles from '../styles/css/actionSection.module.css';
 import { ThemeContext } from '../../../ThemeContext';
-import useGsapSlideUp from '../../../hooks/useGsapSlideUp';
+import useGsapSlideUp from '@hooks/useGsapSlideUp';
+import merchantIcon from '@assets/merchant-icon.svg'
+import donateIcon from '@assets/donate-icon.svg'
+import bgVector from '@assets/bg-vector.svg'
+import bgVectorLight from '@assets/bg-vector-light.svg'
 
 export default function ActionSection ({type, setOpenPopUp}) {
     const {theme} = useContext(ThemeContext);
@@ -21,8 +25,8 @@ export default function ActionSection ({type, setOpenPopUp}) {
                     Create
                 </button>
             </div>
-            <img className={styles.illustration} src={type === 'merchant' ? "../../../src/assets/merchant-icon.svg" : "../../../src/assets/donate-icon.svg"}/>
-            <img className={styles.bgVector} src={type === 'merchant' ? "../../../src/assets/bg-vector-light.svg" : "../../../src/assets/bg-vector.svg"}/>
+            <img className={styles.illustration} src={type === 'merchant' ? merchantIcon : donateIcon}/>
+            <img className={styles.bgVector} src={type === 'merchant' ? bgVectorLight : bgVector}/>
         </div>
     </>)
 };

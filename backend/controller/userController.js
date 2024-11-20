@@ -59,6 +59,10 @@ class userController {
         }
     }
 
+    createMerchantAccount(req, res) {
+        
+    }
+
 };
 
 export default new userController();

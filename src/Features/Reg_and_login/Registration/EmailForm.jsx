@@ -1,10 +1,10 @@
 import React, { useContext, useState } from "react";
-import Input from "../../components/Input.module.jsx";
+import Input from "@components/Input.module.jsx";
 import styled from "styled-components";
 import axios from "axios";
 import styles from '../styles/css/Index.module.css'
 import { Link } from "react-router-dom";
-import useError from "../../../hooks/useError";
+import useError from "@hooks/useError";
 import { ThemeContext } from "../../../ThemeContext";
 
 const FormContainer = styled.form`

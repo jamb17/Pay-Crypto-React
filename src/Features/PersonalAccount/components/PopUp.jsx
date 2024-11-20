@@ -1,8 +1,14 @@
 import { useContext, useRef, useState } from 'react';
 import styles from '../styles/css/popUp.module.css';
 import { ThemeContext } from '../../../ThemeContext';
-import useGsapSlideUp from '../../../hooks/useGsapSlideUp';
-import Input from '../../components/Input.module.jsx';
+import useGsapSlideUp from '@hooks/useGsapSlideUp';
+import Input from '@components/Input.module.jsx';
+import iconClose from '@assets/icon-close.svg'; 
+import iconCloseDark from '@assets/icon-close-dark.svg'; 
+import imagePlaceholder from '@assets/image-placeholder.png'
+import uploadIconDark from '@assets/upload-icon-light.svg'
+import uploadIcon from '@assets/upload-icon.svg'
+import deleteIcon from '@assets/icon-delete.svg'
 
 export default function PopUp({ setOpenPopUp }) {
     const { theme } = useContext(ThemeContext);
@@ -33,13 +39,15 @@ export default function PopUp({ setOpenPopUp }) {
     const contentRef = useRef(null);
     useGsapSlideUp(contentRef, {}, { duration: .6 })
 
+    
+
     return (
         <div className={theme ? styles.containerDark : styles.container}>
             <div ref={contentRef} className={styles.content}>
                 <img
                     onClick={() => setOpenPopUp(false)}
                     className={styles.closeIcon}
-                    src={theme ? "../../../src/assets/icon-close-dark.svg" : "../../../src/assets/icon-close.svg"} />
+                    src={theme ? iconCloseDark : iconClose} />
                 <h2>Create merchant</h2>
                 <form>
                     <Input
@@ -59,17 +67,17 @@ export default function PopUp({ setOpenPopUp }) {
                     />
                     <div className={styles.uploadContainer}>
                         <img className={styles.imagePreview} 
-                            src={formData.file !== '' ? URL.createObjectURL(formData.file) : "../../../src/assets/image-placeholder.png"} 
+                            src={formData.file !== '' ? URL.createObjectURL(formData.file) : imagePlaceholder} 
                         />
                         <div className={styles.uploadContent}>
                             <p className={styles.uploadLabel}>The recommended size for an avatar is 500x500 pixels. Formats - .JPG, .PNG or .GIF. The maximum file size is 2 MB.</p>
                             <div className={styles.buttonsContainer}>
                                 <button className={styles.uploadBtn} onClick={handleClick}>
-                                    <img src={theme ? "../../../src/assets/upload-icon-light.svg" : "../../../src/assets/upload-icon.svg"} />
+                                    <img src={theme ? uploadIconDark : uploadIcon} />
                                     <p>Upload avatar</p>
                                 </button>
                                 <button onClick={handleRemoveFile} className={formData.file === '' ? styles.deleteBtn : styles.deleteBtnActive}>
-                                    <img src="../../../src/assets/icon-delete.svg" />
+                                    <img src={deleteIcon} />
                                 </button>
                             </div>
                         </div>

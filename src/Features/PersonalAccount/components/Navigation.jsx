@@ -2,6 +2,12 @@ import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ThemeContext } from '../../../ThemeContext';
 import styles from '../styles/css/header.module.css'
+import iconHome from '@assets/tabler-icon-home.svg';
+import iconHomeLight from '@assets/tabler-icon-home-light.svg';
+import iconSettings from '@assets/tabler-icon-settings.svg';
+import iconSettingsLight from '@assets/tabler-icon-settings-light.svg';
+import iconBook from '@assets/tabler-icon-book.svg';
+import iconBookLight from '@assets/tabler-icon-book-light.svg';
 
 export default function Navigation() {
     const { theme } = useContext(ThemeContext);
@@ -30,21 +36,21 @@ export default function Navigation() {
                 to='/'
                 onClick={e => handleChangeTab('home')}
                 className={`${activeTab.home === true && styles.active}`}>
-                <img src={theme ? "../../../src/assets/tabler-icon-home-light.svg" : "../../../src/assets/tabler-icon-home.svg"} />
+                <img src={theme ? iconHomeLight : iconHome} />
                 Home
             </Link>
             <Link
                 to='/settings'
                 onClick={e => handleChangeTab('settings')}
                 className={`${activeTab.settings === true && styles.active}`}>
-                <img src={theme ? "../../../src/assets/tabler-icon-settings-light.svg" : "../../../src/assets/tabler-icon-settings.svg"} />
+                <img src={theme ? iconSettingsLight : iconSettings} />
                 Settings
             </Link>
             <Link
                 to='/blog'
                 onClick={e => handleChangeTab('blog')}
                 className={`${activeTab.blog === true && styles.active}`}>
-                <img src={theme ? "../../../src/assets/tabler-icon-book-light.svg" : "../../../src/assets/tabler-icon-book.svg"} />
+                <img src={theme ? iconBookLight : iconBook} />
                 Blog
             </Link>
         </nav>

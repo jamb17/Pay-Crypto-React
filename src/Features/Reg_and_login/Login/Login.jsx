@@ -3,13 +3,13 @@ import Heading from '../Componets/Heading.jsx'
 import styles from '../styles/css/Index.module.css'
 import { useContext, useRef, useState } from "react";
 import TermsPrivacyLink from "../Componets/TermsPriacyLink.jsx";
-import Input from "../../components/Input.module.jsx";
+import Input from "@components/Input.module.jsx";
 import Logo from '../Componets/Logo.jsx'
-import useGsapSlideDown from '../../../hooks/useGsapSlideDown.js'
-import useGsapSlideUp from '../../../hooks/useGsapSlideUp.js'
+import useGsapSlideDown from '@hooks/useGsapSlideDown.js'
+import useGsapSlideUp from '@hooks/useGsapSlideUp.js'
 import axios from "axios";
 import useStore from "../../../store.jsx";
-import useError from "../../../hooks/useError.js";
+import useError from "@hooks/useError.js";
 import { ThemeContext } from "../../../ThemeContext.jsx";
 
 export default function Login() {

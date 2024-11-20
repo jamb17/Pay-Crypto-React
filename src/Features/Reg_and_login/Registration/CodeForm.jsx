@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react"
 import axios from "axios";
-import styles from '../../components/styles/css/Input.module.css'
+import styles from '@components/styles/css/Input.module.css'
 import useStore from "../../../store";
-import useError from "../../../hooks/useError";
+import useError from "@hooks/useError";
 import { ThemeContext } from "../../../ThemeContext";
 
 function VerificationForm(email) {

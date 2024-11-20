@@ -5,11 +5,11 @@ import VerificationForm from './CodeForm.jsx';
 import TermsPrivacyLink from '../Componets/TermsPriacyLink.jsx'
 import Heading from '../Componets/Heading.jsx'
 import Logo from '../Componets/Logo.jsx'
-import useGsapSlideDown from '../../../hooks/useGsapSlideDown.js';
-import useGsapSlideUp from '../../../hooks/useGsapSlideUp.js';
+import useGsapSlideDown from '@hooks/useGsapSlideDown.js';
+import useGsapSlideUp from '@hooks/useGsapSlideUp.js';
 import { ThemeContext } from '../../../ThemeContext.jsx';
 
-function Registration() {
+function Registration() { 
   const {theme} = useContext(ThemeContext);
 
   const [showVerification, setShowVerification] = useState(false);

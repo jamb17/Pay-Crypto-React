@@ -1,12 +1,12 @@
 import { useContext, useEffect } from "react"
 import { ThemeContext } from "../../ThemeContext"
+import lightThemeIcon from '@assets/lightThemeIcon.svg'
+import darkThemeIcon from '@assets/darkThemeIcon.svg'
 
 export default function ThemeComponent() {
 
   const { theme, setTheme } = useContext(ThemeContext);
-  const lightThemeIconPath = '../../../src/assets/lightThemeIcon.svg';
-  const darkThemeIconPath = '../../../src/assets/darkThemeIcon.svg';
-
+  
   useEffect(() => {
     if (theme) {
       document.body.style.background = "radial-gradient(circle, #1E1E1E, #121212)"
@@ -25,7 +25,7 @@ export default function ThemeComponent() {
   return (<>
     <div 
       className={`rounded-full absolute bottom-12 right-12 w-10 h-10 cursor-pointer transition-all`} 
-      style={{backgroundImage: `url(${theme ? lightThemeIconPath : darkThemeIconPath})`}}
+      style={{backgroundImage: `url(${theme ? lightThemeIcon : darkThemeIcon})`}}
       onClick={handleClick}
       ></div>
   </>)

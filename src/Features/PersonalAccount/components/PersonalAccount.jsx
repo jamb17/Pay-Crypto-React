@@ -2,7 +2,7 @@ import Header from "./Header.jsx";
 import useStore from "../../../store.jsx";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import useError from '../../../hooks/useError.js';
+import useError from '@hooks/useError.js';
 import ActionSection from "./ActionSection.jsx";
 import PopUp from "./PopUp.jsx";
 
