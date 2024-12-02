@@ -11,6 +11,7 @@ import axios from "axios";
 import useStore from "../../../store.jsx";
 import useError from "@hooks/useError.js";
 import { ThemeContext } from "../../../ThemeContext.jsx";
+import { API_URL } from "@api/api.js";
 
 export default function Login() {
 
@@ -52,7 +53,7 @@ export default function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setDisabled(true);
-        await axios.post('http://localhost:5000/user/login', 
+        await axios.post(API_URL + '/login', 
             {
                 email: formData.email,
                 password: formData.password

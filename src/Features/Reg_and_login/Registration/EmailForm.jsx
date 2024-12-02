@@ -6,6 +6,7 @@ import styles from '../styles/css/Index.module.css'
 import { Link } from "react-router-dom";
 import useError from "@hooks/useError";
 import { ThemeContext } from "../../../ThemeContext";
+import { API_URL } from "@api/api";
 
 const FormContainer = styled.form`
         display: flex;
@@ -53,7 +54,7 @@ function Form({ setShowVerification, setEmail }) {
             setErrors((prev) => ({ ...prev, passwordMismatch: false }));
         }
         setDisabled(true);
-        await axios.post('http://localhost:5000/user/registration', 
+        await axios.post(API_URL + '/registration', 
             {
                 email: formData.email,
                 password: formData.password

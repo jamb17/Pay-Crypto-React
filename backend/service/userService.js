@@ -2,6 +2,7 @@ import User from "../models/User.js";
 import bcrypt from 'bcrypt';
 import tokenService from "./tokenService.js";
 import mailService from "./mailService.js";
+import Merchant from "../models/merchant.js";
 
 class userService {
 
@@ -57,12 +58,21 @@ class userService {
     }
 
     async getUserData(accessToken, email) {
-        const validToken = tokenService.validateAccessToken(accessToken);
-        if (!accessToken || !validToken || !email) {
-            throw new Error('Unauthorized Error');
-        };
-        const user = await User.findOne({email: email});
-        return user;
+        try {
+            const validToken = tokenService.validateAccessToken(accessToken);
+            if (!accessToken || !validToken || !email) {
+                throw new Error('Unauthorized Error');
+            };
+            const user = await User.findOne({email: email});
+            const merchant = await Merchant.findOne({user: user._id}); 
+            const data = {nickname: user.nickname};
+            if (merchant) {
+                data.merchant = merchant;
+            }
+            return data;
+        } catch (error) {
+            throw error;
+        }
     }
 
     async refresh(refreshToken) {
@@ -80,6 +90,25 @@ class userService {
         await tokenService.saveToken(user._id, tokens.refreshToken);
         return {user, ...tokens};
     }  
+
+    async createMerchantAccount(email, name, file, accessToken) {
+        const validToken = tokenService.validateAccessToken(accessToken);
+        if (!accessToken || !validToken || !email) {
+            throw new Error('Unauthorized Error');
+        };
+        const accExists = await Merchant.findOne({name: name});
+        if (accExists) { throw new Error('Account with this name already exists') };
+        const user = await User.findOne({email: email});
+        let avatarBuffer = null;
+        let avatarContentType = null;
+        if (file) {
+            avatarBuffer = file.buffer;
+            avatarContentType = file.mimetype;
+        };
+        console.log(user._id)
+        const account = Merchant.create({name: name, avatar: avatarBuffer, avatarContentType: avatarContentType, user: user._id});
+        return account;
+    }
  
 };
 

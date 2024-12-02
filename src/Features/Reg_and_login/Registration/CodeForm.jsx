@@ -4,6 +4,7 @@ import styles from '@components/styles/css/Input.module.css'
 import useStore from "../../../store";
 import useError from "@hooks/useError";
 import { ThemeContext } from "../../../ThemeContext";
+import { API_URL } from "@api/api";
 
 function VerificationForm(email) {
     const {theme} = useContext(ThemeContext);
@@ -52,7 +53,7 @@ function VerificationForm(email) {
         fd.append('code', code)
         const data = new URLSearchParams(fd);
         setDisabled(true);
-        await axios.post('http://localhost:5000/user/completeRegistration', data, {
+        await axios.post(API_URL + '/completeRegistration', data, {
             withCredentials: true,
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',

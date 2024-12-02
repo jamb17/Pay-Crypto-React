@@ -6,9 +6,12 @@ import Input from '@components/Input.module.jsx';
 import iconClose from '@assets/icon-close.svg'; 
 import iconCloseDark from '@assets/icon-close-dark.svg'; 
 import imagePlaceholder from '@assets/image-placeholder.png'
-import uploadIconDark from '@assets/upload-icon-light.svg'
-import uploadIcon from '@assets/upload-icon.svg'
-import deleteIcon from '@assets/icon-delete.svg'
+import uploadIconDark from '@assets/upload-icon-light.svg';
+import uploadIcon from '@assets/upload-icon.svg';
+import deleteIcon from '@assets/icon-delete.svg';
+import $api from '@api/api';
+import useError from '@hooks/useError.js'
+import useStore from '../../../store';
 
 export default function PopUp({ setOpenPopUp }) {
     const { theme } = useContext(ThemeContext);
@@ -17,6 +20,8 @@ export default function PopUp({ setOpenPopUp }) {
         name: '',
         file: ''
     })
+
+    const email = useStore(state => state.email);
 
     const fileInput = useRef(null);
     const handleClick = (e) => {
@@ -36,10 +41,31 @@ export default function PopUp({ setOpenPopUp }) {
         fileInput.current.value = null
     }
 
+    const setError = useError()
+
     const contentRef = useRef(null);
     useGsapSlideUp(contentRef, {}, { duration: .6 })
 
-    
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const form = new FormData();
+        form.append('name', formData.name);
+        form.append('email', email);
+        if (formData.file) {
+            form.append('file', formData.file);
+        };
+
+        $api.post('/createMerchantAccount', form, { 
+            headers: {'Content-Type': 'multipart/form-data'}
+        }).then(res => {
+            console.log(res);
+        }).catch(e => {
+            console.log(e);
+            if (e.response) {
+                setError(e.response.data);
+            } else setError(e.message)
+        })
+    };
 
     return (
         <div className={theme ? styles.containerDark : styles.container}>
@@ -49,7 +75,7 @@ export default function PopUp({ setOpenPopUp }) {
                     className={styles.closeIcon}
                     src={theme ? iconCloseDark : iconClose} />
                 <h2>Create merchant</h2>
-                <form>
+                <form onSubmit={handleSubmit}>
                     <Input
                         id="name"
                         value={formData.name}
@@ -82,7 +108,7 @@ export default function PopUp({ setOpenPopUp }) {
                             </div>
                         </div>
                     </div>
-                    <button className={theme ? "btn-primary dark" : "btn-primary"}>Create</button>
+                    <button type='submit' className={theme ? "btn-primary dark" : "btn-primary"}>Create</button>
                 </form>
             </div>
         </div>)

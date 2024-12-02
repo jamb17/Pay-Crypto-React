@@ -40,6 +40,7 @@ class userController {
             const user =  await userService.getUserData(accessToken, email);
             return res.json(user)
         } catch (error) {
+            console.log(error)
             if (error.message === 'Unauthorized Error') {
                 res.status(401).json(error.message)
             } else res.status(500).json(error.message)
@@ -59,9 +60,18 @@ class userController {
         }
     }
 
-    createMerchantAccount(req, res) {
-        
-    }
+    async createMerchantAccount(req, res) {
+        try {
+            const {email, name} = req.body;
+            const file = req.file;
+            const accessToken = req.headers.authorization;
+            const newAccount = await userService.createMerchantAccount(email, name, file, accessToken);
+            res.json(newAccount);
+        } catch (e) {
+            console.log(e);
+            res.status(500).json(e.message);
+        }
+    } 
 
 };
 

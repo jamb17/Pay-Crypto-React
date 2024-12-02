@@ -7,11 +7,12 @@ import imagePlaceholder from '@assets/image-placeholder.png'
 import logoDark from '@assets/logoDark.svg'
 import logoGreen from '@assets/logo-green.svg'
 import { Link } from "react-router-dom";
+import { useShallow } from "zustand/react/shallow";
 
 function Header() {
     const { theme } = useContext(ThemeContext);
 
-    const nickname = useStore(state => state.nickname);
+    const nickname = useStore(useShallow(state => state.nickname));
 
     return (
         <>
