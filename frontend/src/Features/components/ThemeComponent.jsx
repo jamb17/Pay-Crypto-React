@@ -24,7 +24,7 @@ export default function ThemeComponent() {
 
   return (<>
     <div 
-      className={`rounded-full absolute z-50 w-10 h-10 cursor-pointer transition-all bottom-4 right-4 sm:bottom-12 right-12`} 
+      className={`rounded-full absolute z-50 w-10 h-10 cursor-pointer transition-all bottom-4 right-4 sm:bottom-12 sm:right-12`} 
       style={{backgroundImage: `url(${theme ? lightThemeIcon : darkThemeIcon})`}}
       onClick={handleClick}
       ></div>
