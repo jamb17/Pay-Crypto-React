@@ -11,18 +11,23 @@ const app = express();
 
 app.use(express.json());
 app.use(cors({
-    origin: 'http://localhost:5173', 
+    origin: 'http://localhost:5173',
     credentials: true
 }));
 app.use(cookieParser());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({
+    extended: true
+}));
 app.use('/user', UserRouter);
 
 const handler = ServerlessHttp(app)
 
 export default async (req, res) => {
     if (mongoose.connection.readyState !== 1) {
-        await mongoose.connect(process.env.DB_URL)
+        await mongoose.connect(process.env.DB_URL, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        })
     }
     return handler(req, res)
 }
