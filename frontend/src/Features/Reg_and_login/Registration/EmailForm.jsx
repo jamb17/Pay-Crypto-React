@@ -6,7 +6,6 @@ import styles from '../styles/css/Index.module.css'
 import { Link } from "react-router-dom";
 import useError from "@hooks/useError";
 import { ThemeContext } from "../../../ThemeContext";
-import { API_URL } from "@api/api";
 
 const FormContainer = styled.form`
         display: flex;
@@ -18,6 +17,8 @@ const FormContainer = styled.form`
 function Form({ setShowVerification, setEmail }) {
 
     const {theme} = useContext(ThemeContext);
+
+    const API_URL = import.meta.env.VITE_API_URL
 
     const [formData, setFormData] = useState({
         email: '',

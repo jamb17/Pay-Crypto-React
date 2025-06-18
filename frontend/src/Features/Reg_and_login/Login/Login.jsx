@@ -11,7 +11,6 @@ import axios from "axios";
 import useStore from "../../../store.jsx";
 import useError from "@hooks/useError.js";
 import { ThemeContext } from "../../../ThemeContext.jsx";
-import { API_URL } from "@api/api.js";
 
 export default function Login() {
 
@@ -20,6 +19,8 @@ export default function Login() {
     const containerRef = useRef(null);
     const logoRef = useRef(null);
     const termsAndPrivacyRef = useRef(null);
+
+    const API_URL = import.meta.env.VITE_API_URL
 
     useGsapSlideDown(logoRef);
     useGsapSlideUp(containerRef);

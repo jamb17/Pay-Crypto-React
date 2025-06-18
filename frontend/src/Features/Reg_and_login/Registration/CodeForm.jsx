@@ -4,10 +4,11 @@ import styles from '@components/styles/css/Input.module.css'
 import useStore from "../../../store";
 import useError from "@hooks/useError";
 import { ThemeContext } from "../../../ThemeContext";
-import { API_URL } from "@api/api";
 
 function VerificationForm(email) {
     const {theme} = useContext(ThemeContext);
+
+    const API_URL = import.meta.env.VITE_API_URL
     
     const [values, setValues] = useState(['', '', '', '', '', '']);
     const [disabled, setDisabled] = useState(false);
