@@ -11,7 +11,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cors({
-    origin: 'https://paycrypto-zeta.vercel.app/',
+    origin: 'https://paycrypto-zeta.vercel.app',
     credentials: true
 }));
 app.use(cookieParser());
