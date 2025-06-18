@@ -1,9 +1,8 @@
 {
-  "routes": [
+  "rewrites": [
     {
-      "src": "/api/(.*)",
-      "methods": ["GET","POST","PUT","PATCH","DELETE","OPTIONS"],
-      "dest": "/api/server.js"
+      "source": "/api/(.*)",
+      "destination": "/api/server.js"
     }
   ],
   "headers": [
