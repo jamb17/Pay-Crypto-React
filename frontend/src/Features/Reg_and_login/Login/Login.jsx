@@ -20,7 +20,7 @@ export default function Login() {
     const logoRef = useRef(null);
     const termsAndPrivacyRef = useRef(null);
 
-    const API_URL = import.meta.env.VITE_API_URL
+    const API_URL = import.meta.env.VITE_API_URL + '/user'
 
     useGsapSlideDown(logoRef);
     useGsapSlideUp(containerRef);

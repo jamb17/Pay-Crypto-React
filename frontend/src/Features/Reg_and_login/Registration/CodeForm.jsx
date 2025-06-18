@@ -8,7 +8,7 @@ import { ThemeContext } from "../../../ThemeContext";
 function VerificationForm(email) {
     const {theme} = useContext(ThemeContext);
 
-    const API_URL = import.meta.env.VITE_API_URL
+    const API_URL = import.meta.env.VITE_API_URL + '/user'
     
     const [values, setValues] = useState(['', '', '', '', '', '']);
     const [disabled, setDisabled] = useState(false);
