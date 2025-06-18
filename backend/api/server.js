@@ -9,11 +9,16 @@ import ServerlessHttp from 'serverless-http';
 dotenv.config();
 const app = express();
 
-app.use(express.json());
-app.use(cors({
+const corsOptions = {
     origin: 'https://paycrypto-zeta.vercel.app',
-    credentials: true
-}));
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}
+
+app.use(express.json());
+app.use(cors(corsOptions));
+app.options('*', corsOptions);
 app.use(cookieParser());
 app.use(express.urlencoded({
     extended: true
