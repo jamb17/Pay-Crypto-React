@@ -4,7 +4,6 @@ import mongoose from "mongoose";
 import UserRouter from "../routes/userRoute.js";
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import ServerlessHttp from 'serverless-http';
 
 dotenv.config();
 const app = express();
@@ -25,14 +24,14 @@ app.use(express.urlencoded({
 }));
 app.use('/user', UserRouter);
 
-const handler = ServerlessHttp(app)
-
 export default async (req, res) => {
     if (mongoose.connection.readyState !== 1) {
-        await mongoose.connect(process.env.DB_URL, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        })
+        try {
+            await mongoose.connect(process.env.DB_URL)
+        } catch (error) {
+            console.error('MongoDB connection error: ', error);
+            return res.status(500).json('DB connection failed');
+        }
     }
-    return handler(req, res)
+    return app(req, res)
 }
