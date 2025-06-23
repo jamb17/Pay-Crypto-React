@@ -8,7 +8,7 @@ import cookieParser from 'cookie-parser';
 dotenv.config();
 const app = express();
 
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 3000;
 
 const corsOptions = {
     origin: 'https://paycrypto-zeta.vercel.app',
@@ -26,15 +26,17 @@ app.use(express.urlencoded({
 }));
 app.use('/user', UserRouter);
 
-export default async (req, res) => {
-    if (mongoose.connection.readyState !== 1) {
-        try {
-            await mongoose.connect(process.env.DB_URL)
-            app.listen(PORT, () => console.log(`Server ready on port ${PORT}`))
-        } catch (error) {
-            console.error('Server error: ', error);
+async function startApp () {
+    try {
+        if (mongoose.connection.readyState !== 1) {
+            await mongoose.connect(process.env.DB_URL);
         }
+        app.listen(PORT, () => console.log(`Server ready on port ${PORT}`));
+    } catch (error) {
+        console.error('Server error: ', error);
     }
 }
 
-module.exports = app;
+startApp()
+
+export default app
