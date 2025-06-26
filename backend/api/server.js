@@ -26,6 +26,10 @@ app.use(express.urlencoded({
 }));
 app.use('/user', UserRouter);
 
+app.get('/', (req, res) => {
+    res.send("Works");
+})
+
 async function startApp () {
     try {
         if (mongoose.connection.readyState !== 1) {
