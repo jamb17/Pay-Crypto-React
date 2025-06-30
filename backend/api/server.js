@@ -31,7 +31,7 @@ app.get('/', (req, res) => {
 })
 
 if (mongoose.connection.readyState !== 1) {
-    await mongoose.connect(process.env.DB_URL)
+    mongoose.connect(process.env.DB_URL)
         .then(() => console.log('Mongo connected'))
         .catch(err => console.error('Mongo connection error:', err))
 }
