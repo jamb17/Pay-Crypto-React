@@ -30,17 +30,25 @@ app.get('/', (req, res) => {
     res.send("Works");
 })
 
-async function startApp () {
-    try {
-        if (mongoose.connection.readyState !== 1) {
-            await mongoose.connect(process.env.DB_URL);
-        }
-        app.listen(PORT, () => console.log(`Server ready on port ${PORT}`));
-    } catch (error) {
-        console.error('Server error: ', error);
-    }
+if (mongoose.connection.readyState !== 1) {
+    await mongoose.connect(process.env.DB_URL)
+        .then(() => console.log('Mongo connected'))
+        .catch(err => console.error('Mongo connection error:', err))
 }
 
-startApp()
+// async function startApp() {
+//     try {
+//         if (mongoose.connection.readyState !== 1) {
+//             await mongoose.connect(process.env.DB_URL)
+//                 .then(() => console.log('Mongo connected'))
+//                 .catch(err => console.error('Mongo connection error:', err))
+//         }
+//         app.listen(PORT, () => console.log(`Server ready on port ${PORT}`));
+//     } catch (error) {
+//         console.error('Server error: ', error);
+//     }
+// }
 
-export default app
+// startApp()
+
+export default app;
