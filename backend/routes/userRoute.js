@@ -1,8 +1,8 @@
-import Router from 'express';
+import { Router } from 'express';
 import userController from '../controller/userController.js';
 import upload from '../middlewares/upload.js';
 
-const UserRouter = new Router();
+const UserRouter = Router();
 
 UserRouter.post('/registration', userController.registration);
 UserRouter.post('/completeRegistration', userController.completeRegistration);
