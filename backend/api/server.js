@@ -8,8 +8,6 @@ import cookieParser from 'cookie-parser';
 dotenv.config();
 const app = express();
 
-const PORT = process.env.PORT;
-
 const corsOptions = {
     origin: 'https://paycrypto-zeta.vercel.app',
     credentials: true,
@@ -30,25 +28,17 @@ app.get('/', (req, res) => {
     res.send("Works");
 })
 
-if (mongoose.connection.readyState !== 1) {
-    mongoose.connect(process.env.DB_URL)
-        .then(() => console.log('Mongo connected'))
-        .catch(err => console.error('Mongo connection error:', err))
+export default async function handler(req, res) {
+  if (mongoose.connection.readyState !== 1) {
+    console.log('🗄️  Connecting to MongoDB…');
+    try {
+      await mongoose.connect(process.env.DB_URL);
+      console.log('✅ MongoDB connected');
+    } catch (err) {
+      console.error('❌ MongoDB connection error:', err);
+      return res.status(500).send('DB connection failed');
+    }
+  }
+
+  return app(req, res);
 }
-
-// async function startApp() {
-//     try {
-//         if (mongoose.connection.readyState !== 1) {
-//             await mongoose.connect(process.env.DB_URL)
-//                 .then(() => console.log('Mongo connected'))
-//                 .catch(err => console.error('Mongo connection error:', err))
-//         }
-//         app.listen(PORT, () => console.log(`Server ready on port ${PORT}`));
-//     } catch (error) {
-//         console.error('Server error: ', error);
-//     }
-// }
-
-// startApp()
-
-export default app;
