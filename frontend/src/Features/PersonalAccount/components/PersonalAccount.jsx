@@ -28,7 +28,6 @@ function PersonalAccount() {
                         email: email
                     }
                 }).then(res => {
-                    console.log(res.data)
                     if (res.data.merchant) {
                         const byteArray = new Uint8Array(res.data.merchant.avatar.data);
                         const blob = new Blob([byteArray], {type: res.data.merchant.avatar.avatarContentType});

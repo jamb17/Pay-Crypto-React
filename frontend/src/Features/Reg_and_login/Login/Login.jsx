@@ -16,6 +16,8 @@ export default function Login() {
 
     const {theme} = useContext(ThemeContext);
 
+    const navigate = useNavigate()
+
     const containerRef = useRef(null);
     const logoRef = useRef(null);
     const termsAndPrivacyRef = useRef(null);
@@ -54,7 +56,6 @@ export default function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setDisabled(true);
-        const navigate = useNavigate()
         await axios.post(API_URL + '/login', 
             {
                 email: formData.email,
