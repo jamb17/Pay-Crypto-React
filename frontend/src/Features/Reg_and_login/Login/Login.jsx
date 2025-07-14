@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import Heading from '../Componets/Heading.jsx'
 import styles from '../styles/css/Index.module.css'
 import { useContext, useRef, useState } from "react";
@@ -54,6 +54,7 @@ export default function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setDisabled(true);
+        const navigate = useNavigate()
         await axios.post(API_URL + '/login', 
             {
                 email: formData.email,
@@ -65,7 +66,8 @@ export default function Login() {
                 if (res.status === 200) {
                     login(formData.email);
                     window.localStorage.setItem('accessToken', res.data);
-                    window.location.reload();
+                    // window.location.reload();
+                    navigate('/')
                 }
             }).catch((error) => {
                 if (error.response) {
