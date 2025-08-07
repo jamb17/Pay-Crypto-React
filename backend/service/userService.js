@@ -98,18 +98,20 @@ class userService {
         };
         const accExists = await Merchant.findOne({name: name});
         if (accExists) { throw new Error('Account with this name already exists') };
-        const user = await User.findOne({email: email});
-        let avatarBuffer = null;
-        let avatarContentType = null;
-        if (file) {
-            avatarBuffer = file.buffer;
-            avatarContentType = file.mimetype;
-        };
-        console.log(user._id)
-        const account = Merchant.create({name: name, avatar: avatarBuffer, avatarContentType: avatarContentType, user: user._id});
-        return account;
+        try {
+            const user = await User.findOne({email: email});
+            let avatarBuffer = null;
+            let avatarContentType = null;
+            if (file) {
+                avatarBuffer = file.buffer;
+                avatarContentType = file.mimetype;
+            };
+            const account = await Merchant.create({name: name, avatar: avatarBuffer, avatarContentType: avatarContentType, user: user._id});
+            return account;
+        } catch (e) {
+            throw e
+        }
     }
- 
 };
 
 export default new userService();

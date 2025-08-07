@@ -1,3 +1,4 @@
+import upload from "../middlewares/upload.js";
 import userService from "../service/userService.js";
 
 class userController {
@@ -60,18 +61,29 @@ class userController {
         }
     }
 
-    async createMerchantAccount(req, res) {
-        try {
-            const {email, name} = req.body;
-            const file = req.file;
-            const accessToken = req.headers.authorization;
-            const newAccount = await userService.createMerchantAccount(email, name, file, accessToken);
-            res.json(newAccount);
-        } catch (e) {
-            console.log(e);
-            res.status(500).json(e.message);
-        }
-    } 
+    createMerchantAccount(req, res) {
+        upload.single('file')(req, res, async err => {
+            if (err) {
+                return res.status(400).json(err.message)
+            }
+            
+            try {
+                const { email, name } = req.body;
+                const file = req.file;
+                const accessToken = req.headers.authorization;
+                const newAccount = await userService.createMerchantAccount(
+                email,
+                name,
+                file,
+                accessToken
+                );
+                return res.json(newAccount);
+            } catch (e) {
+                console.error(e);
+                return res.status(500).json(e.message);
+            }
+        });
+    }
 
 };
 

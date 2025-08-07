@@ -9,6 +9,6 @@ UserRouter.post('/completeRegistration', userController.completeRegistration);
 UserRouter.post('/login', userController.login);
 UserRouter.get('/getUserData', userController.getUserData);
 UserRouter.post('/refresh', userController.refresh);
-UserRouter.post('/createMerchantAccount', upload.single('file'), userController.createMerchantAccount);
+UserRouter.post('/createMerchantAccount', userController.createMerchantAccount);
 
 export default UserRouter;  
