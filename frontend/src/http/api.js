@@ -16,7 +16,7 @@ $api.interceptors.response.use((config) => {
     return config;
 }, async (err) => {
     const originalRequest = err.config;
-    if (err.response.status === 401 && originalRequest && originalRequest._isRetry !== true) {
+    if (err.response !== undefined && err.response.status === 401 && originalRequest && originalRequest._isRetry !== true) {
         originalRequest.isRetry = true;
         try {
             const response = await axios.post(API_URL + '/refresh', null, {

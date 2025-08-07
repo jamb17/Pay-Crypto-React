@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import useStore from "../../../store";
-import styles from "../styles/css/header.module.css"
+import styles from "../styles/header.module.sass"
 import { ThemeContext } from "../../../ThemeContext";
 import Navigation from "./Navigation";
 import imagePlaceholder from '@assets/image-placeholder.png'
@@ -36,6 +36,7 @@ function Header() {
                     </div>
                 </div>
             </header>
+            <Navigation mobile></Navigation>
         </>
     );
 };

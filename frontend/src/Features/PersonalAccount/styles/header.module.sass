@@ -4,7 +4,7 @@ header
     flex-direction: column
     justify-content: center
     align-items: center
-    padding: 0 48px
+    padding: 0 32px
     position: fixed
     background: var(--second-bg-color-light)
     z-index: 2
@@ -62,7 +62,7 @@ header
                 border-radius: 500px
                 width: 44px
 
-header.dark 
+header.dark
     background: var(--second-bg-color-dark)
     .container
         nav a 
@@ -72,3 +72,51 @@ header.dark
             opacity: 1
         .nickname
             color: var(--text-color-dark)
+
+.navMobile
+    display: none
+
+@media screen and (max-width: 720px)
+    header
+        padding: 16px
+        .container
+            height: auto
+            nav
+                display: none
+
+    .navMobile
+        display: flex
+        width: 100%
+        bottom: 0
+        justify-content: space-between
+        align-items: center
+        position: fixed
+        background: var(--bg-color)
+        border-top: 1px solid #DEDFE3
+        box-shadow: 0px -4px 24px -4px rgba(0, 0, 0, 0.08)
+        z-index: 4
+        padding: 12px 16px
+        gap: 8px
+        a
+            text-decoration: none
+            font-style: normal
+            font-weight: 500
+            font-size: 16px
+            line-height: 150%
+            color: var(--text-color-light)
+            display: flex
+            align-items: center
+            padding: 6px 16px 6px 12px
+            gap: 6px
+            opacity: 0.64
+            border-radius: 38px
+            transition: all 0.1s ease-in
+        a:hover, a.active
+            background: var(--hover-bg-color-light)
+            opacity: 1
+
+@media screen and (max-width: 720px)
+    header
+        .info
+            .nickname
+                display: none

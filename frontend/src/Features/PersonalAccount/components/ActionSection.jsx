@@ -1,5 +1,5 @@
 import { useContext, useRef } from 'react';
-import styles from '../styles/css/actionSection.module.css';
+import styles from '../styles/actionSection.module.sass';
 import { ThemeContext } from '../../../ThemeContext';
 import useGsapSlideUp from '@hooks/useGsapSlideUp';
 import merchantIcon from '@assets/merchant-icon.svg'
@@ -8,10 +8,8 @@ import bgVector from '@assets/bg-vector.svg'
 import bgVectorLight from '@assets/bg-vector-light.svg'
 import openedMerchantIcon from '@assets/openedMerchantIcon.svg'
 
-export default function ActionSection({ type, setOpenPopUp }) {
-    const { theme } = useContext(ThemeContext);
-
-    const containerRef = useRef(null);
+export default function ActionSection({ type, setOpenPopUp, merchant }) {
+    const { theme } = useContext(ThemeContext);    const containerRef = useRef(null);
     useGsapSlideUp(containerRef, { scale: 1 }, { duration: .6 });
 
     const defaultSection = <div ref={containerRef} style={theme ? { borderTop: 'none' } : {}} className={type === 'merchant' ? styles.container : styles.containerDonate}>
@@ -39,10 +37,9 @@ export default function ActionSection({ type, setOpenPopUp }) {
         </div>
         <ul className={styles.accountsList}>
             <li className={styles.account}>
-                <img src="" className={styles.avatar} />
+                <img src={merchant?.file} className={styles.avatar} />
                 <div className={styles.info}>
-                    <p>name</p>
-                    <p>name</p>
+                    <p>{merchant?.name}</p>
                 </div>
             </li>
         </ul>

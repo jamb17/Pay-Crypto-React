@@ -1,5 +1,5 @@
 import { useContext, useRef, useState } from 'react';
-import styles from '../styles/css/popUp.module.css';
+import styles from '../styles/popUp.module.sass';
 import { ThemeContext } from '../../../ThemeContext';
 import useGsapSlideUp from '@hooks/useGsapSlideUp';
 import Input from '@components/Input.module.jsx';
@@ -30,9 +30,7 @@ export default function PopUp({ setOpenPopUp }) {
     };
 
     const handleChange = (e) => {
-        if (formData.file === '') {
-            setFormData(prev => ({ ...prev, file: e.target.files[0] }));        
-        }
+        setFormData(prev => ({ ...prev, file: e.target.files[0] }));        
     }
 
     const handleRemoveFile = (e) => {
@@ -96,11 +94,11 @@ export default function PopUp({ setOpenPopUp }) {
                             src={formData.file !== '' ? URL.createObjectURL(formData.file) : imagePlaceholder} 
                         />
                         <div className={styles.uploadContent}>
-                            <p className={styles.uploadLabel}>The recommended size for an avatar is 500x500 pixels. Formats - .JPG, .PNG or .GIF. The maximum file size is 2 MB.</p>
+                            <p className={styles.uploadLabel}>The recommended size for an avatar is 500x500 pixels. Formats - .JPG, .PNG or .GIF. The maximum file size is 3 MB.</p>
                             <div className={styles.buttonsContainer}>
                                 <button className={styles.uploadBtn} onClick={handleClick}>
                                     <img src={theme ? uploadIconDark : uploadIcon} />
-                                    <p>Upload avatar</p>
+                                    {formData.file === '' ? <p>Upload avatar</p> : <p className={styles.avatarUploaded}>Change avatar</p>}
                                 </button>
                                 <button onClick={handleRemoveFile} className={formData.file === '' ? styles.deleteBtn : styles.deleteBtnActive}>
                                     <img src={deleteIcon} />

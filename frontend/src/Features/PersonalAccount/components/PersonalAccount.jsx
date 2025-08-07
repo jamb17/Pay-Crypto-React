@@ -18,7 +18,10 @@ function PersonalAccount() {
 
     const [openPopUp, setOpenPopUp] = useState(false);
 
-    const [file, setFile] = useState();
+    const [merchant, setMerchant] = useState({
+        name: '',
+        file: ''
+    });
 
     useEffect(() => {
         try {
@@ -28,12 +31,21 @@ function PersonalAccount() {
                         email: email
                     }
                 }).then(res => {
-                    if (res.data.merchant) {
+                    console.log(res)
+                    if (res.data.merchant && res.data.merchant.avatar) {
                         const byteArray = new Uint8Array(res.data.merchant.avatar.data);
                         const blob = new Blob([byteArray], {type: res.data.merchant.avatar.avatarContentType});
                         const url = URL.createObjectURL(blob);
-                        setFile(url)
-                    }
+                        setMerchant({
+                            name: res.data.merchant.name,
+                            file: url
+                        })
+                    } else if (res.data.merchant) {
+                        setMerchant({
+                            name: res.data.merchant.name,
+                            file: ''
+                        })
+                    }    
                     setNickname(res.data.nickname)
                 }).catch(e => {
                     if (e.response && e.response.status === 401) {
@@ -52,17 +64,19 @@ function PersonalAccount() {
         <Header />
         {/* <h1 style={{color: theme && '#E0E0E0'}}>Personal Account Mainpage {'{'}Coming up soon^^{'}'}</h1><br></br>
         <Link onClick={useStore(state => state.logout)} className={`max-w-40 btn-primary ${theme && 'dark'}`}>Log Out</Link> */}
-        <div className="flex gap-6">
+        <div className="flex flex-col gap-6 items-start md:flex-row">
             <ActionSection
                 setOpenPopUp={setOpenPopUp}
-                type="merchant"
+                type={merchant.name !== '' ? "opened merchant" : "merchant"}
+                merchant={merchant}
             />
             <ActionSection
                 setOpenPopUp={setOpenPopUp}
                 type="donate"
             />
         </div>
-        <img className="w-10 h-10" src={file ? file : ''} alt="" />
+        {/* {merchant.name && <p>{merchant.name}</p>} */}
+        {/* <img  src={merchant.file ? merchant.file : ''} alt="" /> */}
     </>
     );
 }
