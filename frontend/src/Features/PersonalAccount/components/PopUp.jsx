@@ -56,7 +56,7 @@ export default function PopUp({ setOpenPopUp }) {
         $api.post('/createMerchantAccount', form, { 
             headers: {'Content-Type': 'multipart/form-data'}
         }).then(res => {
-            console.log(res);
+            console.log("Success");
         }).catch(e => {
             console.log(e);
             if (e.response) {
