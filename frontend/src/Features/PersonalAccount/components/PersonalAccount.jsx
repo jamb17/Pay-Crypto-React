@@ -23,7 +23,10 @@ function PersonalAccount() {
         file: ''
     });
 
+    const [loading, setLoading] = useState('pending')
+
     useEffect(() => {
+        setLoading('pending')
         try {
             $api.get('/getUserData',
                 {
@@ -31,7 +34,6 @@ function PersonalAccount() {
                         email: email
                     }
                 }).then(res => {
-                    console.log(res)
                     if (res.data.merchant && res.data.merchant.avatar) {
                         const byteArray = new Uint8Array(res.data.merchant.avatar.data);
                         const blob = new Blob([byteArray], {type: res.data.merchant.avatar.avatarContentType});
@@ -47,15 +49,18 @@ function PersonalAccount() {
                         })
                     }    
                     setNickname(res.data.nickname)
+                    setLoading('loaded')
                 }).catch(e => {
                     if (e.response && e.response.status === 401) {
                         logout();
                     }
                     error("Network error")
                     console.log(e)
+                    setLoading('failed')
                 })
         } catch (e) {
             error(e)
+            setLoading('failed')
         }
     }, [])
 
@@ -64,7 +69,7 @@ function PersonalAccount() {
         <Header />
         {/* <h1 style={{color: theme && '#E0E0E0'}}>Personal Account Mainpage {'{'}Coming up soon^^{'}'}</h1><br></br>
         <Link onClick={useStore(state => state.logout)} className={`max-w-40 btn-primary ${theme && 'dark'}`}>Log Out</Link> */}
-        <div className="flex flex-col gap-6 items-start md:flex-row">
+        {loading === "loaded" ? (<div className="flex flex-col gap-6 items-start md:flex-row">
             <ActionSection
                 setOpenPopUp={setOpenPopUp}
                 type={merchant.name !== '' ? "opened merchant" : "merchant"}
@@ -74,7 +79,7 @@ function PersonalAccount() {
                 setOpenPopUp={setOpenPopUp}
                 type="donate"
             />
-        </div>
+        </div>) : (<p>{loading === "failed" ? "Error occured while getting user data" : "Loading"}</p>)}
         {/* {merchant.name && <p>{merchant.name}</p>} */}
         {/* <img  src={merchant.file ? merchant.file : ''} alt="" /> */}
     </>
