@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from "react-router-dom";
 import App from "./routes/Route.jsx";
-import './styles/css/index.css';
+import './styles/index.sass';
 import gsap from "gsap";
 import { ErrorProvider } from "./ErrorContext.jsx";
 import ErrorComponent from "./Features/components/ErrorComponent.jsx";
