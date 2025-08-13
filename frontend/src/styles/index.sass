@@ -17,7 +17,6 @@ body
     background: url('https://raw.githubusercontent.com/jamb17/pay-crypto/e1909d0e6e36c9fd340cbea3dd6e74f853269fb3/Pick%20the%20network%20to%20make%20the%20payment%20with_.svg'), var(--bg-color)
     background-repeat: no-repeat
     background-size: cover
-    min-height: 100vh
 
 #root
     width: 100%
@@ -25,7 +24,9 @@ body
     flex-direction: column
     justify-content: center
     align-items: center
-    height: 100vh
+    min-height: 100dvh
+    min-height: 100svh
+    overflow: auto
 
 .btn-primary
     display: flex
@@ -72,3 +73,11 @@ input::-webkit-inner-spin-button
 input[type=number]
     -moz-appearance: textfield
     caret-color: transparent
+
+@media (max-width: 768px)
+  #root
+    -webkit-overflow-scrolling: touch
+    scrollbar-width: none
+    -ms-overflow-style: none
+    &::-webkit-scrollbar
+        display: none

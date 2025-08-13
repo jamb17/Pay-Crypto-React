@@ -83,7 +83,8 @@
             .plusIcon
                 background-image: url('@assets/icon-plus.svg')
 
-.containerOpened
+.containerOpened,
+.containerDonateOpened
     @extend .container
     flex-direction: column
     background: var(--second-bg-color-light)
@@ -106,8 +107,20 @@
             .avatar
                 width: 40px
                 height: 40px
-                background: green
+                background: radial-gradient(#3C9B51, #53B669)
                 border-radius: 52px
+                display: flex
+                justify-content: center
+                align-items: center
+                text-transform: uppercase
+                color: var(--text-color-dark)
+                font-weight: 500
+                font-style: Medium
+                font-size: 24px
+                leading-trim: NONE
+                line-height: 24px
+                letter-spacing: 0%
+                text-align: center
             .info
                 display: flex
                 flex-direction: column
@@ -132,3 +145,27 @@
             width: 100%
             background: #E3F3E7
             color: var(--accent-color-light)
+            .plusIcon
+                background-image: url('@assets/icon-plus-accent-color.svg')
+
+.containerDonateOpened
+    .content
+        background: radial-gradient(#EFBD5F, #FFCE72)
+        .text
+            color: var(--text-color-light)
+    .accountsList
+        .account
+            .avatar
+                background: radial-gradient(#EFBD5F, #FFCE72)
+                color: var(--text-color-light)
+            .info
+                p:nth-child(1)
+                    color: var(--text-color-light)
+                p:nth-child(2)
+                    color: var(--secondary-text-color-light)
+    .btnContainer
+        .createBtn
+            color: #E0A537
+            background: #FEF6E7
+            .plusIcon
+                background: url('@assets/icon-plus-secondary-accent-color.svg')
