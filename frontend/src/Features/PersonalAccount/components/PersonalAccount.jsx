@@ -10,18 +10,17 @@ import { useShallow } from "zustand/react/shallow";
 function PersonalAccount() {
     const error = useError();
 
-    const {email, setNickname, logout} = useStore(useShallow(state => ({
+    const { email, setNickname, logout } = useStore(useShallow(state => ({
         email: state.email,
         setNickname: state.setNickname,
         logout: state.logout
     })));
 
     const [openPopUp, setOpenPopUp] = useState(false);
+    const [popUpType, setPopUpType] = useState('');
 
-    const [merchant, setMerchant] = useState({
-        name: '',
-        file: ''
-    });
+    const [merchant, setMerchant] = useState([]);
+    const [donate, setDonate] = useState([])
 
     const [loading, setLoading] = useState('pending')
 
@@ -34,20 +33,41 @@ function PersonalAccount() {
                         email: email
                     }
                 }).then(res => {
-                    if (res.data.merchant && res.data.merchant.avatar) {
-                        const byteArray = new Uint8Array(res.data.merchant.avatar.data);
-                        const blob = new Blob([byteArray], {type: res.data.merchant.avatar.avatarContentType});
-                        const url = URL.createObjectURL(blob);
-                        setMerchant({
-                            name: res.data.merchant.name,
-                            file: url
-                        })
-                    } else if (res.data.merchant) {
-                        setMerchant({
-                            name: res.data.merchant.name,
-                            file: ''
-                        })
-                    }    
+                    const merchantItems = (res.data.merchant || []).map(e => {
+                        let file = ''
+                        if (e.avatar !== '') {
+                            const byteArray = new Uint8Array(e.avatar.data);
+                            const blob = new Blob([byteArray], { type: e.avatar.avatarContentType });
+                            file = URL.createObjectURL(blob);
+                        }
+
+                        return {
+                            id: e.id,
+                            name: e.name,
+                            file: file
+                        }
+                    })
+
+                    const donateItems = (res.data.donate || []).map(e => {
+                        let file = ''
+                        if (e.avatar !== '') {
+                            const byteArray = new Uint8Array(e.avatar.data);
+                            const blob = new Blob([byteArray], { type: e.avatar.avatarContentType });
+                            file = URL.createObjectURL(blob);
+                        }
+
+                        return {
+                            id: e.id,
+                            name: e.name,
+                            file: file
+                        }
+                    })
+
+                    const uniqueMerchant = Array.from(new Map(merchantItems.map(e => [e.id, e])).values());
+                    const uniqueDonate = Array.from(new Map(donateItems.map(e => [e.id, e])).values());
+
+                    setMerchant(uniqueMerchant)
+                    setDonate(uniqueDonate)
                     setNickname(res.data.nickname)
                     setLoading('loaded')
                 }).catch(e => {
@@ -65,23 +85,22 @@ function PersonalAccount() {
     }, [])
 
     return (<>
-        {openPopUp && <PopUp setOpenPopUp={setOpenPopUp} />}
+        {openPopUp && <PopUp setOpenPopUp={setOpenPopUp} popUpType={popUpType} setMerchant={setMerchant} setDonate={setDonate} />}
         <Header />
-        {/* <h1 style={{color: theme && '#E0E0E0'}}>Personal Account Mainpage {'{'}Coming up soon^^{'}'}</h1><br></br>
-        <Link onClick={useStore(state => state.logout)} className={`max-w-40 btn-primary ${theme && 'dark'}`}>Log Out</Link> */}
-        {loading === "loaded" ? (<div className="flex flex-col gap-6 items-start md:flex-row">
+        {loading === "loaded" ? (<div className="flex flex-1 min-h-fit flex-col gap-3 items-center w-full justify-start pt-[96px] pb-[76px] md:p-0 md:flex-row md:justify-center md:gap-6">
             <ActionSection
                 setOpenPopUp={setOpenPopUp}
-                type={merchant.name !== '' ? "opened merchant" : "merchant"}
+                setPopUpType={setPopUpType}
+                type={merchant.length !== 0 ? "opened merchant" : "merchant"}
                 merchant={merchant}
             />
             <ActionSection
                 setOpenPopUp={setOpenPopUp}
-                type="donate"
+                setPopUpType={setPopUpType}
+                type={donate.length !== 0 ? "opened donate" : "donate"}
+                donate={donate}
             />
         </div>) : (<p>{loading === "failed" ? "Error occured while getting user data" : "Loading"}</p>)}
-        {/* {merchant.name && <p>{merchant.name}</p>} */}
-        {/* <img  src={merchant.file ? merchant.file : ''} alt="" /> */}
     </>
     );
 }
