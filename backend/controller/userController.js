@@ -62,7 +62,7 @@ class userController {
     }
 
     createMerchantAccount(req, res) {
-        upload.single('file')(req, res, async err => {
+        upload.single('file')(req, res, async (err) => {
             if (err) {
                 return res.status(400).json(err.message)
             }
@@ -71,19 +71,38 @@ class userController {
                 const { email, name } = req.body;
                 const file = req.file;
                 const accessToken = req.headers.authorization;
-                const newAccount = await userService.createMerchantAccount(
-                email,
-                name,
-                file,
-                accessToken
+                await userService.createMerchantAccount(
+                    email,
+                    name,
+                    file,
+                    accessToken
                 );
-                return res.json(newAccount);
+                return res.sendStatus(201);
             } catch (e) {
                 console.error(e);
                 return res.status(500).json(e.message);
             }
         });
     }
+
+    createDonateAccount(req, res) {
+        upload.single('file')(req, res, async (err) => {
+            if (err) {
+                return res.status(400).json(err.message)
+            };
+
+            try {
+                const { email, name } = req.body;
+                const file = req.file;
+                const accessToken = req.headers.authorization;
+                await userService.createDonateAccount(email, name, file, accessToken);
+                return res.sendStatus(201)
+            } catch (e) {
+                console.error(e);
+                return res.status(500).json(e.message);
+            };
+        });
+    };
 
 };
 
