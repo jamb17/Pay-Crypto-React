@@ -13,7 +13,7 @@ import $api from '@api/api';
 import useError from '@hooks/useError.js'
 import useStore from '../../../store';
 
-export default function PopUp({ setOpenPopUp }) {
+export default function PopUp({ setOpenPopUp, popUpType, setMerchant, setDonate}) {
     const { theme } = useContext(ThemeContext);
 
     const [formData, setFormData] = useState({
@@ -30,14 +30,15 @@ export default function PopUp({ setOpenPopUp }) {
     };
 
     const handleChange = (e) => {
-        setFormData(prev => ({ ...prev, file: e.target.files[0] }));        
-    }
-
+        setFormData(prev => ({ ...prev, file: e.target.files[0] }));  
+    } 
     const handleRemoveFile = (e) => {
         e.preventDefault();
         setFormData(prev => ({...prev, file: ''})); 
         fileInput.current.value = null
     }
+
+    const apiEndpoint = popUpType === 'merchant' ? '/createMerchantAccount' : '/createDonateAccount'
 
     const setError = useError()
 
@@ -53,14 +54,21 @@ export default function PopUp({ setOpenPopUp }) {
             form.append('file', formData.file);
         };
 
-        $api.post('/createMerchantAccount', form, { 
+        $api.post(apiEndpoint, form, { 
             headers: {'Content-Type': 'multipart/form-data'}
         }).then(res => {
-            console.log("Success");
+            if (res.status === 201) {
+                console.log("OK");
+                if (formData.file !== '') {
+                    formData.file = URL.createObjectURL(formData.file)
+                }
+                popUpType === 'merchant' ? setMerchant(prev => [...prev, {name: formData.name, file: formData.file }]) : setDonate(prev => [...prev, {name: formData.name, file: formData.file }])
+                setOpenPopUp(false)
+            }
         }).catch(e => {
             console.log(e);
             if (e.response) {
-                setError(e.response.data);
+                setError(e.response.data);  
             } else setError(e.message)
         })
     };
@@ -72,13 +80,13 @@ export default function PopUp({ setOpenPopUp }) {
                     onClick={() => setOpenPopUp(false)}
                     className={styles.closeIcon}
                     src={theme ? iconCloseDark : iconClose} />
-                <h2>Create merchant</h2>
+                <h2>Create {popUpType}</h2>
                 <form onSubmit={handleSubmit}>
                     <Input
                         id="name"
                         value={formData.name}
                         placeholder='Enter name'
-                        label='Name merchant'
+                        label={`Name ${popUpType}`}
                         onChange={e => setFormData(prev => ({ ...prev, name: e.target.value }))}
                         type='text'
                     />
