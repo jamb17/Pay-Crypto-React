@@ -1,3 +1,4 @@
+import upload from "../middlewares/upload.js";
 import userService from "../service/userService.js";
 
 class userController {
@@ -40,6 +41,7 @@ class userController {
             const user =  await userService.getUserData(accessToken, email);
             return res.json(user)
         } catch (error) {
+            console.log(error)
             if (error.message === 'Unauthorized Error') {
                 res.status(401).json(error.message)
             } else res.status(500).json(error.message)
@@ -58,6 +60,49 @@ class userController {
             } else res.status(500).json(error.message)
         }
     }
+
+    createMerchantAccount(req, res) {
+        upload.single('file')(req, res, async (err) => {
+            if (err) {
+                return res.status(400).json(err.message)
+            }
+            
+            try {
+                const { email, name } = req.body;
+                const file = req.file;
+                const accessToken = req.headers.authorization;
+                await userService.createMerchantAccount(
+                    email,
+                    name,
+                    file,
+                    accessToken
+                );
+                return res.sendStatus(201);
+            } catch (e) {
+                console.error(e);
+                return res.status(500).json(e.message);
+            }
+        });
+    }
+
+    createDonateAccount(req, res) {
+        upload.single('file')(req, res, async (err) => {
+            if (err) {
+                return res.status(400).json(err.message)
+            };
+
+            try {
+                const { email, name } = req.body;
+                const file = req.file;
+                const accessToken = req.headers.authorization;
+                await userService.createDonateAccount(email, name, file, accessToken);
+                return res.sendStatus(201)
+            } catch (e) {
+                console.error(e);
+                return res.status(500).json(e.message);
+            };
+        });
+    };
 
 };
 

@@ -1,0 +1,171 @@
+@use '../../../styles/_components'
+
+.container
+    width: 100%
+    max-width: 456px
+    border-top: 1px solid components.$white
+    border-radius: 16px
+    padding: 24px
+    background: radial-gradient(#3C9B51, #53B669)
+    display: flex
+    justify-content: space-between
+    align-items: center
+    position: relative
+    overflow: hidden
+    .content, .text
+        display: flex
+        flex-direction: column
+        align-items: flex-start
+        gap: 16px
+        color: components.$white
+        z-index: 2
+        .text
+            gap: 2px
+            h2
+                font-size: 20px
+                font-weight: 500
+                line-height: 28px
+                letter-spacing: -0.02em
+                text-align: left
+                text-underline-position: from-font
+                text-decoration-skip-ink: none
+            p
+                font-weight: 400
+                font-size: 16px
+                line-height: 24px
+    .illustration
+        max-width: 112px
+    .bgVector
+        width: 291px
+        height: 353px
+        position: absolute
+        right: -74px
+        bottom: -139px
+        z-index: 1
+
+.createBtn
+    font-weight: 500
+    font-size: 16px
+    line-height: 24px
+    padding: 10px 24px
+    border: 2px solid components.$white
+    border-radius: 8px
+    display: flex
+    justify-content: center
+    align-items: center
+    gap: 8px
+    transition: all .15s ease-in-out
+    .plusIcon
+        width: 16px
+        height: 16px
+        background-image: url('@assets/icon-plus.svg')
+        transition: background-image .15s ease-in-out
+.createBtn:hover
+    background: components.$white
+    color: var(--text-color-light)
+    border: 2px solid transparent
+    .plusIcon
+        background-image: url('@assets/icon-plus-dark.svg')
+
+.containerDonate
+    @extend .container
+    background: radial-gradient(#EFBD5F, #FFCE72)
+    .content, .text
+        color: var(--text-color-light)
+        .createBtn
+            border: 2px solid var(--text-color-light)
+            .plusIcon
+                background-image: url('@assets/icon-plus-dark.svg')
+        .createBtn:hover
+            background: var(--second-bg-color-dark)
+            color: components.$white
+            border: 2px solid transparent
+            .plusIcon
+                background-image: url('@assets/icon-plus.svg')
+
+.containerOpened,
+.containerDonateOpened
+    @extend .container
+    flex-direction: column
+    background: var(--second-bg-color-light)
+    padding: 0
+    .content
+        flex-direction: row
+        align-items: center
+        justify-content: space-between
+        background: radial-gradient(#3C9B51, #53B669)
+        padding: 24px
+        width: 100%
+    .accountsList
+        width: 100%
+        padding: 12px 0
+        .account
+            padding: 12px 24px
+            display: flex
+            gap: 12px
+            align-items: center
+            .avatar
+                width: 40px
+                height: 40px
+                background: radial-gradient(#3C9B51, #53B669)
+                border-radius: 52px
+                display: flex
+                justify-content: center
+                align-items: center
+                text-transform: uppercase
+                color: var(--text-color-dark)
+                font-weight: 500
+                font-style: Medium
+                font-size: 24px
+                leading-trim: NONE
+                line-height: 24px
+                letter-spacing: 0%
+                text-align: center
+            .info
+                display: flex
+                flex-direction: column
+                align-items: flex-start
+                p:nth-child(1)
+                    font-size: 16px
+                    font-weight: 500
+                    line-height: 24px
+                    color: var(--text-color-light)
+                p:nth-child(2)
+                    font-size: 14px
+                    font-weight: 400
+                    line-height: 20px
+                    text-align: left
+                    color: var(--secondary-text-color-light)
+        .account:hover
+            background: var(--hover-bg-color-light)
+    .btnContainer
+        width: 100%
+        padding: 8px
+        .createBtn
+            width: 100%
+            background: #E3F3E7
+            color: var(--accent-color-light)
+            .plusIcon
+                background-image: url('@assets/icon-plus-accent-color.svg')
+
+.containerDonateOpened
+    .content
+        background: radial-gradient(#EFBD5F, #FFCE72)
+        .text
+            color: var(--text-color-light)
+    .accountsList
+        .account
+            .avatar
+                background: radial-gradient(#EFBD5F, #FFCE72)
+                color: var(--text-color-light)
+            .info
+                p:nth-child(1)
+                    color: var(--text-color-light)
+                p:nth-child(2)
+                    color: var(--secondary-text-color-light)
+    .btnContainer
+        .createBtn
+            color: #E0A537
+            background: #FEF6E7
+            .plusIcon
+                background: url('@assets/icon-plus-secondary-accent-color.svg')

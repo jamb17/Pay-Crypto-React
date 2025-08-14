@@ -23,14 +23,14 @@ class mailService {
     sendVerificationCode(email){
         const verificationCode = this.generateVerificationCode();
         try {
-            // this.transporter.sendMail({
-            //     from: 'dimanesterov.lul@gmail.com',
-            //     to: email,
-            //     subject: 'Pay Crypto verification code',
-            //     text: `Your code: ${verificationCode}. Expires in 5 mins :)`
-            // },(err, info) => {
-            //     throw new Error(err);
-            // });
+            this.transporter.sendMail({
+                from: 'dimanesterov.lul@gmail.com',
+                to: email,
+                subject: 'Pay Crypto verification code',
+                text: `Your code: ${verificationCode}. Expires in 5 mins :)`
+            },(err, info) => {
+                throw new Error(err);
+            });
             return verificationCode;
         } catch(e) {
             console.log(e);

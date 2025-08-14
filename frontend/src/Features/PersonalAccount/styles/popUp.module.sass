@@ -1,0 +1,121 @@
+@use '../../../styles/_components'
+
+@keyframes fadeIn 
+    from 
+        background: transparent
+    to
+        background: #1C1A2466
+
+.container
+    width: 100vw
+    height: 100vh
+    background: #1C1A2466   
+    position: fixed
+    z-index: 40
+    display: flex
+    justify-content: center
+    align-items: center
+    animation: .3s fadeIn 
+    padding: 0 16px
+    .content
+        width: 100%
+        max-width: 456px
+        gap: 0px
+        border-radius: 16px
+        background: components.$white
+        box-shadow: 0px 2px 8px -4px #2824323D
+        padding: 24px
+        position: relative
+        display: flex
+        flex-direction: column
+        align-items: flex-start
+        gap: 24px
+        .closeIcon
+            position: absolute
+            top: 16px
+            right: 16px
+            cursor: pointer
+        h2
+            color: var(--text-color-light)
+            font-weight: 500
+            font-size: 24px
+            line-height: 32px
+            letter-spacing: -0.02em
+        form
+            width: 100%
+            display: flex
+            flex-direction: column
+            align-items: flex-start
+            gap: 16px
+
+.realFileInput
+    display: none
+
+.uploadContainer
+    display: flex
+    gap: 16px
+    width: 100%
+    .imagePreview
+        max-width: 112px
+        height: 100%
+        border-radius: 8px
+    .uploadContent
+        display: flex
+        flex-direction: column
+        gap: 12px
+        align-items: flex-start 
+        .uploadLabel
+            font-size: 14px
+            font-weight: 400
+            line-height: 20px
+            color: var(--secondary-text-color-light)
+        .buttonsContainer
+            display: flex
+            justify-content: center
+            align-content: inherit
+            gap: 8px
+            .uploadBtn
+                display: flex
+                gap: 6px
+                justify-content: center
+                align-items: center
+                border: 1px solid var(--accent-color-light)
+                border-radius: 8px
+                padding: 8px 16px
+                color: var(--text-color-light)
+                font-size: 14px
+                font-weight: 500
+                line-height: 20px
+                letter-spacing: -0.02em
+            .deleteBtn
+                width: 40px
+                height: 40px
+                border-radius: 8px
+                background: var(--error-bg-color)
+                display: flex
+                justify-content: center
+                align-items: center
+                opacity: 0  
+                transition: opacity .2s ease-in-out
+                display: none
+            .deleteBtnActive
+                @extend .deleteBtn
+                opacity: 1
+                display: flex
+
+.containerDark
+    @extend .container
+    .content
+        background: var(--second-bg-color-dark)
+        h2
+            color: var(--text-color-dark)
+        .uploadContent  
+            .uploadLabel
+                color: var(--secondary-text-color-dark)
+            .uploadBtn
+                color: var(--text-color-dark)
+                border: 1px solid var(--accent-color-dark)
+
+@media screen and (max-width: 420px)
+    .uploadContainer
+        flex-direction: column
