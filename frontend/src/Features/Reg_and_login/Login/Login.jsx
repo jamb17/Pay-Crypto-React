@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom"
 import Heading from '../Componets/Heading.jsx'
-import styles from '../styles/css/Index.module.css'
+import styles from '../styles/Index.module.sass'
 import { useContext, useRef, useState } from "react";
 import TermsPrivacyLink from "../Componets/TermsPriacyLink.jsx";
 import Input from "@components/Input.module.jsx";

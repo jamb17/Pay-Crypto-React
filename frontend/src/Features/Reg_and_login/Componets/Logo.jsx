@@ -1,5 +1,5 @@
 import { forwardRef, useContext } from 'react'
-import styles from '../styles/css/Index.module.css'
+import styles from '../styles/Index.module.sass'
 import { Link } from 'react-router-dom'
 import { ThemeContext } from '../../../ThemeContext'
 import logoLight from "../../../assets/logoLight.svg"

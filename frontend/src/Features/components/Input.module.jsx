@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import styles from './styles/css/Input.module.css';
+import styles from './styles/Input.module.sass';
 import { ThemeContext } from "../../ThemeContext";
 import errorIcon from '@assets/error-icon.svg';
 

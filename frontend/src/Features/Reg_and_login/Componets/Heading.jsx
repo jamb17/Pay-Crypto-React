@@ -1,4 +1,4 @@
-import styles from '../styles/css/Index.module.css';
+import styles from '../styles/Index.module.sass';
 
 
 function Heading({variation}) {
