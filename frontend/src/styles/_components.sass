@@ -7,19 +7,37 @@ $green: #53B669
 $drkgreen: #3e884e
 
 :root
-    --bg-color: #F7F7F8
-    --second-bg-color-light: #fff
+    --error-color: #CE3B3B
+
+    --bg-color-light: #F7F7F8
+    --secondary-bg-color-light: #fff
     --hover-bg-color-light: #F2F2F3
     --text-color-light: #1C1A24  
     --secondary-text-color-light: #494850
     --accent-color-light: #53B669
-    --accent-color-hover: #3e884e
-    --error-color: #CE3B3B
-    --error-bg-color: #CE3B3B29
+    --accent-color-hover-light: #3e884e
 
     --bg-color-dark: #2C2C2E
-    --second-bg-color-dark: #1E1E1E
+    --secondary-bg-color-dark: #1E1E1E
     --text-color-dark: #E0E0E0 
     --secondary-text-color-dark: #A0A0A0
     --accent-color-dark: #00E676
-    --accent-color-dark-hover: #00C767
+    --accent-color-hover-dark: #00C767
+
+[data-theme="light"]
+    --bg-color: var(--bg-color-light)
+    --secondary-bg-color: var(--secondary-bg-color-light)
+    --hover-bg-color: var(--hover-bg-color-light)
+    --text-color: var(--text-color-light)
+    --secondary-text-color: var(--secondary-text-color-light)
+    --accent-color: var(--accent-color-light)
+    --accent-color-hover: var(--accent-color-hover-light)
+
+[data-theme="dark"]
+    --bg-color: var(--bg-color-dark)
+    --secondary-bg-color: var(--secondary-bg-color-dark)
+    --hover-bg-color: var(--hover-bg-color-dark)
+    --text-color: var(--text-color-dark)
+    --secondary-text-color: var(--secondary-text-color-dark)
+    --accent-color: var(--accent-color-dark)
+    --accent-color-hover: var(--accent-color-hover-dark)
