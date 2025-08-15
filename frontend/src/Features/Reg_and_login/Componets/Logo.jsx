@@ -2,8 +2,8 @@ import { forwardRef, useContext } from 'react'
 import styles from '../styles/Index.module.sass'
 import { Link } from 'react-router-dom'
 import { ThemeContext } from '../../../ThemeContext'
-import logoLight from "../../../assets/logoLight.svg"
-import logoDark from '../../../assets/logoDark.svg'
+import logoLight from "@assets/logoLight.svg"
+import logoDark from '@assets/logoDark.svg'
 
 const Logo = forwardRef(function Logo (props, ref) {
 
