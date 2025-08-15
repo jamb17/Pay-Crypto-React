@@ -1,6 +1,6 @@
 import { useContext, useRef, useState } from 'react'
 import Form from './EmailForm.jsx'
-import styles from "../styles/css/Index.module.css"
+import styles from "../styles/Index.module.sass"
 import VerificationForm from './CodeForm.jsx';
 import TermsPrivacyLink from '../Componets/TermsPriacyLink.jsx'
 import Heading from '../Componets/Heading.jsx'
@@ -26,10 +26,9 @@ function Registration() {
   return (
     <>
       <Logo ref={logoRef} />
-      <div ref={containerRef} className={theme ? styles.containerDark : styles.container}>
+      <div ref={containerRef} className={styles.container}>
         <Heading variation={!showVerification ? 'emailForm' : 'codeForm'} />
         {!showVerification ? <Form setEmail={setEmail} setShowVerification={setShowVerification}></Form> : <VerificationForm email={email}/>}
-        {/* <VerificationForm email={'dimanesterov.lul@gmail.com'}/>   */}
       </div>
       <TermsPrivacyLink ref={termsAndPrivacyRef} />
     </>

@@ -13,9 +13,6 @@ import useError from "@hooks/useError.js";
 import { ThemeContext } from "../../../ThemeContext.jsx";
 
 export default function Login() {
-
-    const {theme} = useContext(ThemeContext);
-
     const navigate = useNavigate()
 
     const containerRef = useRef(null);
@@ -86,7 +83,7 @@ export default function Login() {
 
     return <>
         <Logo ref={logoRef} />
-        <div ref={containerRef} className={theme ? styles.containerDark : styles.container}>
+        <div ref={containerRef} className={styles.container}>
             <Heading variation="loginForm" />
             <form className={styles.formContainer} onSubmit={handleSubmit}>
                 <Input 
@@ -108,9 +105,9 @@ export default function Login() {
                     error={errors.wrongPassword && 'Wrong password'}
                     value={formData.password}
                     onChange={handleChange} />
-                <button type="submit" className={theme ? "btn-primary dark" : "btn-primary"} disabled={disabled}>Continue</button>
+                <button type="submit" className="btn-primary" disabled={disabled}>Continue</button>
             </form>
-            <Link className={theme ? styles.linkDark : styles.link} to="/registration">I don't have an account</Link>
+            <Link className={styles.link} to="/registration">I don't have an account</Link>
         </div>
         <TermsPrivacyLink ref={termsAndPrivacyRef} />
     </>

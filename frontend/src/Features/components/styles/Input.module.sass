@@ -12,9 +12,9 @@ input
     font-size: 16px
     line-height: 24px
     transition: box-shadow 0.15s ease-in-out
-    color: var(--text-color-light)
+    color: var(--text-color) !important
     &:focus
-            outline: 1px solid var(--accent-color-light)
+            outline: 1px solid var(--accent-color)
             box-shadow: 0px 0px 0px 3px rgba(83, 182, 105, 0.16)
 
 label
@@ -22,15 +22,8 @@ label
     font-weight: 500
     font-size: 16px
     line-height: 24px
-    color: var(--text-color-light)
+    color: var(--text-color)
     margin-bottom: 4px
-
-.codeInputDark
-    background: var(--bg-color-dark)
-    color: var(--text-color-dark)
-    &:focus
-        outline: 1px solid var(--accent-color-dark)
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4)
 
 .container
     position: relative
@@ -38,17 +31,6 @@ label
     flex-direction: column
     width: 100%
     gap: 4px
-
-.containerDark
-    @extend .container
-    label
-        color: var(--text-color-dark)
-    input
-        background: var(--bg-color-dark)
-        color: var(--text-color-dark)
-        &:focus
-            outline: 1px solid var(--accent-color-dark)
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4)
 
 .failed
     border: 1px solid var(--error-color)

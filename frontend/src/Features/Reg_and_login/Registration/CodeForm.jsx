@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react"
 import axios from "axios";
-import styles from '@components/styles/css/Input.module.css'
+import styles from '@components/styles/Input.module.sass'
 import useStore from "../../../store";
 import useError from "@hooks/useError";
 import { ThemeContext } from "../../../ThemeContext";
