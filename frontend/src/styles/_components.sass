@@ -1,4 +1,4 @@
-$black: #1C1A24   
+$black: #1C1A24
 $white: #fff
 $gray: #494850
 $red: #CE3B3B
@@ -8,36 +8,39 @@ $drkgreen: #3e884e
 
 :root
     --error-color: #CE3B3B
+    --accent-color: #53B669
+    --accent-color-hover: #3e884e
 
     --bg-color-light: #F7F7F8
-    --secondary-bg-color-light: #fff
+    --input-bg-color-light: #F7F7F8
+    --surface-light: #fff
+    --surface-shadow-light: 0px 2px 8px -4px rgba(40, 36, 50, 0.24)
     --hover-bg-color-light: #F2F2F3
-    --text-color-light: #1C1A24  
-    --secondary-text-color-light: #494850
-    --accent-color-light: #53B669
-    --accent-color-hover-light: #3e884e
+    --text-color-light: #1C1A24
+    --text-muted-light: #494850
 
-    --bg-color-dark: #2C2C2E
-    --secondary-bg-color-dark: #1E1E1E
-    --text-color-dark: #E0E0E0 
-    --secondary-text-color-dark: #A0A0A0
-    --accent-color-dark: #00E676
-    --accent-color-hover-dark: #00C767
+    --bg-color-dark: #121212
+    --input-bg-color-dark: #202021
+    --surface-dark: #1A1A1B
+    --surface-shadow-dark: 0 2px 4px rgba(0,0,0,.35), 0 12px 28px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.07), inset 0 1px 0 rgba(255,255,255,.03)
+    --hover-bg-color-dark: #2A2A2B
+    --text-color-dark: #F5F5F6
+    --text-muted-dark: #A1A1AA
 
 [data-theme="light"]
     --bg-color: var(--bg-color-light)
-    --secondary-bg-color: var(--secondary-bg-color-light)
+    --input-bg-color: var(--input-bg-color-light)
+    --surface-color: var(--surface-light)
+    --surface-shadow: var(--surface-shadow-light)
     --hover-bg-color: var(--hover-bg-color-light)
     --text-color: var(--text-color-light)
-    --secondary-text-color: var(--secondary-text-color-light)
-    --accent-color: var(--accent-color-light)
-    --accent-color-hover: var(--accent-color-hover-light)
+    --text-muted: var(--text-muted-light)
 
 [data-theme="dark"]
     --bg-color: var(--bg-color-dark)
-    --secondary-bg-color: var(--secondary-bg-color-dark)
+    --input-bg-color: var(--input-bg-color-dark)
+    --surface-color: var(--surface-dark)
+    --surface-shadow: var(--surface-shadow-dark)
     --hover-bg-color: var(--hover-bg-color-dark)
     --text-color: var(--text-color-dark)
-    --secondary-text-color: var(--secondary-text-color-dark)
-    --accent-color: var(--accent-color-dark)
-    --accent-color-hover: var(--accent-color-hover-dark)
+    --text-muted: var(--text-muted-dark)
