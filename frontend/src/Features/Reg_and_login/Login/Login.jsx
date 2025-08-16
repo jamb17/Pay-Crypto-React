@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom"
 import Heading from '../Componets/Heading.jsx'
 import styles from '../styles/Index.module.sass'
-import { useContext, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import TermsPrivacyLink from "../Componets/TermsPriacyLink.jsx";
 import Input from "@components/Input.module.jsx";
 import Logo from '../Componets/Logo.jsx'
@@ -10,7 +10,6 @@ import useGsapSlideUp from '@hooks/useGsapSlideUp.js'
 import axios from "axios";
 import useStore from "../../../store.jsx";
 import useError from "@hooks/useError.js";
-import { ThemeContext } from "../../../ThemeContext.jsx";
 
 export default function Login() {
     const navigate = useNavigate()
@@ -64,7 +63,6 @@ export default function Login() {
                 if (res.status === 200) {
                     login(formData.email);
                     window.localStorage.setItem('accessToken', res.data);
-                    // window.location.reload();
                     navigate('/')
                 }
             }).catch((error) => {
@@ -78,7 +76,6 @@ export default function Login() {
             }).finally(() => {
                 setDisabled(false);
             })
-        // login(formData.email);
         }
 
     return <>
