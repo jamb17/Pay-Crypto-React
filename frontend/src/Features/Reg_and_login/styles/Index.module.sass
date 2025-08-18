@@ -57,19 +57,24 @@ body
 [data-theme="light"]
     .top .logo
         background-image: url('@assets/logoLight.svg')
-        
-.termsAndPrivacy
-    text-align: center
-    font-weight: 400
-    font-size: 14px
-    line-height: 20px
-    color: var(--text-muted)
-    max-width: 496px
+
+footer
+    display: flex
+    flex-direction: column
+    align-items: center
     margin: 40px 0
-    span
-        font-weight: 500
-        color: var(--accent-color)
-        cursor: pointer
+    gap: 16px
+    .termsAndPrivacy
+        text-align: center
+        font-weight: 400
+        font-size: 14px
+        line-height: 20px
+        color: var(--text-muted)
+        max-width: 496px
+        span
+            font-weight: 500
+            color: var(--accent-color)
+            cursor: pointer
 
 .link
     color: var(--accent-color)
@@ -86,5 +91,5 @@ body
     .top
         margin: 24px 0
 
-    .termsAndPrivacy
+    footer
         margin: 16px 0
