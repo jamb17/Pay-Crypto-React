@@ -45,7 +45,19 @@ body
     align-items: center
     width: 100%
     margin: 40px 0
+    .logo
+        width: 174px
+        height: 24px
+        background-position: center
+        background-repeat: no-repeat
 
+[data-theme="dark"]
+    .top .logo
+        background-image: url('@assets/logoDark.svg')
+[data-theme="light"]
+    .top .logo
+        background-image: url('@assets/logoLight.svg')
+        
 .termsAndPrivacy
     text-align: center
     font-weight: 400

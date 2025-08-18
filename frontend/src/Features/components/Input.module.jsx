@@ -4,11 +4,9 @@ import { ThemeContext } from "../../ThemeContext";
 import errorIcon from '@assets/error-icon.svg';
 
 function Input({id, showIcon, label, type, value, onChange, error, togglePasswordVisibility, placeholder}) {
-    const {theme} = useContext(ThemeContext);
-
     return (
         <>
-            <div className={theme ? styles.containerDark : styles.container}>
+            <div className={styles.container}>
                 <label htmlFor={id}>{label}</label>
                 <input
                     className={`py-2 px-3 ${error && styles.failed}`}
