@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import Form from './EmailForm.jsx'
 import styles from "../styles/Index.module.sass"
 import VerificationForm from './CodeForm.jsx';
@@ -7,10 +7,8 @@ import Heading from '../Componets/Heading.jsx'
 import Logo from '../Componets/Logo.jsx'
 import useGsapSlideDown from '@hooks/useGsapSlideDown.js';
 import useGsapSlideUp from '@hooks/useGsapSlideUp.js';
-import { ThemeContext } from '../../../ThemeContext.jsx';
 
 function Registration() { 
-  const {theme} = useContext(ThemeContext);
 
   const [showVerification, setShowVerification] = useState(false);
   const [email, setEmail] = useState('');

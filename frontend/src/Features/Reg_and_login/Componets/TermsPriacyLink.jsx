@@ -1,6 +1,5 @@
-import { forwardRef, useContext } from 'react';
+import { forwardRef } from 'react';
 import styles from '../styles/Index.module.sass'
-import { ThemeContext } from '../../../ThemeContext';
 
 const TermsPrivacyLink = forwardRef( function TermsPrivacyLink (props, ref) {    
         return (
