@@ -1,10 +1,10 @@
 import { Link, useNavigate } from "react-router-dom"
-import Heading from '../Componets/Heading.jsx'
+import Heading from '../components/Heading.jsx'
 import styles from '../styles/Index.module.sass'
 import { useRef, useState } from "react";
-import TermsPrivacyLink from "../Componets/TermsPriacyLink.jsx";
+import TermsPrivacyLink from "../components/TermsPriacyLink.jsx";
 import Input from "@components/Input.module.jsx";
-import Logo from '../Componets/Logo.jsx'
+import Logo from '../components/Logo.jsx'
 import useGsapSlideDown from '@hooks/useGsapSlideDown.js'
 import useGsapSlideUp from '@hooks/useGsapSlideUp.js'
 import axios from "axios";

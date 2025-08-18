@@ -2,9 +2,9 @@ import { useRef, useState } from 'react'
 import Form from './EmailForm.jsx'
 import styles from "../styles/Index.module.sass"
 import VerificationForm from './CodeForm.jsx';
-import TermsPrivacyLink from '../Componets/TermsPriacyLink.jsx'
-import Heading from '../Componets/Heading.jsx'
-import Logo from '../Componets/Logo.jsx'
+import TermsPrivacyLink from '../components/TermsPriacyLink.jsx'
+import Heading from '../components/Heading.jsx'
+import Logo from '../components/Logo.jsx'
 import useGsapSlideDown from '@hooks/useGsapSlideDown.js';
 import useGsapSlideUp from '@hooks/useGsapSlideUp.js';
 
