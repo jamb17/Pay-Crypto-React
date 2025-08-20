@@ -69,6 +69,5 @@ export default function ActionSection({ type, setOpenPopUp, setPopUpType, mercha
                 </button>
             </div>
     </div>
-
     return type.includes('opened') ? openedSection : defaultSection
 };
