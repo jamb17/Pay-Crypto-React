@@ -5,7 +5,7 @@ import imagePlaceholder from '@assets/image-placeholder.png'
 import { Link } from "react-router-dom";
 import { useShallow } from "zustand/react/shallow";
 import ThemeSwitcher from '@components/ThemeSwitcher.jsx'
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import useGsapSlideDown from '@hooks/useGsapSlideDown.js'
 
 function Header() {
@@ -17,11 +17,37 @@ function Header() {
     const dropdownMenuRef = useRef(null)
     useGsapSlideDown(dropdownMenuRef, {y: -40, scale: 1}, {duration: .5}, dropDownOpened)
 
+    const dropdownRef = useRef(null)
+
     const handleClick = () => {
         setDropDownOpened(prev => !prev)
     }
 
     const logout = useStore(state => state.logout)
+
+    useEffect(() => {
+        const onPointerDown = e => {
+            if (dropdownRef.current && 
+                !dropdownRef.current.contains(e.target) && 
+                dropdownMenuRef.current && 
+                !dropdownMenuRef.current.contains(e.target)) {
+                setDropDownOpened(false)
+            }
+        }
+
+        const handleKeyDown = e => {
+            e.key === 'Escape' && setDropDownOpened(false)
+        }
+
+        document.addEventListener("mousedown", onPointerDown)
+        document.addEventListener("keydown", handleKeyDown)
+
+        return () => {
+            document.removeEventListener("mousedown", onPointerDown)
+            document.removeEventListener("keydown", handleKeyDown)
+        }
+
+    }, [])
 
     return (
         <>
@@ -38,7 +64,7 @@ function Header() {
                                 src={imagePlaceholder}
                                 className={styles.avatar}
                             />
-                            <div onClick={handleClick} style={dropDownOpened ? {transform: 'rotate(180deg)'} : {}} className={styles.dropdownBtn}></div>
+                            <div ref={dropdownRef} onClick={handleClick} style={dropDownOpened ? {transform: 'rotate(180deg)'} : {}} className={styles.dropdownBtn}></div>
                             {dropDownOpened && <>
                                 <div className={styles.dropdownMenu} ref={dropdownMenuRef}>
                                     <div className={styles.themeSwitcherContainer}>
