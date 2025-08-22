@@ -69,32 +69,71 @@ header
             justify-content: center
             align-items: center
             cursor: pointer
+            position: relative
             .avatar
                 border-radius: 500px
                 width: 44px
+            .dropdownBtn
+                width: 20px
+                height: 20px
+                background-position: center
+                background-repeat: no-repeat
+                background-size: cover
+                transition: all .05s ease-in-out
+            .dropdownMenu
+                position: absolute
+                z-index: 3
+                color: var(--text-color)
+                display: flex
+                flex-direction: column
+                gap: 12px
+                top: 50px
+                right: 0
+                background: var(--surface-color)
+                box-shadow: var(--surface-shadow)
+                border-radius: 8px
+                padding: 8px 12px
+                align-items: flex-start
+                min-width: 150px
+                font-size: 14px
+                border: 1px solid var(--bg-color)
+                .themeSwitcherContainer
+                    display: flex
+                    justify-content: space-between
+                    width: 100%
+                    align-items: center
+                .logout
+                    background: var(--error-muted)
+                    width: 100%
+                    padding: 6px
+                    border-radius: 4px
+                    color: var(--error-color)
 
 [data-theme="light"]
     header .container
-        .logo   
-            background-image: url('@assets/logo-green.svg') 
+        .logo
+            background-image: url('@assets/logo-green.svg')
     .iconHome
         background-image: url('@assets/tabler-icon-home.svg')
     .iconSettings
         background-image: url('@assets/tabler-icon-settings.svg')
     .iconBlog
         background-image: url('@assets/tabler-icon-book.svg')
-            
+    .dropdownBtn
+        background-image: url('@assets/dropdown-arrow-light-mode-active.svg')
 
 [data-theme="dark"]
     header .container
-        .logo   
-            background-image: url('@assets/logoDark.svg') 
+        .logo
+            background-image: url('@assets/logoDark.svg')
     .iconHome
         background-image: url('@assets/tabler-icon-home-light.svg')
     .iconSettings
         background-image: url('@assets/tabler-icon-settings-light.svg')
     .iconBlog
         background-image: url('@assets/tabler-icon-book-light.svg')
+    .dropdownBtn
+        background-image: url('@assets/dropdown-arrow-dark-mode-active.svg')
 
 .navMobile
     display: none
