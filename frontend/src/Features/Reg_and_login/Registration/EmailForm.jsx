@@ -2,7 +2,7 @@ import { useState } from "react";
 import Input from "@components/Input.module.jsx";
 import styled from "styled-components";
 import axios from "axios";
-import styles from '../styles/css/Index.module.css'
+import styles from '../styles/Index.module.sass'
 import { Link } from "react-router-dom";
 import useError from "@hooks/useError";
 
