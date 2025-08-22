@@ -1,20 +1,14 @@
-import { useContext, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import styles from '../styles/popUp.module.sass';
-import { ThemeContext } from '../../../ThemeContext';
 import useGsapSlideUp from '@hooks/useGsapSlideUp';
 import Input from '@components/Input.module.jsx';
-import iconClose from '@assets/icon-close.svg'; 
-import iconCloseDark from '@assets/icon-close-dark.svg'; 
 import imagePlaceholder from '@assets/image-placeholder.png'
-import uploadIconDark from '@assets/upload-icon-light.svg';
-import uploadIcon from '@assets/upload-icon.svg';
 import deleteIcon from '@assets/icon-delete.svg';
 import $api from '@api/api';
 import useError from '@hooks/useError.js'
 import useStore from '../../../store';
 
 export default function PopUp({ setOpenPopUp, popUpType, setMerchant, setDonate}) {
-    const { theme } = useContext(ThemeContext);
 
     const [formData, setFormData] = useState({
         name: '',
@@ -74,12 +68,11 @@ export default function PopUp({ setOpenPopUp, popUpType, setMerchant, setDonate}
     };
 
     return (
-        <div className={theme ? styles.containerDark : styles.container}>
+        <div className={styles.container}>
             <div ref={contentRef} className={styles.content}>
-                <img
+                <div
                     onClick={() => setOpenPopUp(false)}
-                    className={styles.closeIcon}
-                    src={theme ? iconCloseDark : iconClose} />
+                    className={styles.closeIcon} />
                 <h2>Create {popUpType}</h2>
                 <form onSubmit={handleSubmit}>
                     <Input
@@ -105,7 +98,7 @@ export default function PopUp({ setOpenPopUp, popUpType, setMerchant, setDonate}
                             <p className={styles.uploadLabel}>The recommended size for an avatar is 500x500 pixels. Formats - .JPG, .PNG or .GIF. The maximum file size is 3 MB.</p>
                             <div className={styles.buttonsContainer}>
                                 <button className={styles.uploadBtn} onClick={handleClick}>
-                                    <img src={theme ? uploadIconDark : uploadIcon} />
+                                    <div className={styles.uploadIcon} />
                                     {formData.file === '' ? <p>Upload avatar</p> : <p className={styles.avatarUploaded}>Change avatar</p>}
                                 </button>
                                 <button onClick={handleRemoveFile} className={formData.file === '' ? styles.deleteBtn : styles.deleteBtnActive}>
@@ -114,7 +107,7 @@ export default function PopUp({ setOpenPopUp, popUpType, setMerchant, setDonate}
                             </div>
                         </div>
                     </div>
-                    <button type='submit' className={theme ? "btn-primary dark" : "btn-primary"}>Create</button>
+                    <button type='submit' className={"btn-primary"}>Create</button>
                 </form>
             </div>
         </div>)
