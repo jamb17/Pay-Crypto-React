@@ -1,20 +1,14 @@
-import { useContext, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from '../styles/popUp.module.sass';
-import { ThemeContext } from '../../../ThemeContext';
 import useGsapSlideUp from '@hooks/useGsapSlideUp';
 import Input from '@components/Input.module.jsx';
-import iconClose from '@assets/icon-close.svg'; 
-import iconCloseDark from '@assets/icon-close-dark.svg'; 
 import imagePlaceholder from '@assets/image-placeholder.png'
-import uploadIconDark from '@assets/upload-icon-light.svg';
-import uploadIcon from '@assets/upload-icon.svg';
 import deleteIcon from '@assets/icon-delete.svg';
 import $api from '@api/api';
 import useError from '@hooks/useError.js'
 import useStore from '../../../store';
 
-export default function PopUp({ setOpenPopUp, popUpType, setMerchant, setDonate}) {
-    const { theme } = useContext(ThemeContext);
+export default function PopUp({ setOpenPopUp, popUpType, setMerchant, setDonate }) {
 
     const [formData, setFormData] = useState({
         name: '',
@@ -30,11 +24,11 @@ export default function PopUp({ setOpenPopUp, popUpType, setMerchant, setDonate}
     };
 
     const handleChange = (e) => {
-        setFormData(prev => ({ ...prev, file: e.target.files[0] }));  
-    } 
+        setFormData(prev => ({ ...prev, file: e.target.files[0] }));
+    }
     const handleRemoveFile = (e) => {
         e.preventDefault();
-        setFormData(prev => ({...prev, file: ''})); 
+        setFormData(prev => ({ ...prev, file: '' }));
         fileInput.current.value = null
     }
 
@@ -45,6 +39,27 @@ export default function PopUp({ setOpenPopUp, popUpType, setMerchant, setDonate}
     const contentRef = useRef(null);
     useGsapSlideUp(contentRef, {}, { duration: .6 })
 
+    useEffect(() => {
+        const onPointerDown = e => {
+            if (contentRef.current && !contentRef.current.contains(e.target)) {
+                setOpenPopUp(false)
+            }
+        }
+
+        const handleKeyDown = e => {
+            e.key === 'Escape' && setOpenPopUp(false)
+        };
+
+        document.addEventListener("mousedown", onPointerDown)
+        document.addEventListener("keydown", handleKeyDown)
+
+        return () => {
+            document.removeEventListener("mousedown", onPointerDown)
+            document.removeEventListener("keydown", handleKeyDown)
+        }
+
+    }, [])
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const form = new FormData();
@@ -54,32 +69,31 @@ export default function PopUp({ setOpenPopUp, popUpType, setMerchant, setDonate}
             form.append('file', formData.file);
         };
 
-        $api.post(apiEndpoint, form, { 
-            headers: {'Content-Type': 'multipart/form-data'}
+        $api.post(apiEndpoint, form, {
+            headers: { 'Content-Type': 'multipart/form-data' }
         }).then(res => {
             if (res.status === 201) {
                 console.log("OK");
                 if (formData.file !== '') {
                     formData.file = URL.createObjectURL(formData.file)
                 }
-                popUpType === 'merchant' ? setMerchant(prev => [...prev, {name: formData.name, file: formData.file }]) : setDonate(prev => [...prev, {name: formData.name, file: formData.file }])
+                popUpType === 'merchant' ? setMerchant(prev => [...prev, { name: formData.name, file: formData.file }]) : setDonate(prev => [...prev, { name: formData.name, file: formData.file }])
                 setOpenPopUp(false)
             }
         }).catch(e => {
             console.log(e);
             if (e.response) {
-                setError(e.response.data);  
+                setError(e.response.data);
             } else setError(e.message)
         })
     };
 
     return (
-        <div className={theme ? styles.containerDark : styles.container}>
+        <div className={styles.container}>
             <div ref={contentRef} className={styles.content}>
-                <img
+                <div
                     onClick={() => setOpenPopUp(false)}
-                    className={styles.closeIcon}
-                    src={theme ? iconCloseDark : iconClose} />
+                    className={styles.closeIcon} />
                 <h2>Create {popUpType}</h2>
                 <form onSubmit={handleSubmit}>
                     <Input
@@ -98,14 +112,14 @@ export default function PopUp({ setOpenPopUp, popUpType, setMerchant, setDonate}
                         onChange={handleChange}
                     />
                     <div className={styles.uploadContainer}>
-                        <img className={styles.imagePreview} 
-                            src={formData.file !== '' ? URL.createObjectURL(formData.file) : imagePlaceholder} 
+                        <img className={styles.imagePreview}
+                            src={formData.file !== '' ? URL.createObjectURL(formData.file) : imagePlaceholder}
                         />
                         <div className={styles.uploadContent}>
                             <p className={styles.uploadLabel}>The recommended size for an avatar is 500x500 pixels. Formats - .JPG, .PNG or .GIF. The maximum file size is 3 MB.</p>
                             <div className={styles.buttonsContainer}>
                                 <button className={styles.uploadBtn} onClick={handleClick}>
-                                    <img src={theme ? uploadIconDark : uploadIcon} />
+                                    <div className={styles.uploadIcon} />
                                     {formData.file === '' ? <p>Upload avatar</p> : <p className={styles.avatarUploaded}>Change avatar</p>}
                                 </button>
                                 <button onClick={handleRemoveFile} className={formData.file === '' ? styles.deleteBtn : styles.deleteBtnActive}>
@@ -114,7 +128,7 @@ export default function PopUp({ setOpenPopUp, popUpType, setMerchant, setDonate}
                             </div>
                         </div>
                     </div>
-                    <button type='submit' className={theme ? "btn-primary dark" : "btn-primary"}>Create</button>
+                    <button type='submit' className={"btn-primary"}>Create</button>
                 </form>
             </div>
         </div>)

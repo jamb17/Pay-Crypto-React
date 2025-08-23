@@ -1,11 +1,10 @@
-import React, { useContext, useState } from "react";
+import { useState } from "react";
 import Input from "@components/Input.module.jsx";
 import styled from "styled-components";
 import axios from "axios";
-import styles from '../styles/css/Index.module.css'
+import styles from '../styles/Index.module.sass'
 import { Link } from "react-router-dom";
 import useError from "@hooks/useError";
-import { ThemeContext } from "../../../ThemeContext";
 
 const FormContainer = styled.form`
         display: flex;
@@ -15,8 +14,6 @@ const FormContainer = styled.form`
     ;
 
 function Form({ setShowVerification, setEmail }) {
-
-    const {theme} = useContext(ThemeContext);
 
     const API_URL = import.meta.env.VITE_API_URL + '/user'
 
@@ -105,8 +102,8 @@ function Form({ setShowVerification, setEmail }) {
                 onChange={handleChange} 
                 togglePasswordVisibility={togglePasswordVisibility}
                 error={errors.passwordMismatch ? 'Password mismatch' : false}/>
-            <button type="submit" className={theme ? "btn-primary dark" : "btn-primary"} disabled={disabled}>Continue</button>
-            <Link to="/login" className={theme ? styles.linkDark : styles.link}>I have an account</Link>
+            <button type="submit" className={"btn-primary"} disabled={disabled}>Continue</button>
+            <Link to="/login" className={styles.link}>I have an account</Link>
         </form>
     </>)
 };

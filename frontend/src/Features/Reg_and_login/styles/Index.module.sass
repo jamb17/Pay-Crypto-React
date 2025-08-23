@@ -10,8 +10,8 @@ body
     align-items: center
     gap: 32px
     border-radius: 16px
-    background: var(--second-bg-color-light)
-    box-shadow: 0px 2px 8px -4px rgba(40, 36, 50, 0.24)
+    background: var(--surface-color)
+    box-shadow: var(--surface-shadow)
     width: 100%
     max-width: 496px
     height: fit-content
@@ -26,21 +26,12 @@ body
             font-size: 24px
             line-height: 32px
             letter-spacing: -0.02em
-            color: var(--text-color-light)
+            color: var(--text-color)
         p
             font-weight: 400
             font-size: 14px
             line-height: 20px
-            color: var(--secondary-text-color-light)
-
-.containerDark
-    @extend .container
-    background: var(--second-bg-color-dark)
-    .textHeading
-        h1
-            color: var(--text-color-dark)
-        p
-            color: var(--secondary-text-color-dark)
+            color: var(--text-muted)
         
 .formContainer
     display: flex
@@ -54,35 +45,42 @@ body
     align-items: center
     width: 100%
     margin: 40px 0
+    .logo
+        width: 174px
+        height: 24px
+        background-position: center
+        background-repeat: no-repeat
 
-.termsAndPrivacy
-    text-align: center
-    font-weight: 400
-    font-size: 14px
-    line-height: 20px
-    color: var(--secondary-text-color-light)
-    max-width: 496px
+[data-theme="dark"]
+    .top .logo
+        background-image: url('@assets/logoDark.svg')
+[data-theme="light"]
+    .top .logo
+        background-image: url('@assets/logoLight.svg')
+
+footer
+    display: flex
+    flex-direction: column
+    align-items: center
     margin: 40px 0
-    span
-        font-weight: 500
-        color: var(--accent-color-light)
-        cursor: pointer
-
-.termsAndPrivacyDark
-    @extend .termsAndPrivacy
-    color: var(--secondary-text-color-dark)
-    span
-        color: var(--accent-color-dark)
+    gap: 16px
+    .termsAndPrivacy
+        text-align: center
+        font-weight: 400
+        font-size: 14px
+        line-height: 20px
+        color: var(--text-muted)
+        max-width: 496px
+        span
+            font-weight: 500
+            color: var(--accent-color)
+            cursor: pointer
 
 .link
-    color: var(--accent-color-light)
+    color: var(--accent-color)
     width: 100%
     text-align: center
     cursor: pointer
-
-.linkDark
-    @extend .link
-    color: var(--accent-color-dark)
 
 @media screen and (max-width: 480px)
 
@@ -93,5 +91,5 @@ body
     .top
         margin: 24px 0
 
-    .termsAndPrivacy
+    footer
         margin: 16px 0

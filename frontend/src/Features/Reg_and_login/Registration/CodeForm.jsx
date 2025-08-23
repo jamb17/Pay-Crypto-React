@@ -1,12 +1,10 @@
-import { useContext, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import axios from "axios";
-import styles from '@components/styles/css/Input.module.css'
+import styles from '@components/styles/Input.module.sass'
 import useStore from "../../../store";
 import useError from "@hooks/useError";
-import { ThemeContext } from "../../../ThemeContext";
 
 function VerificationForm(email) {
-    const {theme} = useContext(ThemeContext);
 
     const API_URL = import.meta.env.VITE_API_URL + '/user'
     
@@ -123,7 +121,6 @@ function VerificationForm(email) {
                         className={`lg:text-2xl md:text-xl text-lg 
                                     lg:py-5 lg:px-3 md:py-4 md:px-3 py-3 px-1 
                                     w-full text-center 
-                                    ${theme && styles.codeInputDark}
                                     ${checkErrors && styles.failed}`}
                         disabled={disabled}
                     />
@@ -138,7 +135,7 @@ function VerificationForm(email) {
                     </p>
                 </div>)
             }
-            <button type="submit" className={theme ? "btn-primary dark" : "btn-primary"} disabled={disabled}>Continue</button>
+            <button type="submit" className={"btn-primary"} disabled={disabled}>Continue</button>
         </form>
     </>
 }

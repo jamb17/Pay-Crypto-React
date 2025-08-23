@@ -3,10 +3,10 @@
 .container
     width: 100%
     max-width: 456px
-    border-top: 1px solid components.$white
+    border-top: 1px solid var(--surface-color)
     border-radius: 16px
     padding: 24px
-    background: radial-gradient(#3C9B51, #53B669)
+    background: var(--accent-gradient)
     display: flex
     justify-content: space-between
     align-items: center
@@ -69,7 +69,7 @@
 
 .containerDonate
     @extend .container
-    background: radial-gradient(#EFBD5F, #FFCE72)
+    background: var(--accent-alt-gradient)
     .content, .text
         color: var(--text-color-light)
         .createBtn
@@ -87,7 +87,8 @@
 .containerDonateOpened
     @extend .container
     flex-direction: column
-    background: var(--second-bg-color-light)
+    background: var(--surface-color)
+    box-shadow: var(--surface-shadow)
     padding: 0
     .content
         flex-direction: row
@@ -129,22 +130,23 @@
                     font-size: 16px
                     font-weight: 500
                     line-height: 24px
-                    color: var(--text-color-light)
+                    color: var(--text-color)
                 p:nth-child(2)
                     font-size: 14px
                     font-weight: 400
                     line-height: 20px
                     text-align: left
-                    color: var(--secondary-text-color-light)
+                    color: var(--text-muted)
         .account:hover
-            background: var(--hover-bg-color-light)
+            background: var(--hover-bg-color)
     .btnContainer
         width: 100%
         padding: 8px
         .createBtn
             width: 100%
-            background: #E3F3E7
-            color: var(--accent-color-light)
+            background: var(--accent-muted)
+            color: var(--accent-color)
+            border: none
             .plusIcon
                 background-image: url('@assets/icon-plus-accent-color.svg')
 
@@ -158,14 +160,9 @@
             .avatar
                 background: radial-gradient(#EFBD5F, #FFCE72)
                 color: var(--text-color-light)
-            .info
-                p:nth-child(1)
-                    color: var(--text-color-light)
-                p:nth-child(2)
-                    color: var(--secondary-text-color-light)
     .btnContainer
         .createBtn
-            color: #E0A537
-            background: #FEF6E7
+            color: var(--accent-alt)
+            background: var(--accent-alt-muted)
             .plusIcon
                 background: url('@assets/icon-plus-secondary-accent-color.svg')

@@ -1,0 +1,14 @@
+.themeSwitcher
+    width: 48px
+    height: 26px
+    cursor: pointer
+    background-position: center
+    background-repeat: no-repeat
+    background-size: cover
+
+[data-theme="dark"]
+    .themeSwitcher
+        background-image: url('@assets/theme-switcher-dark-mode-active.svg')
+[data-theme="light"]
+    .themeSwitcher
+        background-image: url('@assets/theme-switcher-light-mode-active.svg')

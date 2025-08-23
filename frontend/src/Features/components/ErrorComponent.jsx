@@ -18,7 +18,7 @@ function ErrorComponent() {
     }, [errorMessage, setErrorMessage]);
 
     return !errorMessage ? null : (<>
-        <div ref={errorRef} className="absolute z-50 top-4 flex items-center justify-center p-3 bg-red-500 text-white rounded-lg"> 
+        <div ref={errorRef} className="absolute z-50 top-4 flex items-center justify-center p-3 bg-[--error-color] text-white rounded-lg"> 
             <p>{errorMessage}</p>
         </div>
     </>);

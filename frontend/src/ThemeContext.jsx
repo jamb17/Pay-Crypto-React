@@ -1,20 +1,35 @@
-import { createContext, useLayoutEffect, useState } from "react";
+import { createContext, useLayoutEffect, useEffect, useState } from "react";
 
 export const ThemeContext = createContext();
 
-export const ThemeProvider = ({children}) => {
-    const [theme, setTheme] = useState(false);
-    // useLayoutEffect(() => {
-    //     if (window.localStorage.getItem('theme') === 'dark') {
-    //         setTheme(true);
-    //     } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches && !window.localStorage.getItem('theme')) {
-    //         setTheme(true);
-    //         window.localStorage.setItem('theme', 'dark');
-    //     }
-    // }, []);   
+export const ThemeProvider = ({ children }) => {
+    const [theme, setTheme] = useState('light');
+    
+    // useEffect(() => {
+    //     const savedTheme = localStorage.getItem('theme');
+    //     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+    //     const currentTheme = savedTheme || (prefersDark.matches ? 'dark' : 'light');
+    //     setTheme(currentTheme);
+
+    //     const handleChange = (e) => {
+    //         if (!localStorage.getItem('theme')) {
+    //             const newTheme = e.matches ? 'dark' : 'light';
+    //             document.documentElement.setAttribute('data-theme', newTheme);
+    //             setTheme(newTheme);
+    //         }
+    //     };
+
+    //     prefersDark.addEventListener('change', handleChange);
+
+    //     return () => {
+    //         prefersDark.removeEventListener('change', handleChange);
+    //     };
+    // }, []);
+
 
     return (
-        <ThemeContext.Provider value={{theme, setTheme}}>
+        <ThemeContext.Provider value={{ theme, setTheme }}>
             {children}
         </ThemeContext.Provider>
     )

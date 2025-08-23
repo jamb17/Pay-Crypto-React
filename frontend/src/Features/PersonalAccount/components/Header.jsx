@@ -1,28 +1,60 @@
-import { useContext } from "react";
 import useStore from "../../../store";
 import styles from "../styles/header.module.sass"
-import { ThemeContext } from "../../../ThemeContext";
 import Navigation from "./Navigation";
 import imagePlaceholder from '@assets/image-placeholder.png'
-import logoDark from '@assets/logoDark.svg'
-import logoGreen from '@assets/logo-green.svg'
 import { Link } from "react-router-dom";
 import { useShallow } from "zustand/react/shallow";
+import ThemeSwitcher from '@components/ThemeSwitcher.jsx'
+import { useRef, useState, useEffect } from "react";
+import useGsapSlideDown from '@hooks/useGsapSlideDown.js'
 
 function Header() {
-    const { theme } = useContext(ThemeContext);
 
     const nickname = useStore(useShallow(state => state.nickname));
 
+    const [dropDownOpened, setDropDownOpened] = useState(false)
+
+    const dropdownMenuRef = useRef(null)
+    useGsapSlideDown(dropdownMenuRef, {y: -40, scale: 1}, {duration: .5}, dropDownOpened)
+
+    const dropdownRef = useRef(null)
+
+    const handleClick = () => {
+        setDropDownOpened(prev => !prev)
+    }
+
+    const logout = useStore(state => state.logout)
+
+    useEffect(() => {
+        const onPointerDown = e => {
+            if (dropdownRef.current && 
+                !dropdownRef.current.contains(e.target) && 
+                dropdownMenuRef.current && 
+                !dropdownMenuRef.current.contains(e.target)) {
+                setDropDownOpened(false)
+            }
+        }
+
+        const handleKeyDown = e => {
+            e.key === 'Escape' && setDropDownOpened(false)
+        }
+
+        document.addEventListener("mousedown", onPointerDown)
+        document.addEventListener("keydown", handleKeyDown)
+
+        return () => {
+            document.removeEventListener("mousedown", onPointerDown)
+            document.removeEventListener("keydown", handleKeyDown)
+        }
+
+    }, [])
+
     return (
         <>
-            <header className={`${theme && styles.dark}`}>
+            <header>
                 <div className={styles.container}>
                     <Link to='/'>
-                        <img
-                            src={theme ? logoDark : logoGreen}
-                            className={styles.logo}
-                        />
+                        <div className={styles.logo} />
                     </Link>
                     <Navigation></Navigation>
                     <div className={styles.info}>
@@ -32,6 +64,16 @@ function Header() {
                                 src={imagePlaceholder}
                                 className={styles.avatar}
                             />
+                            <div ref={dropdownRef} onClick={handleClick} style={dropDownOpened ? {transform: 'rotate(180deg)'} : {}} className={styles.dropdownBtn}></div>
+                            {dropDownOpened && <>
+                                <div className={styles.dropdownMenu} ref={dropdownMenuRef}>
+                                    <div className={styles.themeSwitcherContainer}>
+                                        <p>Theme:</p>
+                                        <ThemeSwitcher />
+                                    </div>
+                                    <button onClick={logout} className={styles.logout}>Logout</button>
+                                </div>
+                            </>}
                         </div>
                     </div>
                 </div>

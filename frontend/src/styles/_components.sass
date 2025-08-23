@@ -1,4 +1,4 @@
-$black: #1C1A24   
+$black: #1C1A24
 $white: #fff
 $gray: #494850
 $red: #CE3B3B
@@ -7,19 +7,52 @@ $green: #53B669
 $drkgreen: #3e884e
 
 :root
-    --bg-color: #F7F7F8
-    --second-bg-color-light: #fff
-    --hover-bg-color-light: #F2F2F3
-    --text-color-light: #1C1A24  
-    --secondary-text-color-light: #494850
-    --accent-color-light: #53B669
-    --accent-color-hover: #3e884e
     --error-color: #CE3B3B
-    --error-bg-color: #CE3B3B29
+    --error-muted: #CE3B3B29
+    --accent-color: #53B669
+    --accent-color-hover: #3e884e
+    --accent-alt: #E0A537
+    --accent-gradient: radial-gradient(#3C9B51, #53B669)
+    --accent-alt-gradient: radial-gradient(#EFBD5F, #FFCE72)
 
-    --bg-color-dark: #2C2C2E
-    --second-bg-color-dark: #1E1E1E
-    --text-color-dark: #E0E0E0 
-    --secondary-text-color-dark: #A0A0A0
-    --accent-color-dark: #00E676
-    --accent-color-dark-hover: #00C767
+    --bg-color-light: #F7F7F8
+    --input-bg-color-light: #F7F7F8
+    --surface-light: #fff
+    --surface-shadow-light: 0px 2px 8px -4px rgba(40, 36, 50, 0.24)
+    --hover-bg-color-light: #F2F2F3
+    --text-color-light: #1C1A24
+    --text-muted-light: #494850
+    --accent-muted-light: #E3F3E7
+    --accent-alt-muted-light: #FEF6E7
+
+    --bg-color-dark: #121212
+    --input-bg-color-dark: #202021
+    --surface-dark: #1A1A1B
+    --surface-shadow-dark: 0 2px 4px rgba(0,0,0,.35), 0 12px 28px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.07), inset 0 1px 0 rgba(255,255,255,.03)
+    --hover-bg-color-dark: #2A2A2B
+    --text-color-dark: #F5F5F6
+    --text-muted-dark: #A1A1AA
+    --accent-muted-dark: #1A3322
+    --accent-alt-muted-dark: #44351A
+
+[data-theme="light"]
+    --bg-color: var(--bg-color-light)
+    --input-bg-color: var(--input-bg-color-light)
+    --surface-color: var(--surface-light)
+    --surface-shadow: var(--surface-shadow-light)
+    --hover-bg-color: var(--hover-bg-color-light)
+    --text-color: var(--text-color-light)
+    --text-muted: var(--text-muted-light)
+    --accent-muted: var(--accent-muted-light)
+    --accent-alt-muted: var(--accent-alt-muted-light)
+
+[data-theme="dark"]
+    --bg-color: var(--bg-color-dark)
+    --input-bg-color: var(--input-bg-color-dark)
+    --surface-color: var(--surface-dark)
+    --surface-shadow: var(--surface-shadow-dark)
+    --hover-bg-color: var(--hover-bg-color-dark)
+    --text-color: var(--text-color-dark)
+    --text-muted: var(--text-muted-dark)
+    --accent-muted: var(--accent-muted-dark)
+    --accent-alt-muted: var(--accent-alt-muted-dark)

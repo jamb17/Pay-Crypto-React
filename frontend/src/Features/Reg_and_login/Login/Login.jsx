@@ -1,21 +1,17 @@
 import { Link, useNavigate } from "react-router-dom"
-import Heading from '../Componets/Heading.jsx'
-import styles from '../styles/css/Index.module.css'
-import { useContext, useRef, useState } from "react";
-import TermsPrivacyLink from "../Componets/TermsPriacyLink.jsx";
+import Heading from '../components/Heading.jsx'
+import styles from '../styles/Index.module.sass'
+import { useRef, useState } from "react";
+import TermsPrivacyLink from "../components/TermsPriacyLink.jsx";
 import Input from "@components/Input.module.jsx";
-import Logo from '../Componets/Logo.jsx'
+import Logo from '../components/Logo.jsx'
 import useGsapSlideDown from '@hooks/useGsapSlideDown.js'
 import useGsapSlideUp from '@hooks/useGsapSlideUp.js'
 import axios from "axios";
 import useStore from "../../../store.jsx";
 import useError from "@hooks/useError.js";
-import { ThemeContext } from "../../../ThemeContext.jsx";
 
 export default function Login() {
-
-    const {theme} = useContext(ThemeContext);
-
     const navigate = useNavigate()
 
     const containerRef = useRef(null);
@@ -67,7 +63,6 @@ export default function Login() {
                 if (res.status === 200) {
                     login(formData.email);
                     window.localStorage.setItem('accessToken', res.data);
-                    // window.location.reload();
                     navigate('/')
                 }
             }).catch((error) => {
@@ -81,12 +76,11 @@ export default function Login() {
             }).finally(() => {
                 setDisabled(false);
             })
-        // login(formData.email);
         }
 
     return <>
         <Logo ref={logoRef} />
-        <div ref={containerRef} className={theme ? styles.containerDark : styles.container}>
+        <div ref={containerRef} className={styles.container}>
             <Heading variation="loginForm" />
             <form className={styles.formContainer} onSubmit={handleSubmit}>
                 <Input 
@@ -108,9 +102,9 @@ export default function Login() {
                     error={errors.wrongPassword && 'Wrong password'}
                     value={formData.password}
                     onChange={handleChange} />
-                <button type="submit" className={theme ? "btn-primary dark" : "btn-primary"} disabled={disabled}>Continue</button>
+                <button type="submit" className="btn-primary" disabled={disabled}>Continue</button>
             </form>
-            <Link className={theme ? styles.linkDark : styles.link} to="/registration">I don't have an account</Link>
+            <Link className={styles.link} to="/registration">I don't have an account</Link>
         </div>
         <TermsPrivacyLink ref={termsAndPrivacyRef} />
     </>
