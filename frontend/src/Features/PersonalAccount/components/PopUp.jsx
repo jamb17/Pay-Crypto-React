@@ -7,6 +7,7 @@ import deleteIcon from '@assets/icon-delete.svg';
 import $api from '@api/api';
 import useError from '@hooks/useError.js'
 import useStore from '../../../store';
+import Loader from '@components/Loader.jsx'
 
 export default function PopUp({ setOpenPopUp, popUpType, setMerchant, setDonate }) {
 
@@ -14,6 +15,8 @@ export default function PopUp({ setOpenPopUp, popUpType, setMerchant, setDonate 
         name: '',
         file: ''
     })
+
+    const [loading, setLoading] = useState(false)
 
     const email = useStore(state => state.email);
 
@@ -62,6 +65,7 @@ export default function PopUp({ setOpenPopUp, popUpType, setMerchant, setDonate 
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        setLoading(true)
         const form = new FormData();
         form.append('name', formData.name);
         form.append('email', email);
@@ -73,7 +77,6 @@ export default function PopUp({ setOpenPopUp, popUpType, setMerchant, setDonate 
             headers: { 'Content-Type': 'multipart/form-data' }
         }).then(res => {
             if (res.status === 201) {
-                console.log("OK");
                 if (formData.file !== '') {
                     formData.file = URL.createObjectURL(formData.file)
                 }
@@ -85,6 +88,7 @@ export default function PopUp({ setOpenPopUp, popUpType, setMerchant, setDonate 
             if (e.response) {
                 setError(e.response.data);
             } else setError(e.message)
+            setLoading(false)
         })
     };
 
@@ -128,7 +132,14 @@ export default function PopUp({ setOpenPopUp, popUpType, setMerchant, setDonate 
                             </div>
                         </div>
                     </div>
-                    <button type='submit' className={"btn-primary"}>Create</button>
+                    {!loading ?
+                        <button type="submit" className="btn-primary">Create</button> :
+                        <Loader
+                            width={"100%"}
+                            height={"44px"}
+                            borderRadius={"8px"}
+                            accentBg
+                        />}
                 </form>
             </div>
         </div>)
