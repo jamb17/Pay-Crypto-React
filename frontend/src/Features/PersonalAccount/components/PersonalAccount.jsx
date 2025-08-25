@@ -6,6 +6,7 @@ import ActionSection from "./ActionSection.jsx";
 import PopUp from "./PopUp.jsx";
 import $api from "@api/api.js";
 import { useShallow } from "zustand/react/shallow";
+import Loader from "@components/Loader.jsx";
 
 function PersonalAccount() {
     const error = useError();
@@ -87,20 +88,25 @@ function PersonalAccount() {
     return (<>
         {openPopUp && <PopUp setOpenPopUp={setOpenPopUp} popUpType={popUpType} setMerchant={setMerchant} setDonate={setDonate} />}
         <Header />
-        {loading === "loaded" ? (<div className="flex flex-1 min-h-fit flex-col gap-3 items-center w-full justify-start pt-[96px] pb-[76px] md:items-start md:max-h-min md:p-0 md:flex-row md:justify-center md:gap-6">
-            <ActionSection
-                setOpenPopUp={setOpenPopUp}
-                setPopUpType={setPopUpType}
-                type={merchant.length !== 0 ? "opened merchant" : "merchant"}
-                merchant={merchant}
-            />
-            <ActionSection
-                setOpenPopUp={setOpenPopUp}
-                setPopUpType={setPopUpType}
-                type={donate.length !== 0 ? "opened donate" : "donate"}
-                donate={donate}
-            />
-        </div>) : (<p style={{color: 'var(--text-color)'}}>{loading === "failed" ? "Error occured while getting user data" : "Loading..."}</p>)}
+        <div className="flex flex-1 min-h-fit flex-col gap-3 items-center w-full justify-start pt-[96px] pb-[76px] md:items-start md:max-h-min md:p-0 md:flex-row md:justify-center md:gap-6">
+            {loading === 'loaded' ? (<>
+                <ActionSection
+                    setOpenPopUp={setOpenPopUp}
+                    setPopUpType={setPopUpType}
+                    type={merchant.length !== 0 ? "opened merchant" : "merchant"}
+                    merchant={merchant}
+                />
+                <ActionSection
+                    setOpenPopUp={setOpenPopUp}
+                    setPopUpType={setPopUpType}
+                    type={donate.length !== 0 ? "opened donate" : "donate"}
+                    donate={donate}
+                />
+            </>) : <>
+                <Loader width="100%" maxWidth="456px" height="315px"/>
+                <Loader width="100%" maxWidth="456px" height="315px"/>
+            </>}
+        </div>
     </>
     );
 }

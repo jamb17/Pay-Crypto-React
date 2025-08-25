@@ -5,6 +5,7 @@ import axios from "axios";
 import styles from '../styles/Index.module.sass'
 import { Link } from "react-router-dom";
 import useError from "@hooks/useError";
+import Loader from '@components/Loader.jsx'
 
 const FormContainer = styled.form`
         display: flex;
@@ -52,7 +53,7 @@ function Form({ setShowVerification, setEmail }) {
             setErrors((prev) => ({ ...prev, passwordMismatch: false }));
         }
         setDisabled(true);
-        await axios.post(API_URL + '/registration', 
+        await axios.post(API_URL + '/registration',
             {
                 email: formData.email,
                 password: formData.password
@@ -69,7 +70,7 @@ function Form({ setShowVerification, setEmail }) {
                 } else setError(error.message);
             }).finally(() => {
                 setDisabled(false);
-        });    
+            });
     };
 
     return (<>
@@ -99,10 +100,17 @@ function Form({ setShowVerification, setEmail }) {
                 showIcon={true}
                 value={formData.passRepeat}
                 placeholder="Repeat your password"
-                onChange={handleChange} 
+                onChange={handleChange}
                 togglePasswordVisibility={togglePasswordVisibility}
-                error={errors.passwordMismatch ? 'Password mismatch' : false}/>
-            <button type="submit" className={"btn-primary"} disabled={disabled}>Continue</button>
+                error={errors.passwordMismatch ? 'Password mismatch' : false} />
+            {!disabled ?
+                <button type="submit" className="btn-primary" disabled={disabled}>Continue</button> :
+                <Loader
+                    width={"100%"}
+                    height={"44px"}
+                    borderRadius={"8px"}
+                    accentBg
+                />}
             <Link to="/login" className={styles.link}>I have an account</Link>
         </form>
     </>)

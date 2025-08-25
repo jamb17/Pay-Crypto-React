@@ -10,6 +10,7 @@ import useGsapSlideUp from '@hooks/useGsapSlideUp.js'
 import axios from "axios";
 import useStore from "../../../store.jsx";
 import useError from "@hooks/useError.js";
+import Loader from '@components/Loader.jsx'
 
 export default function Login() {
     const navigate = useNavigate()
@@ -22,7 +23,7 @@ export default function Login() {
 
     useGsapSlideDown(logoRef);
     useGsapSlideUp(containerRef);
-    useGsapSlideUp(termsAndPrivacyRef, {y: 10}, {delay: .5})
+    useGsapSlideUp(termsAndPrivacyRef, { y: 10 }, { delay: .5 })
 
     const login = useStore(state => state.login);
 
@@ -52,11 +53,11 @@ export default function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setDisabled(true);
-        await axios.post(API_URL + '/login', 
+        await axios.post(API_URL + '/login',
             {
                 email: formData.email,
                 password: formData.password
-            }, 
+            },
             {
                 withCredentials: true
             }).then(res => {
@@ -68,15 +69,15 @@ export default function Login() {
             }).catch((error) => {
                 if (error.response) {
                     if (error.response.data === 'No user with this e-mail address was found') {
-                        setErrors({noSuchUser: true, wrongPassword: false});
+                        setErrors({ noSuchUser: true, wrongPassword: false });
                     } else if (error.response.data === 'Wrong password') {
-                        setErrors({noSuchUser: false, wrongPassword: true});
+                        setErrors({ noSuchUser: false, wrongPassword: true });
                     }
                 } else setErrorMessage(error.message);
             }).finally(() => {
                 setDisabled(false);
             })
-        }
+    }
 
     return <>
         <Logo ref={logoRef} />
@@ -102,7 +103,14 @@ export default function Login() {
                     error={errors.wrongPassword && 'Wrong password'}
                     value={formData.password}
                     onChange={handleChange} />
-                <button type="submit" className="btn-primary" disabled={disabled}>Continue</button>
+                {!disabled ? 
+                    <button type="submit" className="btn-primary" disabled={disabled}>Continue</button> : 
+                    <Loader 
+                    width={"100%"}
+                    height={"44px"}
+                    borderRadius={"8px"}
+                    accentBg
+                />}
             </form>
             <Link className={styles.link} to="/registration">I don't have an account</Link>
         </div>
