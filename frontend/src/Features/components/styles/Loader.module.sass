@@ -1,0 +1,31 @@
+.loader,
+.loaderAccentBg
+    background: var(--surface-color)
+    box-shadow: var(--surface-shadow)
+    border-radius: 16px
+    position: relative
+    overflow: hidden
+
+.loaderAccentBg
+    background: var(--accent-color)
+    box-shadow: none
+
+.loader::after,
+.loaderAccentBg:after
+    content: ""
+    position: absolute
+    inset: 0
+    transform: translateX(-100%)
+    background: linear-gradient(90deg,transparent 0%, var(--accent-muted) 50%, transparent 100% )
+    animation: sk-shimmer 1.3s infinite
+
+.loaderAccentBg:after
+    background: linear-gradient(90deg,transparent 0%, var(--text-color-dark) 50%, transparent 100% )
+
+@media (prefers-reduced-motion: reduce)
+    .loader::after
+        animation: none
+
+@keyframes sk-shimmer
+    100%
+        transform: translateX(100%)
