@@ -3,12 +3,9 @@ import axios from "axios";
 import styles from '@components/styles/Input.module.sass'
 import useStore from "../../../store";
 import useError from "@hooks/useError";
-import { useNavigate } from "react-router-dom";
 import Loader from '@components/Loader.jsx'
 
-function VerificationForm(email) {
-
-    const navigate = useNavigate()
+function VerificationForm({ email }) {
 
     const API_URL = import.meta.env.VITE_API_URL + '/user'
 
@@ -37,18 +34,22 @@ function VerificationForm(email) {
         e.target.type = "number";
     }
 
-    window.addEventListener('paste', function (e) {
-        e.preventDefault();
-        let paste = (e.clipboardData || window.Clipboard).getData('text').split('');
-        if (paste.length == 6) setValues(paste);
-    });
+    useEffect(() => {
+        window.addEventListener('paste', function (e) {
+            e.preventDefault();
+            let paste = (e.clipboardData || window.Clipboard).getData('text').split('');
+            if (paste.length == 6) setValues(paste);
+        });
+
+        return window.removeEventListener('paste')
+    }, [])
 
     const login = useStore(state => state.login);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const fd = new FormData();
-        fd.append('email', email.email)
+        fd.append('email', email)
         let code = '';
         for (let value of values) {
             code += value;
@@ -62,14 +63,12 @@ function VerificationForm(email) {
                 'Content-Type': 'application/x-www-form-urlencoded',
             }
         }).then(res => {
-            console.log(res.status)
             if (res.status === 200) {
-                login(email);
                 window.localStorage.setItem('accessToken', res.data);
-                navigate('/')
-                console.log(window.localStorage.getItem('accessToken'))
+                login(email);
             }
         }).catch((error) => {
+            console.log(error)
             if (error.response) {
                 if (error.response.data === 'Invalid verification code') {
                     setErrors((prev) => ({ ...prev, invalidCode: true }));
