@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import Heading from '../components/Heading.jsx'
 import styles from '../styles/Index.module.sass'
 import { useRef, useState } from "react";
@@ -13,7 +13,6 @@ import useError from "@hooks/useError.js";
 import Loader from '@components/Loader.jsx'
 
 export default function Login() {
-    const navigate = useNavigate()
 
     const containerRef = useRef(null);
     const logoRef = useRef(null);
@@ -64,7 +63,6 @@ export default function Login() {
                 if (res.status === 200) {
                     login(formData.email);
                     window.localStorage.setItem('accessToken', res.data);
-                    navigate('/')
                 }
             }).catch((error) => {
                 if (error.response) {
