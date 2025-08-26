@@ -7,6 +7,7 @@ import { useShallow } from "zustand/react/shallow";
 import ThemeSwitcher from '@components/ThemeSwitcher.jsx'
 import { useRef, useState, useEffect } from "react";
 import useGsapSlideDown from '@hooks/useGsapSlideDown.js'
+import Loader from '@components/Loader.jsx'
 
 function Header() {
 
@@ -58,7 +59,10 @@ function Header() {
                     </Link>
                     <Navigation></Navigation>
                     <div className={styles.info}>
-                        <p className={styles.nickname}>{nickname || "nickname"}</p>
+                        {nickname ? 
+                            <p className={styles.nickname}>{nickname}</p> : 
+                            <Loader width='121px' height="24px" borderRadius="6px" />
+                        }
                         <div className={styles.dropdown}>
                             <img
                                 src={imagePlaceholder}

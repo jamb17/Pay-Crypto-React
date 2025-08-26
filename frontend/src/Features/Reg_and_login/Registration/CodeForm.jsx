@@ -3,11 +3,12 @@ import axios from "axios";
 import styles from '@components/styles/Input.module.sass'
 import useStore from "../../../store";
 import useError from "@hooks/useError";
+import Loader from '@components/Loader.jsx'
 
-function VerificationForm(email) {
+function VerificationForm({ email }) {
 
     const API_URL = import.meta.env.VITE_API_URL + '/user'
-    
+
     const [values, setValues] = useState(['', '', '', '', '', '']);
     const [disabled, setDisabled] = useState(false);
 
@@ -20,7 +21,7 @@ function VerificationForm(email) {
 
     const [checkErrors, setCheckErrors] = useState(false);
 
-    useEffect(()=> {
+    useEffect(() => {
         if (errors.codeExpired || errors.invalidCode) {
             setCheckErrors(true);
         } else setCheckErrors(false)
@@ -33,18 +34,25 @@ function VerificationForm(email) {
         e.target.type = "number";
     }
 
-    window.addEventListener('paste', function (e) {
-        e.preventDefault();
-        let paste = (e.clipboardData || window.Clipboard).getData('text').split('');
-        if (paste.length == 6) setValues(paste);
-    });
+    useEffect(() => {
+
+        function handlePaste(e) {
+            e.preventDefault();
+            let paste = e.clipboardData.getData('text').split('');
+            if (paste.length == 6) setValues(paste);
+        }
+
+        document.addEventListener('paste', handlePaste, true);
+
+        return () =>  document.removeEventListener('paste', handlePaste, true)
+    }, [])
 
     const login = useStore(state => state.login);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const fd = new FormData();
-        fd.append('email', email.email)
+        fd.append('email', email)
         let code = '';
         for (let value of values) {
             code += value;
@@ -59,22 +67,22 @@ function VerificationForm(email) {
             }
         }).then(res => {
             if (res.status === 200) {
-                login(email);
                 window.localStorage.setItem('accessToken', res.data);
-                window.location.reload();
+                login(email);
             }
         }).catch((error) => {
+            console.log(error)
             if (error.response) {
                 if (error.response.data === 'Invalid verification code') {
-                    setErrors((prev) => ({...prev, invalidCode: true}));
+                    setErrors((prev) => ({ ...prev, invalidCode: true }));
                 } else if (error.response.data === 'Verification code has expired') {
-                    setErrors({codeExpired: true, invalidCode: false});
+                    setErrors({ codeExpired: true, invalidCode: false });
                 }
             } else alertError(error.message);
         }).finally(() => {
             setDisabled(false)
         });
-    };  
+    };
 
     function handleChange(e, index) {
         const inputValue = e.target.value;
@@ -135,7 +143,14 @@ function VerificationForm(email) {
                     </p>
                 </div>)
             }
-            <button type="submit" className={"btn-primary"} disabled={disabled}>Continue</button>
+            {!disabled ?
+                <button type="submit" className="btn-primary" disabled={disabled}>Continue</button> :
+                <Loader
+                    width={"100%"}
+                    height={"44px"}
+                    borderRadius={"8px"}
+                    accentBg
+                />}
         </form>
     </>
 }
