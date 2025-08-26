@@ -35,13 +35,16 @@ function VerificationForm({ email }) {
     }
 
     useEffect(() => {
-        window.addEventListener('paste', function (e) {
-            e.preventDefault();
-            let paste = (e.clipboardData || window.Clipboard).getData('text').split('');
-            if (paste.length == 6) setValues(paste);
-        });
 
-        return window.removeEventListener('paste')
+        function handlePaste(e) {
+            e.preventDefault();
+            let paste = e.clipboardData.getData('text').split('');
+            if (paste.length == 6) setValues(paste);
+        }
+
+        document.addEventListener('paste', handlePaste, true);
+
+        return () =>  document.removeEventListener('paste', handlePaste, true)
     }, [])
 
     const login = useStore(state => state.login);
