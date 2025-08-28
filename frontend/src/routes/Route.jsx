@@ -5,6 +5,7 @@ import {useRoutes} from 'react-router-dom';
 import PrivateRoute from './PrivateRoute.jsx'
 import PublicRoute from './PublicRoute.jsx'
 import Login from '../Features/Reg_and_login/Login/Login.jsx';
+import { Settings } from '../Features/PersonalAccount/components/Settings.jsx';
 
  export default function App () {
 
@@ -13,7 +14,7 @@ import Login from '../Features/Reg_and_login/Login/Login.jsx';
       element: <PrivateRoute />,
       children: [
         {path: '/', element: <PersonalAccount />},
-        {path: '/settings', element: <PersonalAccount />},
+        {path: '/settings', element: <Settings />},
         {path: '/blog', element: <PersonalAccount />}
       ]
     },
