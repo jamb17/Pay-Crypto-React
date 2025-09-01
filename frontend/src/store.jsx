@@ -14,13 +14,13 @@ const useStore = create(
             },
             logout: () => {
                 set({isAuth: false})
-                localStorage.clear()
+                localStorage.removeItem('auth')
             }
         }),
         {
            name: 'auth',
            storage: createJSONStorage(() => localStorage),
-           partialize: (state) => ({isAuth: state.isAuth, email: state.email})
+           partialize: (state) => ({isAuth: state.isAuth, email: state.email, nickname: state.nickname})
         }
     )
 )
