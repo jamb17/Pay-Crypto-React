@@ -104,6 +104,20 @@ class userController {
         });
     };
 
+    async changePassword(req, res) {
+        try {
+            const accessToken = req.headers.authorization;
+            const { email, oldPassword, newPassword } = req.body;
+            await userService.changePassword(email, oldPassword, newPassword, accessToken);
+            return res.sendStatus(200);
+        } catch (e) {
+            console.error(e)
+            if (e.message === 'Unauthorized Error') {
+                res.status(401).json(e.message)
+            } else res.status(500).json(e.message)
+        }
+    }
+
 };
 
 export default new userController();

@@ -11,5 +11,6 @@ UserRouter.get('/getUserData', userController.getUserData);
 UserRouter.post('/refresh', userController.refresh);
 UserRouter.post('/createMerchantAccount', userController.createMerchantAccount);
 UserRouter.post('/createDonateAccount', userController.createDonateAccount);
+UserRouter.patch('/changePassword', userController.changePassword)
 
 export default UserRouter;  

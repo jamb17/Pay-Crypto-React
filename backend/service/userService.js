@@ -211,6 +211,30 @@ class userService {
             throw e
         }
     }
+
+    async changePassword(email, oldPassword, newPassword, accessToken) {
+        try {
+            const validToken = tokenService.validateAccessToken(accessToken);
+            if (!accessToken || !validToken || !email) {
+                throw new Error('Unauthorized Error');
+            };
+            const user = await User.findOne({
+                email: email
+            });
+            const passEquals = await bcrypt.compare(oldPassword, user.password)
+            if (!passEquals) {
+                throw new Error('Wrong password')
+            }
+            const hashPass = await bcrypt.hash(newPassword, 3);
+            await User.updateOne(
+                { email: email },
+                { $set: { password: hashPass } }
+            )
+            return
+        } catch(e) {
+            throw e
+        }
+    }
 };
 
 export default new userService();
