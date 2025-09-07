@@ -82,6 +82,7 @@ export default function PopUp({ setOpenPopUp, popUpType, setMerchant, setDonate 
                 }
                 popUpType === 'merchant' ? setMerchant(prev => [...prev, { name: formData.name, file: formData.file }]) : setDonate(prev => [...prev, { name: formData.name, file: formData.file }])
                 setOpenPopUp(false)
+                setError('Account created', true)
             }
         }).catch(e => {
             console.log(e);
