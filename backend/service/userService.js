@@ -94,8 +94,9 @@ class userService {
             });
             const donate = await Donate.find({user: user._id})
             const data = {
-                nickname: user.nickname
+                nickname: user.nickname,
             };
+            if (user.avatar) data.avatar = user.avatar;
             if (merchant) {
                 let userMerchantData = [];
                 merchant.forEach(e => {
@@ -235,6 +236,34 @@ class userService {
             throw e
         }
     }
+
+    async changeAvatar (email, accessToken, file) {
+        try {
+            const validToken = tokenService.validateAccessToken(accessToken);
+            if (!accessToken || !validToken || !email) {
+                throw new Error('Unauthorized Error');
+            };
+            if (file) {
+                await User.updateOne(
+                    { email: email },
+                    { $set: {
+                        avatar: file?.buffer || '',
+                        avatarContentType: file?.mimetype || ''
+                }})
+            } else {
+                await User.updateOne(
+                    { email: email },
+                    { $unset: {
+                        avatar: '',
+                        avatarContentType: ''
+                }})
+            }
+            return
+        } catch (e) {
+            throw e;
+        }
+    }
+
 };
 
 export default new userService();

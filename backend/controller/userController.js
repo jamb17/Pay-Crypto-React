@@ -38,7 +38,7 @@ class userController {
         try {
             const accessToken = req.headers.authorization;
             const email = req.query.email; 
-            const user =  await userService.getUserData(accessToken, email);
+            const user = await userService.getUserData(accessToken, email);
             return res.json(user)
         } catch (error) {
             console.log(error)
@@ -116,6 +116,26 @@ class userController {
                 res.status(401).json(e.message)
             } else res.status(500).json(e.message)
         }
+    }
+
+    async changeAvatar (req, res) {
+        upload.single('file')(req, res, async (err) => {
+            if (err) {
+                return res.status(400).json(err.message)
+            };
+
+        try {
+            const accessToken = req.headers.authorization;
+            const { email } = req.body;
+            const file = req.file;
+            await userService.changeAvatar(email, accessToken, file)
+            return res.sendStatus(200);
+        } catch (e) {
+            console.log(e)
+            if (e.message === 'Unauthorized Error') {
+                res.status(401).json(e.message)
+            } else res.status(500).json(e.message)
+        }})
     }
 
 };
