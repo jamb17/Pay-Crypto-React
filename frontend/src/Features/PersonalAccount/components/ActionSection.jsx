@@ -10,7 +10,9 @@ import openedMerchantIcon from '@assets/openedMerchantIcon.svg'
 import openedDonateIcon from '@assets/openedDonateIcon.svg'
 
 export default function ActionSection({ type, setOpenPopUp, setPopUpType, merchant = [], donate = [] }) {
-    const { theme } = useContext(ThemeContext);    const containerRef = useRef(null);
+    const { theme } = useContext(ThemeContext);  
+      
+    const containerRef = useRef(null);
     useGsapSlideUp(containerRef, { scale: 1 }, { duration: .6, delay: .3});
 
     const handleOpenPopUp = (popUpType) => {
