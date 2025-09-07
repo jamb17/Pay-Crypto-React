@@ -11,10 +11,11 @@ import Loader from "@components/Loader.jsx";
 function PersonalAccount() {
     const error = useError();
 
-    const { email, setNickname, logout } = useStore(useShallow(state => ({
+    const { email, setNickname, logout, setAvatar } = useStore(useShallow(state => ({
         email: state.email,
         setNickname: state.setNickname,
-        logout: state.logout
+        logout: state.logout,
+        setAvatar: state.setAvatar
     })));
 
     const [openPopUp, setOpenPopUp] = useState(false);
@@ -63,6 +64,12 @@ function PersonalAccount() {
                             file: file
                         }
                     })
+
+                    if (res.data.avatar) {
+                        const byteArray = new Uint8Array(res.data.avatar.data);
+                        const blob = new Blob([byteArray])
+                        setAvatar(URL.createObjectURL(blob))
+                    } else setAvatar('')
 
                     const uniqueMerchant = Array.from(new Map(merchantItems.map(e => [e.id, e])).values());
                     const uniqueDonate = Array.from(new Map(donateItems.map(e => [e.id, e])).values());

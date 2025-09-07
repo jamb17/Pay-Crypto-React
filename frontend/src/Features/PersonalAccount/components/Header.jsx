@@ -11,7 +11,8 @@ import Loader from '@components/Loader.jsx'
 
 function Header() {
 
-    const nickname = useStore(useShallow(state => state.nickname));
+    const nickname = useStore(useShallow(state => state.nickname))
+    const avatar = useStore(state => state.avatar)
 
     const [dropDownOpened, setDropDownOpened] = useState(false)
 
@@ -65,7 +66,7 @@ function Header() {
                         }
                         <div className={styles.dropdown}>
                             <img
-                                src={imagePlaceholder}
+                                src={avatar !== '' ? avatar : imagePlaceholder}
                                 className={styles.avatar}
                             />
                             <div ref={dropdownRef} onClick={handleClick} style={dropDownOpened ? {transform: 'rotate(180deg)'} : {}} className={styles.dropdownBtn}></div>

@@ -22,3 +22,74 @@
         display: flex
         flex-direction: column
         gap: 16px
+    form
+        width: 100%
+        display: flex
+        flex-direction: column
+        gap: 16px
+        align-items: flex-start
+        padding: 16px   
+        .uploadContainer
+            display: flex
+            gap: 16px
+            width: 100%
+            .imagePreview
+                max-width: 112px
+                height: 100%
+                border-radius: 8px
+            .uploadContent
+                display: flex
+                flex-direction: column
+                gap: 12px
+                align-items: flex-start
+                .uploadLabel
+                    font-size: 14px
+                    font-weight: 400
+                    line-height: 20px
+                    color: var(--text-muted)
+                .buttonsContainer
+                    display: flex
+                    justify-content: center
+                    align-content: inherit
+                    gap: 8px
+                    .uploadBtn
+                        display: flex
+                        gap: 6px
+                        justify-content: center
+                        align-items: center
+                        border: 1px solid var(--accent-color)
+                        border-radius: 8px
+                        padding: 8px 16px
+                        color: var(--text-color)
+                        font-size: 14px
+                        font-weight: 500
+                        line-height: 20px
+                        letter-spacing: -0.02em
+                        .uploadIcon
+                            background-position: center
+                            background-repeat: no-repeat
+                            background-size: cover
+                            width: 20px
+                            height: 20px
+                    .deleteBtn
+                        width: 40px
+                        height: 40px
+                        border-radius: 8px
+                        background: var(--error-muted)
+                        display: flex
+                        justify-content: center
+                        align-items: center
+                        opacity: 0
+                        transition: opacity .2s ease-in-out
+                        display: none
+                    .deleteBtnActive
+                        @extend .deleteBtn
+                        opacity: 1
+                        display: flex
+
+[data-theme='dark']
+    .uploadIcon
+        background-image: url('@assets/upload-icon-light.svg')
+[data-theme='light']
+    .uploadIcon
+        background-image: url('@assets/upload-icon.svg')
