@@ -7,12 +7,13 @@ export const Settings = () => {
 
     return <>
         <Header />
-        <div className='grid gap-5 w-full justify-center grid-cols-[repeat(2,_456px)] justify-items-center'>
-            <div className='flex flex-col gap-5 w-full'>
+        {/* <div className='grid gap-5 w-full justify-center grid-cols-[repeat(2,_456px)] justify-items-center'> */}
+        <div className='flex flex-col items-center pt-[96px] pb-[76px] gap-5 w-full md:flex-row md:items-start md:justify-center'>
+            <div className='flex flex-col gap-5 w-full max-w-[456px]'>
                 <ChangePasswordForm />
                 <ChangeNickname/>
             </div>
-            <div className='flex flex-col gap-5 w-full'>
+            <div className='flex flex-col gap-5 w-full max-w-[456px]'>
                 <ChangeAvatar />
             </div>
         </div>
