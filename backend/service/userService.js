@@ -264,6 +264,28 @@ class userService {
         }
     }
 
+    async changeNickname (email, accessToken, nickname) {
+        try {
+            const validToken = tokenService.validateAccessToken(accessToken);
+            if (!accessToken || !validToken || !email) {
+                throw new Error('Unauthorized Error');
+            }; 
+            await User.updateOne(
+                {
+                    email: email
+                },
+                {
+                    $set: {
+                        nickname: nickname
+                    }
+                }
+            )
+            return
+        } catch (e) {
+            throw e
+        }
+    }
+
 };
 
 export default new userService();

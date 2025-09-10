@@ -138,6 +138,20 @@ class userController {
         }})
     }
 
+    async changeNickname (req, res) {
+        try {
+            const accessToken = req.headers.authorization;
+            const { email, nickname } = req.body
+            await userService.changeNickname(email, accessToken, nickname)
+            return res.sendStatus(200)
+        } catch (e) {
+            console.log(e)
+            if (e.message === 'Unauthorized Error') {
+                res.status(401).json(e.message)
+            } else res.status(500).json(e.message)
+        }
+    }
+
 };
 
 export default new userController();

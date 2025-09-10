@@ -13,5 +13,6 @@ UserRouter.post('/createMerchantAccount', userController.createMerchantAccount);
 UserRouter.post('/createDonateAccount', userController.createDonateAccount);
 UserRouter.patch('/changePassword', userController.changePassword);
 UserRouter.patch('/changeAvatar', userController.changeAvatar);
+UserRouter.patch('/changeNickname', userController.changeNickname);
 
 export default UserRouter;  
