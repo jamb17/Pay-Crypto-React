@@ -8,7 +8,7 @@ import useStore from '../../../store';
 import $api from '@api/api.js'
 import useError from '@hooks/useError.js'
 import { useShallow } from 'zustand/react/shallow';
-import useGsapSlideUp from '@hooks/useGsapSlideUp.js'
+import useGsapSlideDown from '@hooks/useGsapSlideDown.js'
 
 export const ChangeAvatar = () => {
 
@@ -21,7 +21,7 @@ export const ChangeAvatar = () => {
     })));
 
     const containerRef = useRef(null) 
-    useGsapSlideUp(containerRef, { scale: 1 }, { duration: .6, delay: .3});
+    useGsapSlideDown(containerRef, { scale: 1 }, { duration: .6, delay: .3});
 
     const [formData, setFormData] = useState('')
 

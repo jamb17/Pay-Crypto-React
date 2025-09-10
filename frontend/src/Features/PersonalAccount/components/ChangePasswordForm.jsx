@@ -6,7 +6,7 @@ import $api from '@api/api.js'
 import Loader from '@components/Loader.jsx'
 import useStore from '../../../store.jsx'
 import useError from '@hooks/useError.js'
-import useGsapSlideUp from '@hooks/useGsapSlideUp.js'
+import useGsapSlideDown from '@hooks/useGsapSlideDown.js'
 
 export const ChangePasswordForm = () => {
 
@@ -15,7 +15,7 @@ export const ChangePasswordForm = () => {
     const email = useStore(state => state.email)
 
     const containerRef = useRef(null)
-    useGsapSlideUp(containerRef, { scale: 1 }, { duration: .6, delay: .3 });
+    useGsapSlideDown(containerRef, { scale: 1 }, { duration: .6, delay: .3 });
 
 
     const [formData, setFormData] = useState({
