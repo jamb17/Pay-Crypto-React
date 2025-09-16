@@ -6,6 +6,7 @@ import PublicRoute from './PublicRoute.jsx'
 import Login from '../Features/Reg_and_login/Login/Login.jsx';
 import { Settings } from '../Features/PersonalAccount/components/Settings.jsx';
 import { Blog } from '../Features/PersonalAccount/components/Blog.jsx';
+import { NotFound404 } from '../NotFound404.jsx';
 
  export default function App () {
 
@@ -27,12 +28,7 @@ import { Blog } from '../Features/PersonalAccount/components/Blog.jsx';
     },
     {
       path: '*',
-      element: (
-        <div>
-          <h1>404</h1>
-          <h2>Page Not Found</h2>
-        </div>
-      ),
+      element: <NotFound404 />,
     },
   ])
 

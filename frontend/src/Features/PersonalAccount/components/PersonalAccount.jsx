@@ -137,7 +137,7 @@ function PersonalAccount() {
             {loading === 'failed' ? (<>
                 <VariableProximity
                     label={'Error while fetching data. Please try reloading the page.'}
-                    className={'variable-proximity-demo text-7xl text-center cursor-default'}
+                    className={'variable-proximity-demo text-8xl text-center cursor-default'}
                     fromFontVariationSettings="'wght' 400, 'opsz' 9"
                     toFontVariationSettings="'wght' 1000, 'opsz' 40"
                     containerRef={containerRef}
