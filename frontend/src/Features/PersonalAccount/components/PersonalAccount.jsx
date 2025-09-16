@@ -99,23 +99,6 @@ function PersonalAccount() {
         {openPopUp && <PopUp setOpenPopUp={setOpenPopUp} popUpType={popUpType} setMerchant={setMerchant} setDonate={setDonate} />}
         <Header />
         <div ref={containerRef} className="flex flex-1 min-h-fit flex-col gap-3 items-center w-full justify-start pt-[96px] pb-[76px] md:items-start md:max-h-min md:p-0 md:flex-row md:justify-center md:gap-6">
-            {/* {loading === 'loaded' ? (<>
-                <ActionSection
-                    setOpenPopUp={setOpenPopUp}
-                    setPopUpType={setPopUpType}
-                    type={merchant.length !== 0 ? "opened merchant" : "merchant"}
-                    merchant={merchant}
-                />
-                <ActionSection
-                    setOpenPopUp={setOpenPopUp}
-                    setPopUpType={setPopUpType}
-                    type={donate.length !== 0 ? "opened donate" : "donate"}
-                    donate={donate}
-                />
-            </>) : <>
-                <Loader width="100%" maxWidth="456px" height="315px"/>
-                <Loader width="100%" maxWidth="456px" height="315px"/>
-            </>} */}
             {loading === 'loaded' ? (<>
                 <ActionSection
                     setOpenPopUp={setOpenPopUp}
