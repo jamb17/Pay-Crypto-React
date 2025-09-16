@@ -1,12 +1,13 @@
 import Header from "./Header.jsx";
 import useStore from "../../../store.jsx";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useError from '@hooks/useError.js';
 import ActionSection from "./ActionSection.jsx";
 import PopUp from "./PopUp.jsx";
 import $api from "@api/api.js";
 import { useShallow } from "zustand/react/shallow";
 import Loader from "@components/Loader.jsx";
+import VariableProximity from '../../../reactbits/VariableProximity/VariableProximity.jsx'
 
 function PersonalAccount() {
     const error = useError();
@@ -25,6 +26,8 @@ function PersonalAccount() {
     const [donate, setDonate] = useState([])
 
     const [loading, setLoading] = useState('pending')
+
+    const containerRef = useRef(null)
 
     useEffect(() => {
         setLoading('pending')
@@ -95,8 +98,8 @@ function PersonalAccount() {
     return (<>
         {openPopUp && <PopUp setOpenPopUp={setOpenPopUp} popUpType={popUpType} setMerchant={setMerchant} setDonate={setDonate} />}
         <Header />
-        <div className="flex flex-1 min-h-fit flex-col gap-3 items-center w-full justify-start pt-[96px] pb-[76px] md:items-start md:max-h-min md:p-0 md:flex-row md:justify-center md:gap-6">
-            {loading === 'loaded' ? (<>
+        <div ref={containerRef} className="flex flex-1 min-h-fit flex-col gap-3 items-center w-full justify-start pt-[96px] pb-[76px] md:items-start md:max-h-min md:p-0 md:flex-row md:justify-center md:gap-6">
+            {/* {loading === 'loaded' ? (<>
                 <ActionSection
                     setOpenPopUp={setOpenPopUp}
                     setPopUpType={setPopUpType}
@@ -112,7 +115,36 @@ function PersonalAccount() {
             </>) : <>
                 <Loader width="100%" maxWidth="456px" height="315px"/>
                 <Loader width="100%" maxWidth="456px" height="315px"/>
-            </>}
+            </>} */}
+            {loading === 'loaded' ? (<>
+                <ActionSection
+                    setOpenPopUp={setOpenPopUp}
+                    setPopUpType={setPopUpType}
+                    type={merchant.length !== 0 ? "opened merchant" : "merchant"}
+                    merchant={merchant}
+                />
+                <ActionSection
+                    setOpenPopUp={setOpenPopUp}
+                    setPopUpType={setPopUpType}
+                    type={donate.length !== 0 ? "opened donate" : "donate"}
+                    donate={donate}
+                />
+            </>) : null}
+            {loading === 'pending' ? (<>
+                <Loader width="100%" maxWidth="456px" height="315px"/>
+                <Loader width="100%" maxWidth="456px" height="315px"/>
+            </>) : null}
+            {loading === 'failed' ? (<>
+                <VariableProximity
+                    label={'Error while fetching data. Please try reloading the page.'}
+                    className={'variable-proximity-demo text-7xl text-center cursor-default'}
+                    fromFontVariationSettings="'wght' 400, 'opsz' 9"
+                    toFontVariationSettings="'wght' 1000, 'opsz' 40"
+                    containerRef={containerRef}
+                    radius={400}
+                    falloff='linear'
+                />
+            </>) : null}
         </div>
     </>
     );

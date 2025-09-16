@@ -1,4 +1,3 @@
-import React from 'react'
 import Registration from '../Features/Reg_and_login/Registration/Registration.jsx'
 import PersonalAccount from '../Features/PersonalAccount/components/PersonalAccount.jsx'
 import {useRoutes} from 'react-router-dom';
@@ -6,6 +5,7 @@ import PrivateRoute from './PrivateRoute.jsx'
 import PublicRoute from './PublicRoute.jsx'
 import Login from '../Features/Reg_and_login/Login/Login.jsx';
 import { Settings } from '../Features/PersonalAccount/components/Settings.jsx';
+import { Blog } from '../Features/PersonalAccount/components/Blog.jsx';
 
  export default function App () {
 
@@ -15,7 +15,7 @@ import { Settings } from '../Features/PersonalAccount/components/Settings.jsx';
       children: [
         {path: '/', element: <PersonalAccount />},
         {path: '/settings', element: <Settings />},
-        {path: '/blog', element: <PersonalAccount />}
+        {path: '/blog', element: <Blog />}
       ]
     },
     {
