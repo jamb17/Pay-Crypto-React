@@ -128,8 +128,8 @@ class userController {
             const accessToken = req.headers.authorization;
             const { email } = req.body;
             const file = req.file;
-            await userService.changeAvatar(email, accessToken, file)
-            return res.sendStatus(200);
+            const avatarURL = await userService.changeAvatar(email, accessToken, file)
+            return res.status(200).json(avatarURL);
         } catch (e) {
             console.log(e)
             if (e.message === 'Unauthorized Error') {

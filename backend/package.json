@@ -4,6 +4,9 @@
         "start": "node api/server.js"
     },
     "dependencies": {
+        "@uploadcare/rest-client": "^6.17.0",
+        "@uploadcare/signed-uploads": "^6.17.0",
+        "@uploadcare/upload-client": "^6.17.0",
         "bcrypt": "^6.0.0",
         "cookie-parser": "^1.4.7",
         "cors": "^2.8.5",

@@ -4,7 +4,9 @@ import tokenService from "./tokenService.js";
 import mailService from "./mailService.js";
 import Merchant from "../models/Merchant.js";
 import Donate from "../models/Donate.js";
-
+import { base } from '@uploadcare/upload-client'
+import { deleteFile, UploadcareSimpleAuthSchema } from '@uploadcare/rest-client';
+ 
 class userService {
 
     convertEmail(email) {
@@ -96,7 +98,7 @@ class userService {
             const data = {
                 nickname: user.nickname,
             };
-            if (user.avatar) data.avatar = user.avatar;
+            if (user.avatarURL) data.avatar = user.avatarURL;
             if (merchant) {
                 let userMerchantData = [];
                 merchant.forEach(e => {
@@ -244,23 +246,51 @@ class userService {
                 throw new Error('Unauthorized Error');
             };
             if (file) {
+                const res = await base(file.buffer, 
+                    {
+                        publicKey: process.env.UPLOADCARE_PUBLIC_KEY,
+                        store: "auto"
+                    }
+                )
+
+                const avatarURL = `${process.env.UPLOADCARE_CDN_DOMAIN}/${res.file}/-/preview/`
+
                 await User.updateOne(
                     { email: email },
-                    { $set: {
-                        avatar: file?.buffer || '',
-                        avatarContentType: file?.mimetype || ''
-                }})
+                    { $set: { 
+                        avatarURL: avatarURL,
+                        avatarUUID: res.file
+                    } }
+                )
+
+                return avatarURL
             } else {
-                await User.updateOne(
-                    { email: email },
-                    { $unset: {
-                        avatar: '',
-                        avatarContentType: ''
-                }})
+                const user = await User.findOne({ email })
+
+                if (user.avatarURL) { 
+                    await User.updateOne(
+                        { email: email },
+                        { $unset: { avatarURL: '' } }
+                    )
+
+                    const uploadcareSimpleAuthSchema = new UploadcareSimpleAuthSchema({
+                        publicKey: process.env.UPLOADCARE_PUBLIC_KEY,
+                        secretKey: process.env.UPLOADCARE_SECRET_KEY,
+                    })
+
+                    await deleteFile(
+                        {
+                            uuid: user.avatarUUID
+                        },
+                        { authSchema: uploadcareSimpleAuthSchema }
+                    )
+                }
+
+                return ''
             }
-            return
-        } catch (e) {
-            throw e;
+
+        } catch (error) {
+            throw error
         }
     }
 
