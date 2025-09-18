@@ -24,6 +24,7 @@ export const ChangeAvatar = () => {
     useGsapSlideDown(containerRef, { scale: 1 }, { duration: .6, delay: .3});
 
     const [formData, setFormData] = useState('')
+    const [avatarSRC, setAvatarSRC] = useState(avatar)
 
     const [loading, setLoading] = useState(false)
 
@@ -37,12 +38,14 @@ export const ChangeAvatar = () => {
 
     const handleChange = (e) => {
         setFormData(e.target.files[0]);
+        setAvatarSRC(URL.createObjectURL(e.target.files[0]))
     }
 
     const handleRemoveFile = (e) => {
         e.preventDefault();
         setFormData('');
         fileInput.current.value = null
+        setAvatarSRC('')
     }
 
     const handleSubmit = async (e) => {
@@ -57,6 +60,7 @@ export const ChangeAvatar = () => {
             { headers: { 'Content-Type': 'multipart/form-data' } }
         ).then(res => {
                 setError("Avatar updated", true)
+                setAvatar(res.data)
             }).catch(e => {
                 setError(e.message)
                 console.log(e)
@@ -75,17 +79,18 @@ return (
                 onChange={handleChange}
             />
             <div className={styles.uploadContainer}>
-                <img className={styles.imagePreview}
-                    src={formData !== '' ? URL.createObjectURL(formData) : imagePlaceholder}
+                <img 
+                    className={styles.imagePreview}
+                    src={avatarSRC !== '' ? avatarSRC : imagePlaceholder} 
                 />
                 <div className={styles.uploadContent}>
                     <p className={styles.uploadLabel}>The recommended size for an avatar is 500x500 pixels. Formats - .JPG, .PNG or .GIF. The maximum file size is 3 MB.</p>
                     <div className={styles.buttonsContainer}>
                         <button className={styles.uploadBtn} onClick={handleClick}>
                             <div className={styles.uploadIcon} />
-                            {formData === '' ? <p>Upload avatar</p> : <p className={styles.avatarUploaded}>Change avatar</p>}
+                            {avatarSRC === '' ? <p>Upload avatar</p> : <p className={styles.avatarUploaded}>Change avatar</p>}
                         </button>
-                        <button onClick={handleRemoveFile} className={formData === '' ? styles.deleteBtn : styles.deleteBtnActive}>
+                        <button onClick={handleRemoveFile} className={avatarSRC === '' ? styles.deleteBtn : styles.deleteBtnActive}>
                             <img src={deleteIcon} />
                         </button>
                     </div>
@@ -100,8 +105,8 @@ return (
                     width={"100%"}
                     height={"44px"}
                     borderRadius={"8px"}
-                    accentBg
-                />}
+                    accentBg />
+            }
         </form>
     </div>
 )

@@ -69,9 +69,7 @@ function PersonalAccount() {
                     })
 
                     if (res.data.avatar) {
-                        const byteArray = new Uint8Array(res.data.avatar.data);
-                        const blob = new Blob([byteArray])
-                        setAvatar(URL.createObjectURL(blob))
+                        setAvatar(res.data.avatar)
                     } else setAvatar('')
 
                     const uniqueMerchant = Array.from(new Map(merchantItems.map(e => [e.id, e])).values());

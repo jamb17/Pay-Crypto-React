@@ -11,8 +11,10 @@ import Loader from '@components/Loader.jsx'
 
 function Header() {
 
-    const nickname = useStore(useShallow(state => state.nickname))
-    const avatar = useStore(state => state.avatar)
+    const { nickname, avatar } = useStore(useShallow(state => ({
+        nickname: state.nickname,
+        avatar: state.avatar
+    })))
 
     const [dropDownOpened, setDropDownOpened] = useState(false)
 

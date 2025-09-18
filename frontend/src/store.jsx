@@ -26,7 +26,8 @@ const useStore = create(
                 {
                     isAuth: state.isAuth,
                     email: state.email,
-                    nickname: state.nickname
+                    nickname: state.nickname,
+                    avatar: state.avatar
                 }
             )
         }
