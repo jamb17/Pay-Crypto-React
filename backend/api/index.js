@@ -8,7 +8,7 @@ import cookieParser from 'cookie-parser';
 const app = express();
 
 const corsOptions = {
-    origin: 'http://localhost:5173',
+    origin: 'https://paycrypto-backend.vercel.app',
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
@@ -26,28 +26,28 @@ app.get('/', (req, res) => {
     res.send("Works");
 })
 
-// export default async function handler(req, res) {
-//   if (mongoose.connection.readyState !== 1) {
-//     console.log('🗄️  Connecting to MongoDB…');
-//     try {
-//       await mongoose.connect(process.env.DB_URL);
-//       console.log('✅ MongoDB connected');
-//     } catch (err) {
-//       console.error('❌ MongoDB connection error:', err);
-//       return res.status(500).send('DB connection failed');
-//     }
-//   }
-
-//   return app(req, res);
-// }
-
-async function startApp() {
+export default async function handler(req, res) {
+  if (mongoose.connection.readyState !== 1) {
+    console.log('🗄️  Connecting to MongoDB…');
     try {
-        await mongoose.connect(process.env.DB_URL);
-        app.listen(process.env.PORT, console.log('Succeed - ' + process.env.PORT));
-    } catch(e) {
-        console.log(e);
+      await mongoose.connect(process.env.DB_URL);
+      console.log('✅ MongoDB connected');
+    } catch (err) {
+      console.error('❌ MongoDB connection error:', err);
+      return res.status(500).send('DB connection failed');
     }
+  }
+
+  return app(req, res);
 }
 
-startApp();
+// async function startApp() {
+//     try {
+//         await mongoose.connect(process.env.DB_URL);
+//         app.listen(process.env.PORT, console.log('Succeed - ' + process.env.PORT));
+//     } catch(e) {
+//         console.log(e);
+//     }
+// }
+
+// startApp();
