@@ -4,7 +4,9 @@ import tokenService from "./tokenService.js";
 import mailService from "./mailService.js";
 import Merchant from "../models/Merchant.js";
 import Donate from "../models/Donate.js";
-
+import { base } from '@uploadcare/upload-client'
+import { deleteFile, UploadcareSimpleAuthSchema } from '@uploadcare/rest-client';
+ 
 class userService {
 
     convertEmail(email) {
@@ -94,8 +96,9 @@ class userService {
             });
             const donate = await Donate.find({user: user._id})
             const data = {
-                nickname: user.nickname
+                nickname: user.nickname,
             };
+            if (user.avatarURL) data.avatar = user.avatarURL;
             if (merchant) {
                 let userMerchantData = [];
                 merchant.forEach(e => {
@@ -179,6 +182,21 @@ class userService {
         }
     }
 
+    async deleteMerchantAccount(name, accessToken) {
+        const validToken = tokenService.validateAccessToken(accessToken);
+        if (!accessToken || !validToken) {
+            throw new Error('Unauthorized Error');
+        };
+
+        try {
+            await Merchant.deleteOne({ name: name })
+            return
+        } catch (e) {
+            throw e
+        }
+
+    }
+
     async createDonateAccount(email, name, file, accessToken) {
         const validToken = tokenService.validateAccessToken(accessToken);
         if (!accessToken || !validToken || !email) {
@@ -211,6 +229,123 @@ class userService {
             throw e
         }
     }
+
+    async deleteDonateAccount(name, accessToken) {
+        const validToken = tokenService.validateAccessToken(accessToken);
+        if (!accessToken || !validToken) {
+            throw new Error('Unauthorized Error');
+        };
+
+        try {
+            await Donate.deleteOne({ name: name })
+            return
+        } catch (e) {
+            throw e
+        }
+
+    }
+
+    async changePassword(email, oldPassword, newPassword, accessToken) {
+        try {
+            const validToken = tokenService.validateAccessToken(accessToken);
+            if (!accessToken || !validToken || !email) {
+                throw new Error('Unauthorized Error');
+            };
+            const user = await User.findOne({
+                email: email
+            });
+            const passEquals = await bcrypt.compare(oldPassword, user.password)
+            if (!passEquals) {
+                throw new Error('Wrong password')
+            }
+            const hashPass = await bcrypt.hash(newPassword, 3);
+            await User.updateOne(
+                { email: email },
+                { $set: { password: hashPass } }
+            )
+            return
+        } catch(e) {
+            throw e
+        }
+    }
+
+    async changeAvatar (email, accessToken, file) {
+        try {
+            const validToken = tokenService.validateAccessToken(accessToken);
+            if (!accessToken || !validToken || !email) {
+                throw new Error('Unauthorized Error');
+            };
+            if (file) {
+                const res = await base(file.buffer, 
+                    {
+                        publicKey: process.env.UPLOADCARE_PUBLIC_KEY,
+                        store: "auto"
+                    }
+                )
+
+                const avatarURL = `${process.env.UPLOADCARE_CDN_DOMAIN}/${res.file}/-/preview/`
+
+                await User.updateOne(
+                    { email: email },
+                    { $set: { 
+                        avatarURL: avatarURL,
+                        avatarUUID: res.file
+                    } }
+                )
+
+                return avatarURL
+            } else {
+                const user = await User.findOne({ email })
+
+                if (user.avatarURL) { 
+                    await User.updateOne(
+                        { email: email },
+                        { $unset: { avatarURL: '' } }
+                    )
+
+                    const uploadcareSimpleAuthSchema = new UploadcareSimpleAuthSchema({
+                        publicKey: process.env.UPLOADCARE_PUBLIC_KEY,
+                        secretKey: process.env.UPLOADCARE_SECRET_KEY,
+                    })
+
+                    await deleteFile(
+                        {
+                            uuid: user.avatarUUID
+                        },
+                        { authSchema: uploadcareSimpleAuthSchema }
+                    )
+                }
+
+                return ''
+            }
+
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async changeNickname (email, accessToken, nickname) {
+        try {
+            const validToken = tokenService.validateAccessToken(accessToken);
+            if (!accessToken || !validToken || !email) {
+                throw new Error('Unauthorized Error');
+            }; 
+            await User.updateOne(
+                {
+                    email: email
+                },
+                {
+                    $set: {
+                        nickname: nickname
+                    }
+                }
+            )
+            return
+        } catch (e) {
+            throw e
+        }
+    }
+
 };
 
 export default new userService();

@@ -7,20 +7,29 @@ const useStore = create(
             isAuth: false,
             email: '',
             nickname: '',
-            setNickname: (state) => set({nickname: state}),
+            avatar: '',
+            setAvatar: (state) => set({ avatar: state }),
+            setNickname: (state) => set({ nickname: state }),
             login: (state) => {
                 set({ isAuth: true });
-                set({email: state});
+                set({ email: state });
             },
             logout: () => {
-                set({isAuth: false})
-                localStorage.clear()
+                set({ isAuth: false })
+                localStorage.removeItem('auth')
             }
         }),
         {
-           name: 'auth',
-           storage: createJSONStorage(() => localStorage),
-           partialize: (state) => ({isAuth: state.isAuth, email: state.email})
+            name: 'auth',
+            storage: createJSONStorage(() => localStorage),
+            partialize: (state) => (
+                {
+                    isAuth: state.isAuth,
+                    email: state.email,
+                    nickname: state.nickname,
+                    avatar: state.avatar
+                }
+            )
         }
     )
 )

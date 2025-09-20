@@ -38,7 +38,7 @@ class userController {
         try {
             const accessToken = req.headers.authorization;
             const email = req.query.email; 
-            const user =  await userService.getUserData(accessToken, email);
+            const user = await userService.getUserData(accessToken, email);
             return res.json(user)
         } catch (error) {
             console.log(error)
@@ -85,6 +85,18 @@ class userController {
         });
     }
 
+    async deleteMerchantAccount(req, res) {
+        try {
+            const name = req.params.name;
+            const accessToken = req.headers.authorization;
+            await userService.deleteMerchantAccount(name, accessToken);
+            res.sendStatus(200);
+        } catch (e) {
+            console.error(e);
+            return res.status(500).json(e.message);
+        };
+    };
+
     createDonateAccount(req, res) {
         upload.single('file')(req, res, async (err) => {
             if (err) {
@@ -103,6 +115,66 @@ class userController {
             };
         });
     };
+
+    async deleteDonateAccount(req, res) {
+        try {
+            const name = req.params.name;
+            const accessToken = req.headers.authorization;
+            await userService.deleteDonateAccount(name, accessToken);
+            res.sendStatus(200);
+        } catch (e) {
+            console.error(e);
+            return res.status(500).json(e.message);
+        } ;
+    };
+
+    async changePassword(req, res) {
+        try {
+            const accessToken = req.headers.authorization;
+            const { email, oldPassword, newPassword } = req.body;
+            await userService.changePassword(email, oldPassword, newPassword, accessToken);
+            return res.sendStatus(200);
+        } catch (e) {
+            console.error(e)
+            if (e.message === 'Unauthorized Error') {
+                res.status(401).json(e.message)
+            } else res.status(500).json(e.message)
+        }
+    }
+
+    async changeAvatar (req, res) {
+        upload.single('file')(req, res, async (err) => {
+            if (err) {
+                return res.status(400).json(err.message)
+            };
+
+        try {
+            const accessToken = req.headers.authorization;
+            const { email } = req.body;
+            const file = req.file;
+            const avatarURL = await userService.changeAvatar(email, accessToken, file)
+            return res.status(200).json(avatarURL);
+        } catch (e) {
+            console.log(e)
+            if (e.message === 'Unauthorized Error') {
+                res.status(401).json(e.message)
+            } else res.status(500).json(e.message)
+        }})
+    }
+
+    async changeNickname (req, res) {
+        try {
+            const accessToken = req.headers.authorization;
+            const { email, nickname } = req.body
+            await userService.changeNickname(email, accessToken, nickname)
+            return res.sendStatus(200)
+        } catch (e) {
+            console.log(e)
+            if (e.message === 'Unauthorized Error') {
+                res.status(401).json(e.message)
+            } else res.status(500).json(e.message)
+        }
+    }
 
 };
 

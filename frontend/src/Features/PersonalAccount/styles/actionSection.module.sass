@@ -105,9 +105,11 @@
             display: flex
             gap: 12px
             align-items: center
+            justify-content: space-between
             .avatar
                 width: 40px
                 height: 40px
+                object-fit: cover
                 background: radial-gradient(#3C9B51, #53B669)
                 border-radius: 52px
                 display: flex
@@ -137,8 +139,20 @@
                     line-height: 20px
                     text-align: left
                     color: var(--text-muted)
+            .deleteBtn
+                width: 40px
+                height: 40px
+                border-radius: 8px
+                background: var(--error-muted)
+                display: flex
+                justify-content: center
+                align-items: center
+                display: none
         .account:hover
             background: var(--hover-bg-color)
+            cursor: pointer
+            .deleteBtn
+                display: flex
     .btnContainer
         width: 100%
         padding: 8px
