@@ -103,12 +103,16 @@ function PersonalAccount() {
                     setPopUpType={setPopUpType}
                     type={merchant.length !== 0 ? "opened merchant" : "merchant"}
                     merchant={merchant}
+                    setMerchant={setMerchant}
+                    setLoading={setLoading}
                 />
                 <ActionSection
                     setOpenPopUp={setOpenPopUp}
                     setPopUpType={setPopUpType}
                     type={donate.length !== 0 ? "opened donate" : "donate"}
                     donate={donate}
+                    setDonate={setDonate}
+                    setLoading={setLoading}
                 />
             </>) : null}
             {loading === 'pending' ? (<>

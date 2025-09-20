@@ -182,6 +182,21 @@ class userService {
         }
     }
 
+    async deleteMerchantAccount(name, accessToken) {
+        const validToken = tokenService.validateAccessToken(accessToken);
+        if (!accessToken || !validToken) {
+            throw new Error('Unauthorized Error');
+        };
+
+        try {
+            await Merchant.deleteOne({ name: name })
+            return
+        } catch (e) {
+            throw e
+        }
+
+    }
+
     async createDonateAccount(email, name, file, accessToken) {
         const validToken = tokenService.validateAccessToken(accessToken);
         if (!accessToken || !validToken || !email) {
@@ -213,6 +228,21 @@ class userService {
         } catch (e) {
             throw e
         }
+    }
+
+    async deleteDonateAccount(name, accessToken) {
+        const validToken = tokenService.validateAccessToken(accessToken);
+        if (!accessToken || !validToken) {
+            throw new Error('Unauthorized Error');
+        };
+
+        try {
+            await Donate.deleteOne({ name: name })
+            return
+        } catch (e) {
+            throw e
+        }
+
     }
 
     async changePassword(email, oldPassword, newPassword, accessToken) {

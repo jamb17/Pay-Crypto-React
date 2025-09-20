@@ -85,6 +85,18 @@ class userController {
         });
     }
 
+    async deleteMerchantAccount(req, res) {
+        try {
+            const name = req.params.name;
+            const accessToken = req.headers.authorization;
+            await userService.deleteMerchantAccount(name, accessToken);
+            res.sendStatus(200);
+        } catch (e) {
+            console.error(e);
+            return res.status(500).json(e.message);
+        };
+    };
+
     createDonateAccount(req, res) {
         upload.single('file')(req, res, async (err) => {
             if (err) {
@@ -102,6 +114,18 @@ class userController {
                 return res.status(500).json(e.message);
             };
         });
+    };
+
+    async deleteDonateAccount(req, res) {
+        try {
+            const name = req.params.name;
+            const accessToken = req.headers.authorization;
+            await userService.deleteDonateAccount(name, accessToken);
+            res.sendStatus(200);
+        } catch (e) {
+            console.error(e);
+            return res.status(500).json(e.message);
+        } ;
     };
 
     async changePassword(req, res) {
