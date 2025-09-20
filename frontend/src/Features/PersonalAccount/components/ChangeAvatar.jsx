@@ -56,8 +56,7 @@ export const ChangeAvatar = () => {
             {
                 email: email,
                 file: formData
-            },
-            { headers: { 'Content-Type': 'multipart/form-data' } }
+            }
         ).then(res => {
                 setError("Avatar updated", true)
                 setAvatar(res.data)
@@ -74,7 +73,7 @@ return (
             <input
                 className='hidden'
                 type="file"
-                accept='image/png, image/jpg, .gif'
+                accept='image/png, image/jpeg, .gif'
                 ref={fileInput}
                 onChange={handleChange}
             />
