@@ -8,7 +8,7 @@ import cookieParser from 'cookie-parser';
 const app = express();
 
 const corsOptions = {
-    origin: 'https://paycrypto-backend.vercel.app/',
+    origin: 'https://paycrypto-zeta.vercel.app/',
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
