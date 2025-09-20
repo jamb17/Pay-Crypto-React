@@ -73,7 +73,9 @@ export default function PopUp({ setOpenPopUp, popUpType, setMerchant, setDonate 
             form.append('file', formData.file);
         };
 
-        $api.post(apiEndpoint, form).then(res => {
+        $api.post(apiEndpoint, form, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+        }).then(res => {
             if (res.status === 201) {
                 if (formData.file !== '') {
                     formData.file = URL.createObjectURL(formData.file)

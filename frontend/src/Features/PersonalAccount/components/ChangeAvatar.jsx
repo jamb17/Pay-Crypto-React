@@ -56,7 +56,8 @@ export const ChangeAvatar = () => {
             {
                 email: email,
                 file: formData
-            }
+            },
+            { headers: { 'Content-Type': 'multipart/form-data' } }
         ).then(res => {
                 setError("Avatar updated", true)
                 setAvatar(res.data)
