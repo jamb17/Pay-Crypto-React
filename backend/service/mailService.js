@@ -8,8 +8,8 @@ class mailService {
             host: "smtp-relay.brevo.com",
             port: 587,
             auth: {
-                user: "dimanesterov.lul@gmail.com",
-                pass: "5NHw1cKvOdsBEW0C",
+                user: process.env.NODE_MAILER_USER,
+                pass: process.env.NODE_MAILER_PASS,
             },
         })
     }
