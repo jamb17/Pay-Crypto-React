@@ -96,7 +96,7 @@ function PersonalAccount() {
     return (<>
         {openPopUp && <PopUp setOpenPopUp={setOpenPopUp} popUpType={popUpType} setMerchant={setMerchant} setDonate={setDonate} />}
         <Header />
-        <div ref={containerRef} className="flex flex-1 min-h-fit flex-col gap-3 items-center w-full justify-start pt-[96px] pb-[76px] md:items-start md:max-h-min md:p-0 md:flex-row md:justify-center md:gap-6">
+        <div ref={containerRef} className="flex min-h-fit flex-col gap-3 items-center w-full justify-start pt-[96px] pb-[76px] md:items-start md:max-h-min md:p-0 md:flex-row md:justify-center md:gap-6">
             {loading === 'loaded' ? (<>
                 <ActionSection
                     setOpenPopUp={setOpenPopUp}
